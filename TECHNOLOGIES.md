@@ -69,3 +69,12 @@ When you are comfortable that all the staged changes form an atomic commit, run 
 #### Push changes to the origin
 
 Use `git push`
+
+### react
+
+The `frontend/package.json` file lists scripts that can be run. They can be executed with `npm run <script name>`.
+
+For example:
+- `npm run start` will launch the development server
+- `npm run build` will create the `index.html` file in the `build` directory
+- `npm run test` will run any tests that have been defined
