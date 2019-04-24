@@ -13,6 +13,16 @@ export default function (state = initialState, action: RoomAction) {
                 ...state,
                 players: [...state.players, action.name]
             }
+        case RoomActionNames.SET_TURN_IDX:
+            return {
+                ...state,
+                turnIdx: action.idx
+            }
+        case RoomActionNames.SET_CURRENT_PLAYER:
+            return {
+                ...state,
+                currentPlayerNo: action.idx
+            }
         default:
             return state;
     }
