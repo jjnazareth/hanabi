@@ -5,7 +5,6 @@ import { initialisePlayers } from '../reducers/room/room.actions'
 
 class Container extends Component<IProps> {
     public componentWillMount(): void {
-        console.log('About to init players')
         this.props.initialisePlayers()
     }
 
