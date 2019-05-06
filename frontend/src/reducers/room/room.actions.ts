@@ -1,34 +1,55 @@
 import { Dispatch } from 'redux'
-import { AddPlayer, RoomActionNames, SetCurrentPlayer, SetTurnIdx } from './room.actions.type'
-
+import { RoomActionNames, AddPlayer, SetCurrentPlayer, SetTurnIdx } from './room.actions.type'
 
 export const initialisePlayers = () => (dispatch: Dispatch<AddPlayer | SetTurnIdx | SetCurrentPlayer >) => {
     dispatch({
         type: RoomActionNames.ADD_PLAYER,
-        name: 'Jivraj'
+        player: { name : 'Jivraj', turnIdx : null, hand : null }
     })
     dispatch({
         type: RoomActionNames.ADD_PLAYER,
-        name: 'Nikesh'
+        player: { name : 'Shanta', turnIdx : null, hand : null }
+ 
     })
     dispatch({
         type: RoomActionNames.ADD_PLAYER,
-        name: 'Shanta'
+        player: { name : 'Nikesh', turnIdx : null, hand : null }
     })
     dispatch({
         type: RoomActionNames.ADD_PLAYER,
-        name: 'Nitin'
+        player: { name : 'Nitin', turnIdx : null, hand : null }
     })
     dispatch({
         type: RoomActionNames.ADD_PLAYER,
-        name: 'Mikey'
+        player: { name : 'Mikey', turnIdx : null, hand : null }
     })
-    dispatch({
+
+ /*    dispatch({
         type: RoomActionNames.SET_TURN_IDX,
-        idx: 2
-    })
+        player : { name : 'Mikey', turnIdx : 2, hand : null}
+    }) */
+
     dispatch({
         type: RoomActionNames.SET_CURRENT_PLAYER,
-        idx: 0
+        currentPlayerNo : 3
     })
+}
+
+export function addPlayer (playerName : string) {
+    return {
+        type : RoomActionNames.ADD_PLAYER,
+        name : playerName
+    }
+}
+export function setTurnIdx (idx : number) {
+    return {
+        type : RoomActionNames.SET_TURN_IDX,
+        idx : idx
+    }
+}
+export function setCurrentPlayer (idx : number) {
+    return {
+        type : RoomActionNames.SET_CURRENT_PLAYER,
+        idx : idx
+    }
 }

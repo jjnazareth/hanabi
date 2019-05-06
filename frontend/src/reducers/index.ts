@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 import roomReducer, { IRoomState } from './room/room.reducer'
+import packReducer, { IPackState } from './pack/pack.reducer'
 
 export default combineReducers({
-    room: roomReducer
+    room: roomReducer,
+    pack: packReducer
 });
 
 export interface IGlobalState {
-    room: IRoomState
+    room: IRoomState,
+    pack: IPackState
 }

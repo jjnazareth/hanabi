@@ -1,27 +1,33 @@
-import { RoomAction, RoomActionNames } from './room.actions.type'
+import { RoomAction, RoomActionNames, Player } from './room.actions.type'
+import { addPlayer } from './room.actions';
 
 export interface IRoomState {
-    players: string[]
-    currentPlayerNo: number | null
-    turnIdx: number
+    players: Player[]
+    currentPlayerNo: number
 }
 
 export default function (state = initialState, action: RoomAction) {
-    switch(action.type) {
+    switch (action.type) {
         case RoomActionNames.ADD_PLAYER:
             return {
                 ...state,
-                players: [...state.players, action.name]
+                players: [...state.players, action.player]
             }
-        case RoomActionNames.SET_TURN_IDX:
+        case RoomActionNames.SET_TURN_IDX:           
             return {
                 ...state,
-                turnIdx: action.idx
+                players : 
+                    state.players.map (p => {
+                        if (p.name == action.player.name) {
+                            p.turnIdx = action.player.turnIdx
+                        } 
+                        return p             
+                    })               
             }
         case RoomActionNames.SET_CURRENT_PLAYER:
             return {
                 ...state,
-                currentPlayerNo: action.idx
+                currentPlayerNo: action.currentPlayerNo
             }
         default:
             return state;
@@ -30,6 +36,5 @@ export default function (state = initialState, action: RoomAction) {
 
 const initialState: IRoomState = {
     players: [],
-    currentPlayerNo: null,
-    turnIdx: 0
+    currentPlayerNo: 0,
 }

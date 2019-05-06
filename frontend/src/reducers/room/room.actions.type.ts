@@ -1,15 +1,23 @@
 import { Action } from 'redux';
+import { Card } from '../pack/pack.actions.type'
 
 export type AddPlayer = Action<RoomActionNames.ADD_PLAYER> &  {
-    name: string
+    player: Player
 }
 
 export type SetTurnIdx = Action<RoomActionNames.SET_TURN_IDX> & {
-    idx: number
+    player: Player,
+    turnIdx : number
 }
 
 export type SetCurrentPlayer = Action<RoomActionNames.SET_CURRENT_PLAYER> & {
-    idx: number
+    currentPlayerNo: number 
+}
+
+export type Player = {
+    name : string,
+    turnIdx : number | null,
+    hand : Card[] | null   
 }
 
 export type RoomAction = AddPlayer | SetTurnIdx | SetCurrentPlayer ;
