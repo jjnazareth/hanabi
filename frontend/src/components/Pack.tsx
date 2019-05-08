@@ -6,13 +6,12 @@ import { IPackState } from '../reducers/pack/pack.reducer'
 
 class Pack extends Component<IProps> {
     public render(): JSX.Element {
-   
         return (
             <React.Fragment>
                 <ul>
                     {this.props.pack.pack.map(card => (
                         <li key={card.idx}>
-                            {card.colour} {card.rank}
+                            {card.idx} {card.colour} {card.rank}
                         </li>
                     ))}
                 </ul>

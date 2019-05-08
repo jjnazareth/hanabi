@@ -1,5 +1,5 @@
 import { PackAction, PackActionNames } from './pack.actions.type'
-import { Card } from './pack.actions.type'
+import { Card } from '../../globalTypes'
 
 export interface IPackState {
     pack: Card[]

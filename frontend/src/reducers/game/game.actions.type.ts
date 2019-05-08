@@ -1,26 +1,20 @@
 import { Action } from 'redux';
-import { Card } from '../pack/pack.actions.type'
-
-export type InitGame = Action<GameActionNames.INIT_GAME> & {
-    game : Game
-}
-
-export type AddPlayer = Action<GameActionNames.INIT_GAME> &  {
-    player : Player
-}
+import { Card } from '../../globalTypes'
 
 export type Game = {
-    players : Player[],
-    deck : Card[],
+    drawDeck : Card[]
     discards : Card[]
-}
-
-export type Player = {
-    name : string,
-    turnIdx : number,
-    hand : Card[]    
+    buildPile : Card[]
+    currentTurnIdx : number
 }
 
 export enum GameActionNames {
-    INIT_GAME = 'INIT_GAME'
+    DEAL = 'DEAL',
+    SET_CURRENT_TURN = 'SET_CURRENT_TURN'
 }
+export type SetCurrentTurnIdx = Action<GameActionNames.SET_CURRENT_TURN> & {
+    currentTurnIdx: number 
+}
+export type Deal = Action<GameActionNames.DEAL> 
+
+export type GameAction = SetCurrentTurnIdx | Deal

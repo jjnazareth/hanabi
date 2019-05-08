@@ -1,28 +1,28 @@
-import React, { Component, Dispatch } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IGlobalState } from '../reducers'
 import { IRoomState } from '../reducers/room/room.reducer'
-import { addPlayer, setTurnIdx, setCurrentPlayer } from '../reducers/room/room.actions'
-import { RoomAction } from '../reducers/room/room.actions.type';
+import { addPlayer, setTurnIdx } from '../reducers/room/room.actions'
+
+interface IProps {
+    room: IRoomState
+}
 
 class Room extends Component<IProps> {
+
     public render(): JSX.Element {
         const { room } = this.props
         return (
+
             <React.Fragment>
+                Room with turn player id, name and turn indexes
                 <ul>
-                    {room.players.map((player, idx) => (
-                        <li key={player.turnIdx ? player.turnIdx : 0}>
-                            {room.currentPlayerNo === idx ?
-                                (<b>{player.name}</b>) :
-                                player.name
-                            }
-                        </li>
-                    ))}
-                </ul>
-                <div>
-                     Current Player: {room.players[room.currentPlayerNo].name}
-                </div>
+                    {room.players.map((p, idx) =>
+                        <li key={idx}>
+                           {p.playerId} {p.name} {p.turnIdx}
+                        </li> 
+                    )}
+                </ul>           
             </React.Fragment>
         )
     }
@@ -32,16 +32,9 @@ const mapStateToProps = (state: IGlobalState) => ({
     room: state.room
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<RoomAction>) => {
-    return {
-        addPlayer: (playerName: string) => addPlayer(playerName),
-        setTurnIdx: (idx: number) => setTurnIdx(idx),
-        setCurrentPlayer: (idx: number) => setCurrentPlayer(idx)
-    }
-}
 
-interface IProps {
-    room: IRoomState
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Room)
+export default connect(mapStateToProps, {
+    //addPlayer,
+    //setTurnIdx
+   
+})(Room)

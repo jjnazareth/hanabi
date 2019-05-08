@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { PackActionNames, InitPack} from './pack.actions.type'
-import { Card, CardRank, CardColour } from './pack.actions.type'
+import { Card, CardRank, CardColour } from '../../globalTypes'
 
 export const initPack = () => (dispatch: Dispatch<InitPack>) => {
     let arrC = [CardColour.RED, CardColour.BLUE, CardColour.GREEN, CardColour.YELLOW, CardColour.MULTI]
@@ -30,3 +30,4 @@ export const initPack = () => (dispatch: Dispatch<InitPack>) => {
     })
 
 }
+
