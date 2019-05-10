@@ -20,6 +20,7 @@ class Room extends Component<IProps> {
                     {room.players.map((p, idx) =>
                         <li key={idx}>
                            {p.playerId} {p.name} {p.turnIdx}
+
                         </li> 
                     )}
                 </ul>           

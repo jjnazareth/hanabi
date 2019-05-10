@@ -7,7 +7,7 @@ export enum RoomActionNames {
  
 }
 export type AddPlayer = Action<RoomActionNames.ADD_PLAYER> &  {
-    player: Player
+    name: string
 }
 
 export type SetTurnIdx = Action<RoomActionNames.SET_TURN_IDX> & {

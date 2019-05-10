@@ -2,7 +2,6 @@ import { RoomAction, RoomActionNames} from './room.actions.type'
 import { Player } from '../../globalTypes'
 
 
-
 export interface IRoomState {
     players: Player[]
     currentPlayerNo: number
@@ -24,7 +23,7 @@ export default function (state = initialState, action: RoomAction) {
         case RoomActionNames.ADD_PLAYER:                 
             return {
                 ...state,
-                players: [...state.players, {...action.player, playerId: inc.inc()} ]
+                players: [...state.players, { name : action.name, playerId: inc.inc(), turnIdx : -1, hand : [] } ]
             }
         case RoomActionNames.SET_TURN_IDX:           
             return {

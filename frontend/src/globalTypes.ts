@@ -20,8 +20,8 @@ export type Card = {
     rank: CardRank
 }
 export type Player = {
-    playerId? : number 
+    playerId : number 
     name : string
-    turnIdx? : number
-    hand? : Card[]
+    turnIdx : number
+    hand : Card[]
 }

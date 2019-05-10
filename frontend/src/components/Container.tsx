@@ -29,7 +29,7 @@ class Container extends Component<IProps> {
             <div>
                 <Room></Room>
                 <Game></Game>
-                {/* <Pack></Pack> */}
+                {<Pack></Pack>}
 
 
             </div>
