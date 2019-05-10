@@ -3,14 +3,17 @@ import { connect } from 'react-redux'
 import Room from './Room'
 import Pack from './Pack'
 import Game from './Game'
-import { initialisePlayers } from '../reducers/room/room.actions'
+import { initialisePlayers, initHands } from '../reducers/room/room.actions'
 import { initPack } from '../reducers/pack/pack.actions'
 import { initGame } from '../reducers/game/game.actions'
 import { IGlobalState } from '../reducers'
+import { Card } from '../globalTypes'
+import store from '../store'
 
 interface IProps {
     initialisePlayers: (players : [string, number][]) =>  void
     initPack: () => void
+    initHands: (pack: Card[]) => void
     initGame: () => void
 }
 
@@ -19,8 +22,9 @@ class Container extends Component<IProps> {
     public componentWillMount(): void {
         let  players : [string, number][] =  
             [['Shanta',3], ['Jivraj',1], ['Nikesh',2], ['Nitin',0], ['Mikey',4]]  
-        this.props.initialisePlayers(players)
+        this.props.initialisePlayers(players)        
         this.props.initPack()
+        this.props.initHands(store.getState().pack.pack)
         this.props.initGame()
     }
 
@@ -29,7 +33,7 @@ class Container extends Component<IProps> {
             <div>
                 <Room></Room>
                 <Game></Game>
-                {<Pack></Pack>}
+               {/*  {<Pack></Pack>} */}
 
 
             </div>
@@ -40,9 +44,9 @@ class Container extends Component<IProps> {
 
 
 
-
 export default connect(null, {
     initialisePlayers,
     initPack,
-    initGame
+    initHands,
+    initGame,
 })(Container)

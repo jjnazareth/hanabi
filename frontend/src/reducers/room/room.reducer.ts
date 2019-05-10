@@ -29,14 +29,26 @@ export default function (state = initialState, action: RoomAction) {
             return {
                 ...state,
                 players : 
-                    state.players.map (p => {                       
-                        if (p.playerId == action.playerId) {
-                            p.turnIdx = action.turnIdx
-                        } 
-                        return p             
+                    state.players.map (p => {
+                        return {...p, 
+                                turnIdx : p.playerId == action.playerId ? action.turnIdx :  p.turnIdx             
+                        }   
+                             
                     })               
             }
-             
+        case RoomActionNames.DEAL_HANDS:
+            const  CARDS_IN_HAND : number = 4
+            let arr  = Array.from(Array(CARDS_IN_HAND).keys())
+                .map (i => i* state.players.length) // 0,4,8 etc 
+
+            return {
+                ... state, 
+                players : state.players
+                .map (p => {
+                    let cards = arr.map(i => action.pack [i + p.turnIdx])
+                    return { ...p, hand : cards }
+                })
+            }
         default:
             return state;
     }

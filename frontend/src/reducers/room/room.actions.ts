@@ -1,26 +1,32 @@
 import { Dispatch } from 'redux'
-import { RoomActionNames, AddPlayer, SetTurnIdx } from './room.actions.type'
+import { RoomActionNames, AddPlayer, SetTurnIdx, DealHands } from './room.actions.type'
 import store from '../../store';
-
+import { Card } from '../../globalTypes'
 
 
 export const initialisePlayers = (players : [string, number][]) => (dispatch: Dispatch<AddPlayer | SetTurnIdx>) => {
     // players is an array of tuples with name and turn index
-    players.forEach( player => {
+    players.forEach( p => {
         dispatch ({
             type: RoomActionNames.ADD_PLAYER,
-            name: player[0]
+            name: p[0]
         })
     }) 
 
-    store.getState().room.players.forEach((p, ndx) => {
+    players.forEach((p, ndx) => {
         dispatch ({
             type: RoomActionNames.SET_TURN_IDX,
-            playerId : p.playerId,
-            turnIdx : players[ndx][1]
+            playerId : ndx,
+            turnIdx : p[1]
         })
     })
-   console.log (store.getState())
+}
+
+export const initHands = (pack : Card[]) => (dispatch: Dispatch<DealHands>) => {
+    dispatch ({
+        type: RoomActionNames.DEAL_HANDS,
+        pack : pack
+    })
 }
 
 // ---------------- action creators -----------------------
@@ -34,5 +40,11 @@ export function setTurnIdx(idx: number) {
     return {
         type: RoomActionNames.SET_TURN_IDX,
         playerId: idx
+    }
+}
+export function dealHands(cards : Card[]) {
+    return {
+        type: RoomActionNames.DEAL_HANDS,
+        pack: cards
     }
 }

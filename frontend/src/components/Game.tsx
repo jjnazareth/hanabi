@@ -11,17 +11,24 @@ interface IProps {
 }
 
 class Game extends Component<IProps> {
+
+    public currentPlayerName()  : string {
+        const { game, room } = this.props
+        let player =  room.players.find(p => (p.turnIdx == game.currentTurnIdx))
+        return player? player.name : "No person"
+    }
+
     public render(): JSX.Element {
         const { game, room } = this.props
 
         return (
             <React.Fragment>
                 <div>
-                    Current Player: {room.players[game.currentTurnIdx].name}
+                    Current Player: {this.currentPlayerName()}
                     <ul>
-                        {room.players.map((p, idx) =>
-                            <li key={idx}>
-                                {p.name} {p.playerId} {p.turnIdx}
+                        {room.players[game.currentTurnIdx].hand.map((card, idx) =>
+                            <li key = { idx } >
+                                {card.idx} {card.colour} {card.rank} 
                             </li>
                         )}
                     </ul>

@@ -9,7 +9,7 @@ export const initGame = () => (dispatch: Dispatch<Deal | SetCurrentTurnIdx>) => 
     })
     dispatch({
         type: GameActionNames.SET_CURRENT_TURN,
-        currentTurnIdx : 4
+        currentTurnIdx : 3
     })
 }
 

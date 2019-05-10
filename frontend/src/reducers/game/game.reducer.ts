@@ -3,8 +3,8 @@ import { Action } from 'redux';
 
 import { GameAction, GameActionNames } from './game.actions.type'
 import { Card, Player } from '../../globalTypes'
-import { setTurnIdx } from '../room/room.actions'
-
+import { setTurnIdx, addPlayer } from '../room/room.actions'
+import store from '../../store'
 
 export interface IGameState {
     drawDeck: Card[]
