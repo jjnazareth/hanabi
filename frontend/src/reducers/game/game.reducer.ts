@@ -1,7 +1,7 @@
 
 import { Action } from 'redux';
 
-import { GameAction, GameActionNames } from './game.actions.type'
+import { GameAction, GameActionNames, SetCurrentTurnIdx, Deal } from './game.actions.type'
 import { Card } from '../../globalTypes'
 
 export interface IGameState {
@@ -21,11 +21,17 @@ const initialState: IGameState = {
 export default function (state = initialState, action: GameAction) {
     switch (action.type) {
         case GameActionNames.SET_CURRENT_TURN:
-            return{
+            return {
                 ...state,
                 currentTurnIdx: action.currentTurnIdx
             }
-            
+        case GameActionNames.DEAL:
+        
+            return {
+                ...state,
+
+    
+            }
         default:
             return state
 

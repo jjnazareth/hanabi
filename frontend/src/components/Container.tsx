@@ -26,27 +26,28 @@ interface IProps {
 
 class Container extends Component<IProps> {
 
-    public deal(pack : Card[], players: Player[]) {
-        const CARDS_IN_HAND: number =  players.length < 4? 5 : 4
-        //let players = store.getState().room.players
-        let arr = Array.from(Array(CARDS_IN_HAND).keys())
-            .map(i => i * players.length) // 0,5,10,15,20 etc 
-        let dealerIdx = 2
+    public deal(pack: Card[], players: Player[], dealerIdx : number) {
+        const CARDS_IN_HAND: number = players.length < 4 ? 5 : 4
         
+        let numPlayers = players.length
+        
+        let arr = Array.from(Array(CARDS_IN_HAND).keys())
+            .map(i => i * numPlayers) // 0,5,10,15,20 etc 
+
         players.forEach(p => {
-            let handIdx = (p.turnIdx- dealerIdx) < 0 ?
-                p.turnIdx - dealerIdx + players.length : p.turnIdx - dealerIdx
-           
-            // dealer deals first to himself
+            let handIdx = (p.turnIdx - dealerIdx - 1 + numPlayers) % numPlayers
+            // dealer deals last to himself
             let cards = arr.map(i => pack[i + handIdx])
             this.props.initHand(p.turnIdx, cards)
         })
-        console.log(store.getState().room.players)
     }
-    constructor (props : IProps) {
+    constructor(props: IProps) {
         super(props)
+        
+    
     }
     public componentWillMount(): void {
+    
         let playerNames: string[] =
             ['Shanta', 'Jivraj', 'Nikesh', 'Nitin', 'Mikey']
         this.props.initialisePlayers(playerNames)
@@ -55,22 +56,43 @@ class Container extends Component<IProps> {
 
         let turnIdx = 2
         this.props.initGame(turnIdx)
-        this.deal(store.getState().pack.pack, store.getState().room.players)
-        //this.deal(this.props.pack.pack, this.props.room.players)
+    
+        this.deal(store.getState().pack.pack, store.getState().room.players, 2)
+        console.log (this.props.pack.pack)
     }
+
 
     public render(): JSX.Element {
         return (
-            <div>
-                {this.props.pack.pack.map(c => {
-                   {c.idx} {c.colour} {c.rank} <br/>
-                })}
-                <Room></Room>
-                <Game></Game>
-                <Pack></Pack>
+            <React.Fragment>
+                <div>
+                    {/* <ul>
+                        {this.props.pack.pack.map((c, idx) =>
+                            <div>
+                               <div key= {c.idx}>
+                                    {console.log(c)}
+                                    {c.idx} {c.colour} {c.rank}
+                                </div>
+                            </div>
+                        )}
+                    </ul> */}
+                    <ul>
+                        { console.log (this.props.room.players)}
+{/* 
+                        {this.props.room.players[0].hand.map((c, idx) =>               
+                               <div key= {idx}>
+                                    {console.log(c)}
+                                    {c.idx} {c.colour} {c.rank}
+                                </div>
+                        )}
+  */}                       
+                    </ul>
+                    <Room></Room>
+                    <Game></Game>
+                    <Pack></Pack>
 
-            </div>
-
+                </div>
+            </React.Fragment>
         )
     }
 }

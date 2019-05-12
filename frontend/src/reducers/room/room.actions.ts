@@ -4,7 +4,6 @@ import { Card } from '../../globalTypes'
 
 
 export const initialisePlayers = (names: string[]) => (dispatch: Dispatch<AddPlayer>) => {
-    // players is an array of tuples with name and turn index
     names.forEach(n => {
         dispatch({
             type: RoomActionNames.ADD_PLAYER,

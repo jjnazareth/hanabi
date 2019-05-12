@@ -24,20 +24,20 @@ export default function (state = initialState, action: RoomAction) {
                 players: [...state.players, { name: action.name, playerId: inc.inc(), turnIdx: -1, hand: [] }]
             }
 
-        case RoomActionNames.INIT_HAND:
-           
+        case RoomActionNames.INIT_HAND:       
             let players = Array.from(state.players)
             let i = players.findIndex(p => p.turnIdx == action.turnIdx)
                 // index of player with the required turn index
     
-
             players[i].hand = action.cards
+            
             let obj =
             {
                 ...state, players: players
             }
-            console.log(state.players)
+            // console.log(state.players)
             return obj
+            
 
         case RoomActionNames.SEAT_PLAYERS:
 

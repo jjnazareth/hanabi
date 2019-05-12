@@ -10,15 +10,15 @@ import { initGame } from '../reducers/game/game.actions'
 interface IProps {
     game: IGameState
     room: IRoomState
-    pack : IPackState
+    pack: IPackState
 }
 
 class Game extends Component<IProps> {
 
-    public currentPlayerName()  : string {
+    public currentPlayerName(): string {
         const { game, room } = this.props
-        let player =  room.players.find(p => (p.turnIdx == game.currentTurnIdx))
-        return player? player.name : "No person"
+        let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
+        return player ? player.name : "No person"
     }
 
     public render(): JSX.Element {
@@ -28,15 +28,14 @@ class Game extends Component<IProps> {
             <React.Fragment>
                 <div>
                     Current Player: {this.currentPlayerName()}
-                    
-                    <ul>
+                    {<ul>
                         {room.players[game.currentTurnIdx].hand.map((card, idx) =>
-                            <li key = { idx } >
-                                {card.idx} {card.colour} {card.rank} 
+                            <li key={idx} >
+                                {card.idx} {card.colour} {card.rank}
                             </li>
                         )}
                     </ul>
-
+                    }
                 </div>
             </React.Fragment>
         )
@@ -45,7 +44,7 @@ class Game extends Component<IProps> {
 
 const mapStateToProps = (state: IGlobalState) => ({
     room: state.room,
-    game: state.game, 
+    game: state.game,
     pack: state.pack
 })
 
