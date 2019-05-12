@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
-import { IRoomState } from '../reducers/room/room.reducer';
+import { IRoomState } from '../reducers/room/room.reducer'
+import { IPackState } from '../reducers/pack/pack.reducer'
+
 import { initGame } from '../reducers/game/game.actions'
 
 interface IProps {
     game: IGameState
     room: IRoomState
+    pack : IPackState
 }
 
 class Game extends Component<IProps> {
@@ -25,6 +28,7 @@ class Game extends Component<IProps> {
             <React.Fragment>
                 <div>
                     Current Player: {this.currentPlayerName()}
+                    
                     <ul>
                         {room.players[game.currentTurnIdx].hand.map((card, idx) =>
                             <li key = { idx } >
@@ -41,7 +45,8 @@ class Game extends Component<IProps> {
 
 const mapStateToProps = (state: IGlobalState) => ({
     room: state.room,
-    game: state.game
+    game: state.game, 
+    pack: state.pack
 })
 
 

@@ -3,7 +3,7 @@ import { PackActionNames, InitPack} from './pack.actions.type'
 import { Card, CardRank, CardColour } from '../../globalTypes'
 
 export const initPack = () => (dispatch: Dispatch<InitPack>) => {
-    let arrC = [CardColour.RED, CardColour.BLUE, CardColour.GREEN, CardColour.YELLOW, CardColour.MULTI]
+    let arrC = [CardColour.WHITE, CardColour.YELLOW, CardColour.GREEN, CardColour.BLUE, CardColour.RED, CardColour.MULTI]
     let arrR = [CardRank.Rank1, CardRank.Rank2, CardRank.Rank3, CardRank.Rank4, CardRank.Rank5]
     let pack: Card[] = [];
     let ctr = 0
@@ -28,6 +28,5 @@ export const initPack = () => (dispatch: Dispatch<InitPack>) => {
         type: PackActionNames.INIT_PACK,
         pack: pack
     })
-
 }
 

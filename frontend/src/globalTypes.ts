@@ -1,10 +1,10 @@
 
 export enum CardColour {
-    RED = "RED",
+    WHITE = "WHITE",
+    YELLOW = "YELLOW",
     GREEN = "GREEN",
     BLUE = "BLUE",
-    YELLOW = "YELLOW",
-    WHITE = "WHITE",
+    RED = "RED",
     MULTI = "MULTI"
 }
 export enum CardRank {

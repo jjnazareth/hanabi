@@ -6,15 +6,14 @@ export type Game = {
     discards : Card[]
     buildPile : Card[]
     currentTurnIdx : number
+    dealerIdx : number
 }
 
 export enum GameActionNames {
-    DEAL = 'DEAL',
     SET_CURRENT_TURN = 'SET_CURRENT_TURN'
 }
 export type SetCurrentTurnIdx = Action<GameActionNames.SET_CURRENT_TURN> & {
     currentTurnIdx: number 
 }
-export type Deal = Action<GameActionNames.DEAL> 
 
-export type GameAction = SetCurrentTurnIdx | Deal
+export type GameAction = SetCurrentTurnIdx 

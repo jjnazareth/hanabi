@@ -1,21 +1,23 @@
 import { Dispatch } from 'redux'
-import { GameActionNames, Deal, SetCurrentTurnIdx} from './game.actions.type'
-import { setTurnIdx} from '../room/room.actions'
+import { GameActionNames, SetCurrentTurnIdx } from './game.actions.type'
 
-
-export const initGame = () => (dispatch: Dispatch<Deal | SetCurrentTurnIdx>) => {
-    dispatch({
-        type: GameActionNames.DEAL
-    })
+export const initGame = (currentTurnIdx : number) => 
+        (dispatch: Dispatch<SetCurrentTurnIdx>) => {
     dispatch({
         type: GameActionNames.SET_CURRENT_TURN,
-        currentTurnIdx : 3
+        currentTurnIdx : currentTurnIdx
     })
 }
 
+  
+
+// ---------------- action creators -----------------------
 export function setCurrentTurnIdx (idx : number) {
     return {
         type : GameActionNames.SET_CURRENT_TURN,
         currentTurnIdx : idx
     }
 }
+
+
+

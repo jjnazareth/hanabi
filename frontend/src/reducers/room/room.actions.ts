@@ -1,32 +1,32 @@
 import { Dispatch } from 'redux'
-import { RoomActionNames, AddPlayer, SetTurnIdx, DealHands } from './room.actions.type'
-import store from '../../store';
+import { RoomActionNames, AddPlayer, SeatPlayers, InitHand } from './room.actions.type'
 import { Card } from '../../globalTypes'
 
 
-export const initialisePlayers = (players : [string, number][]) => (dispatch: Dispatch<AddPlayer | SetTurnIdx>) => {
+export const initialisePlayers = (names: string[]) => (dispatch: Dispatch<AddPlayer>) => {
     // players is an array of tuples with name and turn index
-    players.forEach( p => {
-        dispatch ({
+    names.forEach(n => {
+        dispatch({
             type: RoomActionNames.ADD_PLAYER,
-            name: p[0]
-        })
-    }) 
-
-    players.forEach((p, ndx) => {
-        dispatch ({
-            type: RoomActionNames.SET_TURN_IDX,
-            playerId : ndx,
-            turnIdx : p[1]
+            name: n
         })
     })
 }
 
-export const initHands = (pack : Card[]) => (dispatch: Dispatch<DealHands>) => {
-    dispatch ({
-        type: RoomActionNames.DEAL_HANDS,
-        pack : pack
+export const initSeats = (turnIdxs: number[]) => (dispatch: Dispatch<SeatPlayers>) => {
+    dispatch({
+        type: RoomActionNames.SEAT_PLAYERS,
+        turnIdxs: turnIdxs
     })
+}
+
+export const initHand = (turnIdx: number, cards: Card[]) => (dispatch: Dispatch<InitHand>) => {
+    dispatch({
+        type: RoomActionNames.INIT_HAND,
+        turnIdx: turnIdx,
+        cards: cards
+    })
+
 }
 
 // ---------------- action creators -----------------------
@@ -36,15 +36,11 @@ export function addPlayer(playerName: string) {
         name: playerName
     }
 }
-export function setTurnIdx(idx: number) {
+
+export function seatPlayers(idxs: number[]) {
     return {
-        type: RoomActionNames.SET_TURN_IDX,
-        playerId: idx
+        type: RoomActionNames.SEAT_PLAYERS,
+        playerIds: idxs
     }
 }
-export function dealHands(cards : Card[]) {
-    return {
-        type: RoomActionNames.DEAL_HANDS,
-        pack: cards
-    }
-}
+

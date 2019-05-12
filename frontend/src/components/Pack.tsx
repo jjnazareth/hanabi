@@ -22,7 +22,7 @@ class Pack extends Component<IProps> {
 }
 
 const mapStateToProps = (state: IGlobalState) => ({
-    pack: state.pack
+    pack: state.pack, 
 })
 
 
