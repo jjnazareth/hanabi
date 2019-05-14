@@ -18,19 +18,20 @@ interface IProps {
     initSeats: (turnIdxs: number[]) => void
     initPack: () => void
     initHand: (turnIdx: number, cards: Card[]) => void
-    initGame: (currentTurnIdx: number) => void
+    initGame: (currentTurnIdx: number, dealerIdx: number) => void
     room: IRoomState
     pack: IPackState
     game: IGameState
+    hdr: string
 }
+
+
 
 class Container extends Component<IProps> {
 
-    public deal(pack: Card[], players: Player[], dealerIdx : number) {
+    private deal = (pack: Card[], players: Player[], dealerIdx: number) => {
         const CARDS_IN_HAND: number = players.length < 4 ? 5 : 4
-        
         let numPlayers = players.length
-        
         let arr = Array.from(Array(CARDS_IN_HAND).keys())
             .map(i => i * numPlayers) // 0,5,10,15,20 etc 
 
@@ -41,56 +42,36 @@ class Container extends Component<IProps> {
             this.props.initHand(p.turnIdx, cards)
         })
     }
+
     constructor(props: IProps) {
         super(props)
-        
-    
     }
-    public componentWillMount(): void {
-    
+    public componentDidMount(): void {
+        const { room, pack, game } = this.props
         let playerNames: string[] =
-            ['Shanta', 'Jivraj', 'Nikesh', 'Nitin', 'Mikey']
+            ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
         this.props.initialisePlayers(playerNames)
+        console.log(this.props.room)
+        let [turnIdx, dealerIdx] = [0, 2]
+        this.props.initGame(turnIdx, dealerIdx)
         this.props.initSeats([1, 3, 2, 4, 0])
         this.props.initPack()
 
-        let turnIdx = 2
-        this.props.initGame(turnIdx)
-    
-        this.deal(store.getState().pack.pack, store.getState().room.players, 2)
-        console.log (this.props.pack.pack)
+        this.deal(store.getState().pack.pack, store.getState().room.players, game.dealerIdx)
+        //this.deal(this.props.pack.pack, this.props.room.players, dealerIdx) 
     }
 
-
+    public componentDidUpdate(): void {
+    }
     public render(): JSX.Element {
         return (
             <React.Fragment>
+               {this.props.hdr}
                 <div>
-                    {/* <ul>
-                        {this.props.pack.pack.map((c, idx) =>
-                            <div>
-                               <div key= {c.idx}>
-                                    {console.log(c)}
-                                    {c.idx} {c.colour} {c.rank}
-                                </div>
-                            </div>
-                        )}
-                    </ul> */}
-                    <ul>
-                        { console.log (this.props.room.players)}
-{/* 
-                        {this.props.room.players[0].hand.map((c, idx) =>               
-                               <div key= {idx}>
-                                    {console.log(c)}
-                                    {c.idx} {c.colour} {c.rank}
-                                </div>
-                        )}
-  */}                       
-                    </ul>
                     <Room></Room>
+                   {/*  <Pack></Pack> */}
                     <Game></Game>
-                    <Pack></Pack>
-
+                    {console.log(this.props.room)}
                 </div>
             </React.Fragment>
         )
@@ -100,7 +81,7 @@ class Container extends Component<IProps> {
 const mapStateToProps = (state: IGlobalState) => ({
     room: state.room,
     pack: state.pack,
-    game: state.game
+    game: state.game,
 })
 
 
@@ -110,4 +91,5 @@ export default connect(mapStateToProps, {
     initPack,
     initGame,
     initHand,
+
 })(Container)

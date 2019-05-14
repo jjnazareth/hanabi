@@ -1,20 +1,26 @@
-import React, { Component, Dispatch } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IGlobalState } from '../reducers'
 import { IPackState } from '../reducers/pack/pack.reducer'
 
 
+
+interface IProps {
+    pack: IPackState
+}
+
 class Pack extends Component<IProps> {
     public render(): JSX.Element {
         return (
             <React.Fragment>
-                {/* <ul>
+                Card Pack
+                {<ul>
                     {this.props.pack.pack.map(card => (
                         <li key={card.idx}>
-                           { {card.idx} {card.colour} {card.rank}}
+                           {card.idx} {card.colour} {card.rank}
                         </li>
                     ))}
-                </ul> */}
+                </ul>}
 
             </React.Fragment>
         )
@@ -25,9 +31,5 @@ const mapStateToProps = (state: IGlobalState) => ({
     pack: state.pack, 
 })
 
-
-interface IProps {
-    pack: IPackState
-}
 
 export default connect(mapStateToProps, null)(Pack)

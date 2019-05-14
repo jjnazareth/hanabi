@@ -1,7 +1,7 @@
 
 import { Action } from 'redux';
 
-import { GameAction, GameActionNames, SetCurrentTurnIdx, Deal } from './game.actions.type'
+import { GameAction, GameActionNames, SetCurrentTurnIdx, SetDealerIdx, Deal } from './game.actions.type'
 import { Card } from '../../globalTypes'
 
 export interface IGameState {
@@ -9,6 +9,7 @@ export interface IGameState {
     discards: Card[]
     buildPile: Card[]
     currentTurnIdx: number
+    dealerIdx: number
 }
 
 const initialState: IGameState = {
@@ -16,6 +17,7 @@ const initialState: IGameState = {
     discards: [],
     buildPile: [],
     currentTurnIdx: -1,
+    dealerIdx: -1
 }
 
 export default function (state = initialState, action: GameAction) {
@@ -25,12 +27,15 @@ export default function (state = initialState, action: GameAction) {
                 ...state,
                 currentTurnIdx: action.currentTurnIdx
             }
+        case GameActionNames.SET_DEALER:
+            return {
+                ...state,
+                dealerIdx: action.dealerIdx
+            }
         case GameActionNames.DEAL:
-        
             return {
                 ...state,
 
-    
             }
         default:
             return state

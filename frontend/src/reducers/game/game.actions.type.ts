@@ -11,10 +11,15 @@ export type Game = {
 
 export enum GameActionNames {
     SET_CURRENT_TURN = 'SET_CURRENT_TURN',
+    SET_DEALER = 'SET_DEALER',
+    
     DEAL = 'DEAL'
 }
 export type SetCurrentTurnIdx = Action<GameActionNames.SET_CURRENT_TURN> & {
     currentTurnIdx: number 
+}
+export type SetDealerIdx = Action<GameActionNames.SET_DEALER> & {
+    dealerIdx: number 
 }
 
 export type Deal = Action<GameActionNames.DEAL> & {
@@ -24,4 +29,4 @@ export type Deal = Action<GameActionNames.DEAL> & {
 }
 
 
-export type GameAction = SetCurrentTurnIdx | Deal
+export type GameAction = SetCurrentTurnIdx | SetDealerIdx | Deal 

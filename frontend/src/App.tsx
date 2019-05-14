@@ -7,7 +7,7 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Container>
+                <Container hdr = "HEADER">
                 
                 </Container>             
             </Provider>

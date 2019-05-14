@@ -2,15 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
-import { IRoomState } from '../reducers/room/room.reducer'
-import { IPackState } from '../reducers/pack/pack.reducer'
+import roomReducer, { IRoomState } from '../reducers/room/room.reducer'
 
-import { initGame } from '../reducers/game/game.actions'
+import { Card } from '../globalTypes'
 
 interface IProps {
     game: IGameState
     room: IRoomState
-    pack: IPackState
 }
 
 class Game extends Component<IProps> {
@@ -20,22 +18,42 @@ class Game extends Component<IProps> {
         let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
         return player ? player.name : "No person"
     }
+    public dealerName(): string {
+        const { game, room } = this.props
+        let player = room.players.find(p => (p.turnIdx == game.dealerIdx))
+        return player ? player.name : "No dealer"
+    }
+    public currentPlayerHand(): Card[] {
+        const { game, room } = this.props
+        let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
+        return player ? player.hand : []
+    }
+
+    public componentWillMount() {
+
+    }
 
     public render(): JSX.Element {
-        const { game, room } = this.props
-
         return (
             <React.Fragment>
                 <div>
                     Current Player: {this.currentPlayerName()}
-                    {<ul>
-                        {room.players[game.currentTurnIdx].hand.map((card, idx) =>
-                            <li key={idx} >
-                                {card.idx} {card.colour} {card.rank}
-                            </li>
-                        )}
-                    </ul>
-                    }
+                    &nbsp; &nbsp;
+                    Dealer: {this.dealerName()} 
+                    {this.props.room.players.map((p) =>
+                        <div  key={p.playerId}>
+                            <br />
+                            {p.name}
+                            {p.hand.map(c =>
+                                <span style= {{color: 'green'}} key={c.idx}>
+                                    ,{c.idx} {c.colour} {c.rank}
+                                </span>
+                            )}
+                        </div>
+
+                    )}
+
+
                 </div>
             </React.Fragment>
         )
@@ -45,10 +63,10 @@ class Game extends Component<IProps> {
 const mapStateToProps = (state: IGlobalState) => ({
     room: state.room,
     game: state.game,
-    pack: state.pack
+
 })
 
 
 export default connect(mapStateToProps, {
-    initGame
+
 })(Game)
