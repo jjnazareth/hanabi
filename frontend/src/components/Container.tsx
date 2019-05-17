@@ -13,6 +13,9 @@ import { IGameState } from '../reducers/game/game.reducer'
 import { Card, Player } from '../globalTypes'
 import store from '../store'
 
+
+import Example from '../screens/Example'
+
 interface IProps {
     initialisePlayers: (players: string[]) => void
     initSeats: (turnIdxs: number[]) => void
@@ -66,13 +69,15 @@ class Container extends Component<IProps> {
     public render(): JSX.Element {
         return (
             <React.Fragment>
-               {this.props.hdr}
-                <div>
-                    <Room></Room>
-                   {/*  <Pack></Pack> */}
-                    <Game></Game>
-                    {console.log(this.props.room)}
-                </div>
+                {this.props.hdr}
+
+                    <Example />
+                    <div>
+                        <Room></Room>
+                        {/*  <Pack></Pack> */}
+                        <Game></Game>
+                    </div>
+
             </React.Fragment>
         )
     }
