@@ -1,3 +1,4 @@
 export const dndItemTypes  =  {
-    BOX : 'dummy'
+    BOX : 'dummy',
+    CARD: 'dummy'
 }

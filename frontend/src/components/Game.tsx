@@ -8,6 +8,7 @@ import CardPlace from '../screens/CardPlace'
 import CardDisplay from '../screens/CardDisplay'
 import { Card, CardColour, CardRank } from '../globalTypes'
 import { setCurrentTurnIdx } from '../reducers/game/game.actions';
+import Hand from '../screens/Hand'
 
 const rowStyle: React.CSSProperties = { overflow: 'hidden', clear: 'both' }
 
@@ -15,20 +16,6 @@ interface IProps {
     game: IGameState
     room: IRoomState
 }
-
-
-const style: React.CSSProperties = {
-    height: '12rem',
-    width: '6rem',
-    border: '1px solid gray',
-    backgroundColor: 'red',
-    padding: '0.5rem 0.5rem',
-    marginRight: '0.5rem',
-    marginBottom: '1.0rem',
-    cursor: 'move',
-    float: 'left',
-}
-
 
 class Game extends Component<IProps> {
 
@@ -59,19 +46,7 @@ class Game extends Component<IProps> {
                     Current Player: {this.currentPlayerName()}
                     &nbsp; &nbsp;
                     Dealer: {this.dealerName()}
-                    {this.props.room.players.map((p) =>
-                        <div key={p.playerId}>
-                            <br />
-                            <div style={rowStyle}>
-                                {p.name}
-                                <br/>
-                                {p.hand.map(c =>
-                                    <CardDisplay card={c} ></CardDisplay>
-                                )}
-                            </div>
-                        </div>
-
-                    )}
+                        <Hand/>          
 
                 </div>
             </React.Fragment>
