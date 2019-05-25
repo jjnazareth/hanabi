@@ -9,6 +9,7 @@ import CardDisplay from '../screens/CardDisplay'
 import { Card, CardColour, CardRank } from '../globalTypes'
 import { setCurrentTurnIdx } from '../reducers/game/game.actions';
 import Hand from '../screens/Hand'
+import { hostname } from 'os';
 
 const rowStyle: React.CSSProperties = { overflow: 'hidden', clear: 'both' }
 
@@ -43,10 +44,16 @@ class Game extends Component<IProps> {
         return (
             <React.Fragment>
                 <div>
+                    {console.log(this.props.room.players)}
                     Current Player: {this.currentPlayerName()}
                     &nbsp; &nbsp;
                     Dealer: {this.dealerName()}
-                        <Hand/>          
+                    {this.props.room.players.map((player, i) =>
+                        <div ref={player.name} key={i}>
+                            {player.name}
+                            <Hand holder= {player.name} cards={player.hand} />
+                        </div>
+                    )}
 
                 </div>
             </React.Fragment>

@@ -70,8 +70,6 @@ class Container extends Component<IProps> {
         return (
             <React.Fragment>
                 {this.props.hdr}
-
-                    <Example />
                     <div>
                         <Room></Room>
                         {/*  <Pack></Pack> */}

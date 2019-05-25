@@ -2,35 +2,16 @@ import React, { useState } from 'react'
 import CardDisplay from './CardDisplay'
 import update from 'immutability-helper'
 import { Card, CardColour, CardRank} from '../globalTypes'
-const style = {
-	width: 300,
 
-}
 
 const rowStyle: React.CSSProperties = { overflow: 'hidden', clear: 'both' }
 
-const cardsInHand: Card[] = [
-	{ idx : 1, colour: CardColour.RED, rank: CardRank.Rank1 },
-	{ idx : 2, colour: CardColour.WHITE, rank: CardRank.Rank2 },
-	{ idx : 4, colour: CardColour.WHITE, rank: CardRank.Rank4 },
-	{ idx : 6, colour: CardColour.RED, rank: CardRank.Rank3 },
-]
-
-/* export interface ContainerState {
-	cardsInHand: Array<{
-		id: number
-		text: string
-	}>
-} */
-
-const Board: React.FC = () => {
+const Hand: React.FC<{holder : string, cards: Card[]}> = (props) => {
 	{
-		const [cards, setCards] = useState(cardsInHand)
-
+		const [cards, setCards] = useState(props.cards)
+		
 		const moveCard = (dragIndex: number, hoverIndex: number) => {
 			const dragCard = cards[dragIndex]
-			console.log ('Drag', dragIndex)
-			console.log ( 'Hover', hoverIndex)
 			setCards(
 				update(cards, {
 					$splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
@@ -43,6 +24,7 @@ const Board: React.FC = () => {
 				{cards.map((card, i) => (
 					<CardDisplay
 						key={card.idx}
+						holder= {props.holder}
 						index={i}
 						cardId={card.idx}
 						colour= {card.colour}
@@ -55,4 +37,4 @@ const Board: React.FC = () => {
 	}
 }
 
-export default Board
+export default Hand

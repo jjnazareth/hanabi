@@ -15,7 +15,8 @@ import { dndItemTypes } from './itemTypes'
 import { XYCoord } from 'dnd-core'
 
 const style: React.CSSProperties = {
-    width: 100,
+    width: 120,
+    height: 160,
     border: '1px solid gray',
     backgroundColor: 'white',
     padding: '0.5rem 0.5rem',
@@ -29,6 +30,7 @@ import { CardColour, CardRank } from '../globalTypes'
 
 interface CardDisplayProps {
     moveCard: (dragIndex: number, hoverIndex: number) => void
+    holder : string
     index: number
     cardId: number
     colour : CardColour
@@ -43,7 +45,7 @@ interface CardInstance {
 }
 
 const CardDisplay = React.forwardRef<HTMLDivElement, CardDisplayProps>(
-    ({ index, cardId, colour, rank , isDragging, connectDragSource, connectDropTarget }, ref) => {
+    ({cardId, colour, rank , isDragging, connectDragSource, connectDropTarget }, ref) => {
 
         const elementRef = useRef(null)
         connectDragSource(elementRef)
@@ -79,6 +81,7 @@ export default DropTarget(
                 return null
             }
 
+           
             const dragIndex = monitor.getItem().index
             const hoverIndex = props.index
 
@@ -89,32 +92,37 @@ export default DropTarget(
 
             // Determine rectangle on screen
             const hoverBoundingRect = node.getBoundingClientRect()
-
+            
+           
             // Get horizontal middle
             const hoverMiddleX =
                 (hoverBoundingRect.right - hoverBoundingRect.left) / 2
 
+                
             // Determine mouse position
             const clientOffset = monitor.getClientOffset()
-
+           
             // Get pixels to the left
             const hoverClientX = (clientOffset as XYCoord).x - hoverBoundingRect.left
 
-            // Only perform the move when the mouse has crossed half of the items height
-            // When dragging downwards, only move when the cursor is below 50%
-            // When dragging upwards, only move when the cursor is above 50%
-
-            // Dragging downwards
+            // Only perform the move when the mouse has crossed half of the items width
+            // When dragging leftwards, only move when the cursor is below 50%
+            // When dragging rightwards, only move when the cursor is above 50%
+           
+                // Dragging leftwards
             if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
                 return
             }
 
-            // Dragging upwards
+            // Dragging rightwards
             if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
                 return
             }
+            // cards should be exchanged in one hand only
+            if  (!(monitor.getItem().holder == props.holder)) {
+                return
+            }
 
-            // Time to actually perform the action
             props.moveCard(dragIndex, hoverIndex)
 
             // Note: we're mutating the monitor item here!
@@ -134,6 +142,7 @@ export default DropTarget(
             beginDrag: (props: CardDisplayProps) => ({
                 id: props.cardId,
                 index: props.index,
+                holder: props.holder
             }),
         },
         (connect: DragSourceConnector, monitor: DragSourceMonitor) => ({
