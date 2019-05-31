@@ -14,8 +14,6 @@ import { Card, Player } from '../globalTypes'
 import store from '../store'
 
 
-import Example from '../screens/Example'
-
 interface IProps {
     initialisePlayers: (players: string[]) => void
     initSeats: (turnIdxs: number[]) => void
@@ -25,7 +23,7 @@ interface IProps {
     room: IRoomState
     pack: IPackState
     game: IGameState
-    hdr: string
+    
 }
 
 
@@ -68,8 +66,7 @@ class Container extends Component<IProps> {
     }
     public render(): JSX.Element {
         return (
-            <React.Fragment>
-                {this.props.hdr}
+            <React.Fragment>          
                     <div>
                         <Room></Room>
                         {/*  <Pack></Pack> */}

@@ -21,15 +21,15 @@ const style: React.CSSProperties = {
     float: 'left',
 }
 
-export interface CardPlaceProps {
-    place: string
+export interface DiscardProps {
+ 
     canDrop: boolean
     isOver: boolean
     connectDropTarget: ConnectDropTarget
 }
 
-const CardPlace: React.FC<CardPlaceProps> = ({
-    place,
+const Discards: React.FC<DiscardProps> = ({
+  
     canDrop,
     isOver,
     connectDropTarget,
@@ -45,16 +45,19 @@ const CardPlace: React.FC<CardPlaceProps> = ({
 
     return (
         <div ref={connectDropTarget} style={{ ...style, backgroundColor }}>
-            {isActive ? 'Release to Place' : 'P' + place }
+            {isActive ? 'Release to Place' : 'Done' }
+          
         </div>
     )
 }
 
 export default DropTarget(
     
-    dndItemTypes.BOX,
+    dndItemTypes.CARD,
     {
-        drop: (props: CardPlaceProps, monitor) => ({ name : props.place}),
+        drop: ((props: DiscardProps, monitor) => { 
+            alert (JSON.stringify(monitor.getItem()))
+        })
     },
  
     (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
@@ -63,5 +66,5 @@ export default DropTarget(
         canDrop: monitor.canDrop(),
         
     }),
-)(CardPlace)
+)(Discards)
 

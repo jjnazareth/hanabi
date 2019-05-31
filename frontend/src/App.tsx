@@ -4,18 +4,27 @@ import store from './store'
 import Container from './components/Container'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContextProvider } from 'react-dnd'
+import Navbar from '../src/components/Navbar'
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 class App extends Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <DragDropContextProvider backend={HTML5Backend}>
-                    <Container hdr="HEADER">
-                    </Container>
-                </DragDropContextProvider>
-            </Provider>
-        )
-    }
+  render() {
+    return (
+
+      <div>
+       
+          <Navbar />
+          <Provider store={store}>
+            <DragDropContextProvider backend={HTML5Backend}>
+              <Container>
+              </Container>
+            </DragDropContextProvider>
+          </Provider>
+         
+      </div>
+   
+    )
+  }
 }
 
 export default App
