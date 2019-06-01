@@ -50,7 +50,7 @@ const CardDisplay = React.forwardRef<HTMLDivElement, CardDisplayProps>(
       getNode: () => elementRef.current,
     }))
     return (
-      <Paper className={classes.paper} ref={elementRef} style={{ opacity }} >
+      <Paper className={classes.card} ref={elementRef} style={{ opacity }} >
         {cardId} {colour} {rank}
       </Paper>
     )

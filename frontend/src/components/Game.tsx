@@ -3,19 +3,21 @@ import { connect } from 'react-redux'
 import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
-
 import Discards from '../screens/Discards'
+import BuildPile from '../screens/BuildPile'
 import { Card } from '../globalTypes'
 import { setCurrentTurnIdx } from '../reducers/game/game.actions';
 import Hand from '../screens/Hand'
-import { Grid } from '@material-ui/core'
+import { Grid, WithStyles } from '@material-ui/core'
+import 'typeface-roboto'
+import { styles } from '../Styles'
+import { withStyles } from '@material-ui/core'
 
 
-interface IProps {
+interface IProps extends WithStyles<typeof styles> {
   game: IGameState
   room: IRoomState
 }
-
 
 class Game extends Component<IProps> {
 
@@ -34,33 +36,44 @@ class Game extends Component<IProps> {
     let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
     return player ? player.hand : []
   }
-
-  public componentWillMount() {
-
-  }
-
   public render(): JSX.Element {
+    const { classes } = this.props
     return (
       <React.Fragment>
-        <div>
-          Current Player: {this.currentPlayerName()}
-          &nbsp; &nbsp;
-          Dealer: {this.dealerName()}
-
-          {this.props.room.players.map((player, i) =>
-            <div key = {i}>
-              <Grid container style = {{backgroundColor: "grey"}}>
-                {player.name}
-              </Grid>
-              <Grid container>
-                <Grid item xs={10} >
-                  <Hand holder={player.name} cards={player.hand} />
+        <Grid container xs={12} className={classes.gameState} >
+          <Grid item xs={4}>
+            Current Player: {this.currentPlayerName()}
+          </Grid>
+          <Grid item xs={8}>
+            Dealer: {this.dealerName()}
+          </Grid>
+        </Grid>
+        <Grid container xs={12} className={classes.game}>
+          <Grid item xs={7}>
+            {this.props.room.players.map((player, i) =>
+              <div key={i}>
+                <Grid container>
+                  <Grid item xs={2}>
+                    {player.name}
+                  </Grid>
                 </Grid>
-              </Grid>
-            </div>
-          )}
-          <Discards />
-        </div>
+                <Grid container>
+                  <Grid item xs={10} >
+                    <Hand holder={player.name} cards={player.hand} />
+                  </Grid>
+                </Grid>
+              </div>
+            )}
+          </Grid>
+          <Grid container className={classes.table} direction="column" justify="center" xs={5}>
+            <br />
+            <Discards />
+            <br />
+            <BuildPile />
+
+          </Grid>
+        </Grid>
+
       </React.Fragment >
     )
   }
@@ -71,5 +84,4 @@ const mapStateToProps = (state: IGlobalState) => ({
   game: state.game,
 })
 
-
-export default connect(mapStateToProps, null)(Game)
+export default connect(mapStateToProps, null)(withStyles(styles)(Game))

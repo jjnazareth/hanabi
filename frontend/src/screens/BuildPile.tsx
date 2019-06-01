@@ -13,7 +13,6 @@ import {
 import { dndItemTypes } from './itemTypes'
 import { TLSSocket } from 'tls';
 
-
 export interface DiscardProps extends WithStyles<typeof styles> { 
     canDrop: boolean
     isOver: boolean
@@ -37,13 +36,13 @@ const Discards: React.FC<DiscardProps> = ({
 
     return (
         <div ref={connectDropTarget} className = {classes.discardStack} style={{ backgroundColor : colour }}>
-            {isActive ? 'Release to Place' : 'DISCARDS' }
+            {isActive ? 'Release to Place' : 'BUILD PILE' }
         </div>
     )
 }
 
-const discards =  DropTarget(
-    
+const buildPile =  DropTarget(
+
     dndItemTypes.CARD,
     {
         drop: ((props: DiscardProps, monitor) => { 
@@ -59,4 +58,4 @@ const discards =  DropTarget(
     }),
 ) (Discards)
 
-export default withStyles(styles) (discards)
+export default withStyles(styles) (buildPile)

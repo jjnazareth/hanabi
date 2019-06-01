@@ -1,4 +1,12 @@
 
+export type Game = {
+    drawDeck : Card[]
+    discards : Card[]
+    buildPile : Card[]
+    currentTurnIdx : number
+    dealerIdx : number
+}
+
 export enum CardColour {
     WHITE = "WHITE",
     YELLOW = "YELLOW",

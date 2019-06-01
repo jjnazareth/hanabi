@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import CardDisplay from './CardDisplay'
 import update from 'immutability-helper'
 import { Card } from '../globalTypes'
-
 import { withStyles } from '@material-ui/core'
 import { Grid, WithStyles } from '@material-ui/core'
-
 import 'typeface-roboto'
 import { styles } from '../Styles'
 
@@ -14,7 +12,6 @@ interface HandProps extends WithStyles<typeof styles> {
   holder: string,
   cards: Card[]
 }
-
 
 const Hand: React.FC<HandProps> = (props) => {
   {
@@ -29,9 +26,9 @@ const Hand: React.FC<HandProps> = (props) => {
       )
     }
     return (
-      <Grid container className={classes.root}  direction="row">
+      <Grid container className={classes.hand} justify = "flex-start" direction="row" spacing= {1}>
         {cards.map((card, i) => (
-          <Grid key={card.idx} item xs={3}>
+          <Grid key={card.idx} item md={2}>
             <CardDisplay
               holder={props.holder}
               index={i}
