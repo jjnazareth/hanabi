@@ -1,19 +1,21 @@
 import React from 'react'
-import { compose } from 'redux'
 import { withStyles, createStyles } from '@material-ui/core'
-import { Grid, Paper, Typography, Theme, WithStyles } from '@material-ui/core'
 import 'typeface-roboto'
-import { Button } from '@material-ui/core'
 
-export const styles = (theme: Theme) => createStyles({
+
+export const styles = () => createStyles({
   root: {
+    margin: 0,
+    padding:0,
+    minHeight: 0,
+    minWidth: 0,  
   },
   hand: {
     margin: 0,
     padding: 4,
     border: 1,
-    spacing: 2,
-    backgroundColor: "lightBlue"
+    spacing: 0,
+    backgroundColor: "#F0F4C3"
   },
   gameState: {
     margin: 0,
@@ -21,45 +23,48 @@ export const styles = (theme: Theme) => createStyles({
     flexDirection: 'row',
     border: 1,
     spacing: 0 ,
-    backgroundColor: "yellow"
+    backgroundColor: "#C5E1A5"
   },
-  game: {
+  background: {
     margin: 0,
     padding: 8,
-    maxWidth: "sm",
     flexDirection: 'row',
     border: 1,
     spacing: 0 ,
     backgroundColor: "lightGrey"
   },
-  table: {
-    margin: 0,
-    padding: 12,
-    // maxWidth: "sm",
-    flexDirection: 'row',
-    border: 1,
+  table: { 
+    border: 0,
     spacing: 0,
-    backgroundColor: "green"
-  },
+    backgroundColor: "lightGrey",
+    height: "100%",
+    width: 800,
+  }, 
   card: {
     border: '1px solid grey',
     padding: 4,
     textAlign: 'left',
     color: 'black',
-    backgroundColor: 'white',
-    height: 100,
-    width: 75,
+    height: 90,
+    width: 70,
   },
-  discardStack: {
+  buildPile: {
+    marginTop: 0,
     border: '1px solid grey',
     padding: 4,
-    flexDirection: 'column',
-    spacing: 2,
-    textAlign: 'left',
+    textAlign: 'center',
     color: 'black',
-    // backgroundColor: 'blue', colour given by drag and drop
-    height: 300,
-    width: 400,
+    height: 200,
+    width: 700,
+  },
+  discards: {
+    marginTop: 0,
+    border: '1px solid grey',
+    padding: 4,
+    textAlign: 'center',
+    color: 'black',
+    height: 400,
+    width: 700,
   }
 })
 

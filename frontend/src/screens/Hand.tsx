@@ -26,9 +26,9 @@ const Hand: React.FC<HandProps> = (props) => {
       )
     }
     return (
-      <Grid container className={classes.hand} justify = "flex-start" direction="row" spacing= {1}>
+      <Grid container className={classes.hand} justify = "flex-start" direction="row" xs={12} spacing={1}>
         {cards.map((card, i) => (
-          <Grid key={card.idx} item md={2}>
+          <Grid key={card.idx} item >
             <CardDisplay
               holder={props.holder}
               index={i}

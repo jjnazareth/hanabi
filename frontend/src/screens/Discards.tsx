@@ -11,7 +11,7 @@ import {
     DropTargetConnector,
 } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
-import { TLSSocket } from 'tls';
+
 
 
 export interface DiscardProps extends WithStyles<typeof styles> { 
@@ -28,16 +28,12 @@ const Discards: React.FC<DiscardProps> = ({
 }) => {
 
     const isActive = canDrop && isOver
-    let colour = 'blue'
-    if (isActive) {
-        colour = 'green'
-    } else if (canDrop) {
-        colour = 'yellow'
-    }
-
+    let colour = isActive?'#FF7043':'#FCE4EC'
+    
     return (
-        <div ref={connectDropTarget} className = {classes.discardStack} style={{ backgroundColor : colour }}>
-            {isActive ? 'Release to Place' : 'DISCARDS' }
+        <div ref={connectDropTarget} className = {classes.discards}
+            style={{ backgroundColor : colour }}>
+            <h3>{isActive ? 'Release to Discard' : 'Discards' }</h3>
         </div>
     )
 }

@@ -5,18 +5,19 @@ import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import Discards from '../screens/Discards'
 import BuildPile from '../screens/BuildPile'
+import Table from '../screens/Table'
 import { Card } from '../globalTypes'
 import { setCurrentTurnIdx } from '../reducers/game/game.actions';
 import Hand from '../screens/Hand'
-import { Grid, WithStyles } from '@material-ui/core'
+import { Grid, WithStyles, Container } from '@material-ui/core'
 import 'typeface-roboto'
 import { styles } from '../Styles'
 import { withStyles } from '@material-ui/core'
 
-
 interface IProps extends WithStyles<typeof styles> {
   game: IGameState
   room: IRoomState
+
 }
 
 class Game extends Component<IProps> {
@@ -48,29 +49,17 @@ class Game extends Component<IProps> {
             Dealer: {this.dealerName()}
           </Grid>
         </Grid>
-        <Grid container xs={12} className={classes.game}>
-          <Grid item xs={7}>
+        <Grid container xs={12}>
+          <Grid item xs={5}>
             {this.props.room.players.map((player, i) =>
-              <div key={i}>
-                <Grid container>
-                  <Grid item xs={2}>
-                    {player.name}
-                  </Grid>
-                </Grid>
-                <Grid container>
-                  <Grid item xs={10} >
-                    <Hand holder={player.name} cards={player.hand} />
-                  </Grid>
-                </Grid>
+              <div key={i} className={classes.background} >
+                {player.name}
+                <Hand holder={player.name} cards={player.hand} />
               </div>
             )}
           </Grid>
-          <Grid container className={classes.table} direction="column" justify="center" xs={5}>
-            <br />
-            <Discards />
-            <br />
-            <BuildPile />
-
+          <Grid container xs={7}  className={classes.background}>
+            <Table />
           </Grid>
         </Grid>
 
