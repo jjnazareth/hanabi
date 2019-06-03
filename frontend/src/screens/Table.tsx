@@ -34,7 +34,7 @@ const Table: React.FC<TableProps> = ({
     return (
         <div ref={connectDropTarget} className={classes.table}
             style={{ backgroundColor: colour }}>
-            <Grid container xs={12} direction="column" justify="space-around"
+            <Grid container direction="column" justify="space-around"
                 alignItems="center" >
                 <br />
                 <Grid item xs={12}>
@@ -54,9 +54,12 @@ const table = DropTarget(
 
     dndItemTypes.CARD,
     {
-        /* drop: ((props: TableEdgeProps, monitor) => { 
-            alert (JSON.stringify(monitor.getItem()))
-        }) */
+        drop: ((props: TableProps, monitor) => { 
+            // alert (JSON.stringify(monitor.getItem()))
+        }),
+        canDrop: ((props: TableProps, monitor)  => {
+            return monitor.getItem().isTurn
+        })
     },
 
     (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({

@@ -1,9 +1,9 @@
 import React from 'react'
-import { withStyles, createStyles } from '@material-ui/core'
+import { withStyles, createStyles, Theme } from '@material-ui/core'
 import 'typeface-roboto'
 
 
-export const styles = () => createStyles({
+export const styles = (theme : Theme) => createStyles({
   root: {
     margin: 0,
     padding:0,
@@ -65,7 +65,10 @@ export const styles = () => createStyles({
     color: 'black',
     height: 400,
     width: 700,
-  }
+  },
+  button: {
+    margin: 1,
+  },
 })
 
 export default withStyles(styles) 

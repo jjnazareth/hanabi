@@ -3,6 +3,7 @@ import React, { useImperativeHandle, useRef } from 'react'
 import { Paper, WithStyles } from '@material-ui/core'
 import 'typeface-roboto'
 import { styles } from '../Styles'
+import { Card, Player } from '../globalTypes' 
 
 import {
   DragSource,
@@ -24,11 +25,13 @@ import { withStyles } from '@material-ui/styles';
 
 interface CardDisplayProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
-  holder: string
+  holder: Player
   index: number
-  cardId: number
-  colour: CardColour
-  rank: CardRank
+  // cardId: number
+  // colour: CardColour
+  // rank: CardRank
+  card : Card
+  isTurn: boolean
   isDragging: boolean
   connectDragSource: ConnectDragSource
   connectDropTarget: ConnectDropTarget
@@ -39,7 +42,7 @@ interface CardInstance {
 }
 
 const CardDisplay = React.forwardRef<HTMLDivElement, CardDisplayProps>(
-  ({ classes, cardId, colour, rank, isDragging, connectDragSource, connectDropTarget }, ref) => {
+  ({ classes, card, isTurn,  isDragging, connectDragSource, connectDropTarget }, ref) => {
 
     const elementRef = useRef(null)
     connectDragSource(elementRef)
@@ -51,7 +54,7 @@ const CardDisplay = React.forwardRef<HTMLDivElement, CardDisplayProps>(
     }))
     return (
       <Paper className={classes.card} ref={elementRef} style={{ opacity }} >
-        {cardId} {colour} {rank}
+        {card.idx} {card.colour} {card.rank}
       </Paper>
     )
   }
@@ -130,9 +133,10 @@ const cardDisplay = DropTarget(
     dndItemTypes.CARD,
     {
       beginDrag: (props: CardDisplayProps) => ({
-        id: props.cardId,
+        card: props.card,
         index: props.index,
-        holder: props.holder
+        holder: props.holder,
+        isTurn: props.isTurn
       }),
       endDrag(props, monitor, component) {
       }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import CardDisplay from './CardDisplay'
 import update from 'immutability-helper'
-import { Card } from '../globalTypes'
+import { Card, Player } from '../globalTypes'
 import { withStyles } from '@material-ui/core'
 import { Grid, WithStyles } from '@material-ui/core'
 import 'typeface-roboto'
@@ -9,14 +9,14 @@ import { styles } from '../Styles'
 
 
 interface HandProps extends WithStyles<typeof styles> {
-  holder: string,
-  cards: Card[]
+  holder: Player,
+  isTurn: boolean
 }
 
 const Hand: React.FC<HandProps> = (props) => {
   {
-    const { classes } = props
-    const [cards, setCards] = useState(props.cards)
+    const { classes, holder, isTurn } = props
+    const [cards, setCards] = useState(holder.hand)
     const moveCard = (dragIndex: number, hoverIndex: number) => {
       const dragCard = cards[dragIndex]
       setCards(
@@ -26,15 +26,15 @@ const Hand: React.FC<HandProps> = (props) => {
       )
     }
     return (
-      <Grid container className={classes.hand} justify = "flex-start" direction="row" xs={12} spacing={1}>
+      <Grid container className={classes.hand} justify = "flex-start" direction="row" 
+      style = {{backgroundColor : isTurn? "#DCEDC8":""}} spacing={1}>
         {cards.map((card, i) => (
           <Grid key={card.idx} item >
             <CardDisplay
               holder={props.holder}
               index={i}
-              cardId={card.idx}
-              colour={card.colour}
-              rank={card.rank}
+              isTurn= {isTurn}
+              card={card}
               moveCard={moveCard}
             />
           </Grid>

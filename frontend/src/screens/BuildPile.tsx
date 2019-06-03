@@ -12,14 +12,13 @@ import {
 } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 
-
-export interface DiscardProps extends WithStyles<typeof styles> { 
+export interface BuildPileProps extends WithStyles<typeof styles> { 
     canDrop: boolean
     isOver: boolean
     connectDropTarget: ConnectDropTarget
 }
 
-const Discards: React.FC<DiscardProps> = ({
+const Discards: React.FC<BuildPileProps> = ({
     canDrop,
     isOver,
     connectDropTarget,
@@ -40,8 +39,12 @@ const buildPile =  DropTarget(
 
     dndItemTypes.CARD,
     {
-        drop: ((props: DiscardProps, monitor) => { 
+        drop: ((props: BuildPileProps, monitor) => { 
             alert (JSON.stringify(monitor.getItem()))
+
+        }),
+        canDrop: ((props: BuildPileProps, monitor)  => {
+            return monitor.getItem().isTurn
         })
     },
  

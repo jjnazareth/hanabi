@@ -44,6 +44,9 @@ const discards =  DropTarget(
     {
         drop: ((props: DiscardProps, monitor) => { 
             alert (JSON.stringify(monitor.getItem()))
+        }),
+        canDrop: ((props: DiscardProps, monitor)  => {
+            return monitor.getItem().isTurn
         })
     },
  
