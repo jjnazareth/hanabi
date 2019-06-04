@@ -1,7 +1,6 @@
 import { RoomAction, RoomActionNames } from './room.actions.type'
 import { Player } from '../../globalTypes'
 
-
 export interface IRoomState {
     players: Player[]
 }

@@ -28,7 +28,6 @@ interface IProps {
 }
 
 
-
 class Container extends Component<IProps> {
 
   private deal = (pack: Card[], players: Player[], dealerIdx: number) => {
@@ -36,7 +35,7 @@ class Container extends Component<IProps> {
     let numPlayers = players.length
     let arr = Array.from(Array(CARDS_IN_HAND).keys())
       .map(i => i * numPlayers) // 0,5,10,15,20 etc 
-
+      .map(i => i + 30) //leave 20 cards for no good reason
     players.forEach(p => {
       let handIdx = (p.turnIdx - dealerIdx - 1 + numPlayers) % numPlayers
       // dealer deals last to himself
@@ -45,9 +44,6 @@ class Container extends Component<IProps> {
     })
   }
 
-  constructor(props: IProps) {
-    super(props)
-  }
   public componentDidMount(): void {
     const { room, pack, game } = this.props
     let playerNames: string[] =

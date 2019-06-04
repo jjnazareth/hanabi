@@ -33,6 +33,7 @@ const Hand: React.FC<HandProps> = (props) => {
             <CardDisplay
               holder={props.holder}
               index={i}
+              numCards={cards.length}
               isTurn= {isTurn}
               card={card}
               moveCard={moveCard}

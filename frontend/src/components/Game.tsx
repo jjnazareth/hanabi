@@ -6,7 +6,7 @@ import { IRoomState } from '../reducers/room/room.reducer'
 
 import Table from '../screens/Table'
 import { Card } from '../globalTypes'
-import { setNextTurn } from '../reducers/game/game.actions';
+// import { setNextTurn } from '../reducers/game/game.actions';
 import Hand from '../screens/Hand'
 import { Grid, WithStyles } from '@material-ui/core'
 import 'typeface-roboto'
@@ -21,7 +21,7 @@ import Pack from './Pack'
 interface IProps extends WithStyles<typeof styles> {
   game: IGameState
   room: IRoomState
-  setNextTurn: (numPlayers: number) => (void)
+  // setNextTurn: (numPlayers: number) => (void)
 }
 
 class Game extends Component<IProps> {
@@ -41,14 +41,11 @@ class Game extends Component<IProps> {
     let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
     return player ? player.hand : []
   }
-  handleClick = () => {
-    const { room, setNextTurn } = this.props
-    setNextTurn(room.players.length)
-  }
+  
 
   public render(): JSX.Element {
 
-    const { classes, game } = this.props
+    const { classes, game, room,  } = this.props
 
     return (
       <React.Fragment>
@@ -59,12 +56,7 @@ class Game extends Component<IProps> {
           <Grid item xs={2}>
             Dealer: {this.dealerName()}
           </Grid>
-          <Grid item xs={4}>
-            <Button variant="contained" color="primary" className={classes.button}
-              onClick={this.handleClick}>
-              Primary
-            </Button>
-          </Grid>
+          
 
         </Grid>
         <Grid container>
@@ -77,7 +69,7 @@ class Game extends Component<IProps> {
             )}
           </Grid>
           <Grid item xs={7} className={classes.background}>
-            <Table />
+            <Table/>
           </Grid>
         </Grid>
 
@@ -93,5 +85,5 @@ const mapStateToProps = (state: IGlobalState) => ({
 
 export default connect(mapStateToProps, 
   {
-    setNextTurn
+  
   })(withStyles(styles)(Game))

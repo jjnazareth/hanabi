@@ -1,9 +1,10 @@
 import React, { useImperativeHandle, useRef } from 'react'
 
-import { Paper, WithStyles } from '@material-ui/core'
+import { Paper, Grid, WithStyles } from '@material-ui/core'
 import 'typeface-roboto'
-import { styles } from '../Styles'
-import { Card, Player } from '../globalTypes' 
+import { styles} from '../Styles'
+import { Typography } from '@material-ui/core'
+import { Card, Player } from '../globalTypes'
 
 import {
   DragSource,
@@ -20,17 +21,16 @@ import { dndItemTypes } from './itemTypes'
 import { XYCoord } from 'dnd-core'
 
 import { CardColour, CardRank } from '../globalTypes'
-import { withStyles } from '@material-ui/styles';
+import { withStyles, ThemeProvider } from '@material-ui/styles';
+import { Subheader } from 'material-ui';
 
 
 interface CardDisplayProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
   holder: Player
   index: number
-  // cardId: number
-  // colour: CardColour
-  // rank: CardRank
-  card : Card
+  numCards : number
+  card: Card
   isTurn: boolean
   isDragging: boolean
   connectDragSource: ConnectDragSource
@@ -42,19 +42,32 @@ interface CardInstance {
 }
 
 const CardDisplay = React.forwardRef<HTMLDivElement, CardDisplayProps>(
-  ({ classes, card, isTurn,  isDragging, connectDragSource, connectDropTarget }, ref) => {
+  ({ classes, card, index, isTurn, numCards, isDragging, connectDragSource, connectDropTarget }, ref) => {
 
     const elementRef = useRef(null)
     connectDragSource(elementRef)
     connectDropTarget(elementRef)
 
-    const opacity = isDragging ? 0. : 1
+    const opacity = isDragging ? 0.4 : 1
     useImperativeHandle<{}, CardInstance>(ref, () => ({
       getNode: () => elementRef.current,
     }))
     return (
-      <Paper className={classes.card} ref={elementRef} style={{ opacity }} >
-        {card.idx} {card.colour} {card.rank}
+      <Paper className={classes.card} ref={elementRef}
+
+        style={{ opacity: opacity,  
+         background : isTurn?
+          card.colour.name == "Multi"? 'linear-gradient(to right bottom, #FFCC66, #9900FF)': card.colour.code
+          :"lightGrey" }} >  
+
+        <Grid container justify="flex-start"><Typography variant="caption" >
+          {isTurn? (numCards - index) : index +1 }</Typography></Grid>
+        
+          <Grid container justify="center" >
+            <Typography variant="h2">{isTurn? card.rank:""}</Typography>
+          </Grid>
+       
+        <Grid container justify="flex-end"><Typography variant="caption" >{isTurn? card.idx:""}</Typography></Grid>
       </Paper>
     )
   }

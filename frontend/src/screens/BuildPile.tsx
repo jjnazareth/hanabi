@@ -12,13 +12,17 @@ import {
 } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 
-export interface BuildPileProps extends WithStyles<typeof styles> { 
+export interface BuildPileProps extends WithStyles<typeof styles> {
+    numPlayers : number
+    setNextTurn: (numPlayers: number) => (void)
     canDrop: boolean
     isOver: boolean
     connectDropTarget: ConnectDropTarget
 }
 
-const Discards: React.FC<BuildPileProps> = ({
+const BuildPile: React.FC<BuildPileProps> = ({
+    numPlayers,
+    setNextTurn,
     canDrop,
     isOver,
     connectDropTarget,
@@ -40,8 +44,9 @@ const buildPile =  DropTarget(
     dndItemTypes.CARD,
     {
         drop: ((props: BuildPileProps, monitor) => { 
+            const {setNextTurn, numPlayers} = props
             alert (JSON.stringify(monitor.getItem()))
-
+            setNextTurn(numPlayers)
         }),
         canDrop: ((props: BuildPileProps, monitor)  => {
             return monitor.getItem().isTurn
@@ -54,6 +59,6 @@ const buildPile =  DropTarget(
         canDrop: monitor.canDrop(),
         
     }),
-) (Discards)
+) (BuildPile)
 
 export default withStyles(styles) (buildPile)

@@ -15,6 +15,7 @@ export const initGame = (currentTurnIdx : number, dealerIdx : number) =>
     }
 
 export const setNextTurn = (numPlayers : number) => 
+  
     (dispatch: Dispatch<SetNextTurnIdx>) => {
         dispatch({
             type: GameActionNames.SET_NEXT_TURN,

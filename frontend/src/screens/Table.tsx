@@ -1,13 +1,16 @@
 import React from 'react'
-
+import { connect } from 'react-redux'
 import { Grid, WithStyles } from '@material-ui/core'
-
+import { IRoomState } from '../reducers/room/room.reducer'
+import { IGlobalState } from '../reducers'
+import { setNextTurn } from '../reducers/game/game.actions';
 import { styles } from '../Styles'
 import { withStyles } from '@material-ui/core'
 import 'typeface-roboto'
 
-import Discards from './Discards'
 import BuildPile from './BuildPile'
+import Discards from './Discards'
+
 import {
     DropTarget,
     ConnectDropTarget,
@@ -17,12 +20,16 @@ import {
 import { dndItemTypes } from './itemTypes'
 
 export interface TableProps extends WithStyles<typeof styles> {
+    room: IRoomState
+    setNextTurn: (numPlayers: number) => (void)
     canDrop: boolean
     isOver: boolean
     connectDropTarget: ConnectDropTarget
 }
 
 const Table: React.FC<TableProps> = ({
+    room,
+    setNextTurn,
     canDrop,
     isOver,
     connectDropTarget,
@@ -38,15 +45,15 @@ const Table: React.FC<TableProps> = ({
                 alignItems="center" >
                 <br />
                 <Grid item xs={12}>
-                    <BuildPile />
+                    <BuildPile setNextTurn = {setNextTurn} numPlayers={room.players.length} />
                 </Grid>
                 <br/>
                 <Grid item xs={12}>
-                    <Discards />
+                    <Discards setNextTurn = {setNextTurn} numPlayers={room.players.length} />
                 </Grid>
 
             </Grid>
-        </div >
+        </div > 
     )
 }
 
@@ -66,8 +73,12 @@ const table = DropTarget(
         connectDropTarget: connect.dropTarget(),
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
-
     }),
 )(Table)
 
-export default withStyles(styles)(table)
+const mapStateToProps = (state: IGlobalState) => ({
+    room: state.room,
+})
+  
+
+export default connect(mapStateToProps, {setNextTurn}) (withStyles(styles)(table))
