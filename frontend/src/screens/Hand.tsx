@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import CardDisplay from './CardDisplay'
+import HandDisplay from './HandDisplay'
 import update from 'immutability-helper'
 import { Card, Player } from '../globalTypes'
 import { withStyles } from '@material-ui/core'
@@ -30,7 +30,7 @@ const Hand: React.FC<HandProps> = (props) => {
       style = {{backgroundColor : isTurn? "#DCEDC8":""}} spacing={1}>
         {cards.map((card, i) => (
           <Grid key={card.idx} item >
-            <CardDisplay
+            <HandDisplay
               holder={props.holder}
               index={i}
               numCards={cards.length}

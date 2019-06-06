@@ -8,7 +8,7 @@ import { styles } from '../Styles'
 import { withStyles } from '@material-ui/core'
 import 'typeface-roboto'
 
-import BuildPile from './BuildPile'
+import BuildArea from './BuildArea'
 import Discards from './Discards'
 
 import {
@@ -45,7 +45,7 @@ const Table: React.FC<TableProps> = ({
                 alignItems="center" >
                 <br />
                 <Grid item xs={12}>
-                    <BuildPile setNextTurn = {setNextTurn} numPlayers={room.players.length} />
+                    <BuildArea setNextTurn = {setNextTurn} numPlayers={room.players.length} />
                 </Grid>
                 <br/>
                 <Grid item xs={12}>

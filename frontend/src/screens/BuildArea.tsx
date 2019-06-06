@@ -12,7 +12,7 @@ import {
 } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 
-export interface BuildPileProps extends WithStyles<typeof styles> {
+export interface BuildAreaProps extends WithStyles<typeof styles> {
     numPlayers : number
     setNextTurn: (numPlayers: number) => (void)
     canDrop: boolean
@@ -20,7 +20,7 @@ export interface BuildPileProps extends WithStyles<typeof styles> {
     connectDropTarget: ConnectDropTarget
 }
 
-const BuildPile: React.FC<BuildPileProps> = ({
+const BuildArea: React.FC<BuildAreaProps> = ({
     numPlayers,
     setNextTurn,
     canDrop,
@@ -33,22 +33,22 @@ const BuildPile: React.FC<BuildPileProps> = ({
     let colour = isActive?'#AED581': '#DCEDC8'
     
     return (
-        <div ref={connectDropTarget} className = {classes.buildPile} style={{ backgroundColor : colour }}>
+        <div ref={connectDropTarget} className = {classes.buildArea} style={{ backgroundColor : colour }}>
             <h3>{isActive ? 'Release to Place' : 'Build Pile' }</h3>
         </div>
     )
 }
 
-const buildPile =  DropTarget(
+const buildArea =  DropTarget(
 
     dndItemTypes.CARD,
     {
-        drop: ((props: BuildPileProps, monitor) => { 
+        drop: ((props: BuildAreaProps, monitor) => { 
             const {setNextTurn, numPlayers} = props
             alert (JSON.stringify(monitor.getItem()))
             setNextTurn(numPlayers)
         }),
-        canDrop: ((props: BuildPileProps, monitor)  => {
+        canDrop: ((props: BuildAreaProps, monitor)  => {
             return monitor.getItem().isTurn
         })
     },
@@ -59,6 +59,6 @@ const buildPile =  DropTarget(
         canDrop: monitor.canDrop(),
         
     }),
-) (BuildPile)
+) (BuildArea)
 
-export default withStyles(styles) (buildPile)
+export default withStyles(styles) (buildArea)

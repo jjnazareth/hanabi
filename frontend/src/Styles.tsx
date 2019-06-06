@@ -53,7 +53,7 @@ export const styles = (theme : Theme) => createStyles({
     width: 70,
     
   },
-  buildPile: {
+  buildArea: {
     marginTop: 0,
     border: '1px solid grey',
     padding: 4,

@@ -25,7 +25,7 @@ import { withStyles, ThemeProvider } from '@material-ui/styles';
 import { Subheader } from 'material-ui';
 
 
-interface CardDisplayProps extends WithStyles<typeof styles> {
+interface HandDisplayProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
   holder: Player
   index: number
@@ -41,7 +41,7 @@ interface CardInstance {
   getNode(): HTMLDivElement | null
 }
 
-const CardDisplay = React.forwardRef<HTMLDivElement, CardDisplayProps>(
+const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
   ({ classes, card, index, isTurn, numCards, isDragging, connectDragSource, connectDropTarget }, ref) => {
 
     const elementRef = useRef(null)
@@ -73,11 +73,11 @@ const CardDisplay = React.forwardRef<HTMLDivElement, CardDisplayProps>(
   }
 )
 
-const cardDisplay = DropTarget(
+const handDisplay = DropTarget(
   dndItemTypes.CARD,
   {
     hover(
-      props: CardDisplayProps,
+      props: HandDisplayProps,
       monitor: DropTargetMonitor,
       component: CardInstance,
     ) {
@@ -145,7 +145,7 @@ const cardDisplay = DropTarget(
   DragSource(
     dndItemTypes.CARD,
     {
-      beginDrag: (props: CardDisplayProps) => ({
+      beginDrag: (props: HandDisplayProps) => ({
         card: props.card,
         index: props.index,
         holder: props.holder,
@@ -159,7 +159,7 @@ const cardDisplay = DropTarget(
       connectDragSource: connect.dragSource(),
       isDragging: monitor.isDragging(),
     }),
-  )(CardDisplay),
+  )(HandDisplay),
 )
 
-export default withStyles(styles)(cardDisplay)
+export default withStyles(styles)(handDisplay)

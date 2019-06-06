@@ -13,8 +13,6 @@ import {
 import { dndItemTypes } from './itemTypes'
 import { setNextTurn } from '../reducers/game/game.actions';
 
-
-
 export interface DiscardProps extends WithStyles<typeof styles> {
     setNextTurn: (numPlayers: number) => (void) 
     numPlayers: number
