@@ -2,7 +2,7 @@ import React, { useImperativeHandle, useRef } from 'react'
 
 import { Paper, Grid, WithStyles } from '@material-ui/core'
 import 'typeface-roboto'
-import { styles} from '../Styles'
+import { styles } from '../Styles'
 import { Typography } from '@material-ui/core'
 import { Card, Player } from '../globalTypes'
 
@@ -29,7 +29,7 @@ interface HandDisplayProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
   holder: Player
   index: number
-  numCards : number
+  numCards: number
   card: Card
   isTurn: boolean
   isDragging: boolean
@@ -55,19 +55,30 @@ const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
     return (
       <Paper className={classes.card} ref={elementRef}
 
-        style={{ opacity: opacity,  
-         background : isTurn?
-          card.colour.name == "Multi"? 'linear-gradient(to right bottom, #FFCC66, #9900FF)': card.colour.code
-          :"lightGrey" }} >  
+        style={{
+          opacity: opacity,
+          background: isTurn ?
+            card.colour.name == "Multi" ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
+            : "lightGrey"
+        }} >
 
         <Grid container justify="flex-start"><Typography variant="caption" >
-          {isTurn? (numCards - index) : index +1 }</Typography></Grid>
-        
-          <Grid container justify="center" >
-            <Typography variant="h2">{isTurn? card.rank:""}</Typography>
-          </Grid>
-       
-        <Grid container justify="flex-end"><Typography variant="caption" >{isTurn? card.idx:""}</Typography></Grid>
+          {isTurn ? (numCards - index) : index + 1}</Typography></Grid>
+        <Grid container justify="flex-end">
+          <div style={{ "marginTop": -24 }}>
+            <Typography variant="h6">{//isTurn?"":
+              card.rank} </Typography>
+          </div>
+        </Grid>
+        <Grid container justify="center" >
+          <div style={{ "marginTop": -12 }}>
+            <Typography variant="h2">{//isTurn?"":
+              card.rank} </Typography>
+          </div>
+          {/* <Typography variant="h2">{isTurn? card.rank:""}</Typography> */}
+        </Grid>
+
+        <Grid container justify="flex-end"><Typography variant="caption" >{isTurn ? card.idx : ""}</Typography></Grid>
       </Paper>
     )
   }
