@@ -11,13 +11,21 @@ export const styles = (theme : Theme) => createStyles({
     padding:0,
     minHeight: 0,
     minWidth: 0,
-    
+
   },
   hand: {
     margin: 0,
     padding: 4,
     border: 1,
     spacing: 0,
+    backgroundColor: "#F0F4C3"
+  },
+  buildCards: {
+    margin: 0,
+    padding: 4,
+    border: 1,
+    spacing: 0,
+    width: "99%",
     backgroundColor: "#F0F4C3"
   },
   gameState: {
