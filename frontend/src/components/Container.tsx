@@ -53,7 +53,7 @@ class Container extends Component<IProps> {
     let [turnIdx, dealerIdx] = [1, 2]
     this.props.initGame(turnIdx, dealerIdx)
     this.props.initSeats([1, 3, 2, 4, 0])
-    this.props.initPack()
+    // this.props.initPack()
 
     this.deal(store.getState().pack.pack, store.getState().room.players, game.dealerIdx)
     //this.deal(this.props.pack.pack, this.props.room.players, dealerIdx) 

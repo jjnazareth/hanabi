@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import { PackActionNames, InitPack} from './pack.actions.type'
 import { Card, CardRank } from '../../globalTypes'
 
-export const initPack = () => (dispatch: Dispatch<InitPack>) => {
+export const initPack = () : Card[] => {
     let arrC = [
         {name: "White", code: "#FFFFFF"},
         {name: "Yellow", code: "#FFCC66"},
@@ -32,10 +32,10 @@ export const initPack = () => (dispatch: Dispatch<InitPack>) => {
             }
         })
     )
-
-    dispatch({
+        return pack
+   /*  dispatch({
         type: PackActionNames.INIT_PACK,
         pack: pack
-    })
+    }) */
 }
 
