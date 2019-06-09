@@ -46,25 +46,20 @@ class Container extends Component<IProps> {
 
   public componentDidMount(): void {
     const { room, pack, game } = this.props
-    let playerNames: string[] =
-      ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
-    this.props.initialisePlayers(playerNames)
-    console.log(this.props.room)
+    
     let [turnIdx, dealerIdx] = [1, 2]
     this.props.initGame(turnIdx, dealerIdx)
-    this.props.initSeats([1, 3, 2, 4, 0])
-    // this.props.initPack()
-
-    this.deal(store.getState().pack.pack, store.getState().room.players, game.dealerIdx)
-    //this.deal(this.props.pack.pack, this.props.room.players, dealerIdx) 
+   
   }
   public render(): JSX.Element {
+    const {game } = this.props
     return (
+     
       <React.Fragment>
         <div>
           <Room></Room>
           {/*  <Pack></Pack> */}
-          <Game></Game>
+          <Game dealerIdx ={game.dealerIdx}></Game>
         </div>
 
       </React.Fragment>

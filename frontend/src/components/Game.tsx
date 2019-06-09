@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
+import { IPackState } from '../reducers/pack/pack.reducer'
+
+import { initialisePlayers, initSeats, initHand } from '../reducers/room/room.actions'
 
 import Table from '../screens/Table'
-import { Card } from '../globalTypes'
+import { Card, Player } from '../globalTypes'
 // import { setNextTurn } from '../reducers/game/game.actions';
 import Hand from '../screens/Hand'
 import { Grid, WithStyles } from '@material-ui/core'
@@ -16,15 +19,32 @@ import { Button } from "@material-ui/core"
 
 import Room from './Room'
 import Pack from './Pack'
+import { setCurrentTurnIdx } from '../reducers/game/game.actions';
 
 
 interface IProps extends WithStyles<typeof styles> {
   game: IGameState
   room: IRoomState
+  pack: IPackState
   // setNextTurn: (numPlayers: number) => (void)
+  initHand: (turnIdx: number, cards: Card[]) => void
+  dealerIdx : number
 }
 
 class Game extends Component<IProps> {
+  private deal = (pack: Card[], players: Player[], dealerIdx: number) => {
+    const CARDS_IN_HAND: number = players.length < 4 ? 5 : 4
+    let numPlayers = players.length
+    let arr = Array.from(Array(CARDS_IN_HAND).keys())
+      .map(i => i * numPlayers) // 0,5,10,15,20 etc 
+      .map(i => i + 20) //leave 20 cards for no good reason
+    players.forEach(p => {
+      let handIdx = (p.turnIdx - dealerIdx - 1 + numPlayers) % numPlayers
+      // dealer deals last to himself
+      let cards = arr.map(i => pack[i + handIdx])
+      this.props.initHand(p.turnIdx, cards)
+    })
+  }
 
   public currentPlayerName(): string {
     const { game, room } = this.props
@@ -41,12 +61,14 @@ class Game extends Component<IProps> {
     let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
     return player ? player.hand : []
   }
-  
-
+  public componentDidMount(): void {
+    /* let [turnIdx, dealerIdx] = [1, 2]
+    setCurrentTurnIdx(turnIdx) */
+    this.deal(this.props.pack.pack, this.props.room.players, this.props.dealerIdx) 
+  }
   public render(): JSX.Element {
-
     const { classes, game, room,  } = this.props
-
+   
     return (
       <React.Fragment>
         <Grid container className={classes.gameState} >
@@ -57,14 +79,13 @@ class Game extends Component<IProps> {
             Dealer: {this.dealerName()}
           </Grid>
           
-
         </Grid>
         <Grid container>
           <Grid item xs={5}>
             {this.props.room.players.map((player, i) =>
               <div key={i} className={classes.background} >
-                {player.name}
-                <Hand holder={player} isTurn={game.currentTurnIdx == player.turnIdx} />
+                {player.name}             
+                <Hand holder={player}  isTurn={game.currentTurnIdx == player.turnIdx} />
               </div>
             )}
           </Grid>
@@ -80,10 +101,11 @@ class Game extends Component<IProps> {
 
 const mapStateToProps = (state: IGlobalState) => ({
   room: state.room,
+  pack: state.pack,
   game: state.game,
 })
 
 export default connect(mapStateToProps, 
   {
-  
+  initHand
   })(withStyles(styles)(Game))

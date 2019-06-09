@@ -2,8 +2,6 @@ import { Dispatch } from 'redux'
 import { RoomActionNames, AddPlayer, SeatPlayers, InitHand } from './room.actions.type'
 import { Card } from '../../globalTypes'
 
-
-
 export const initialisePlayers  = (names: string[]) => (dispatch: Dispatch<AddPlayer>) => {
     names.forEach(n => {
         dispatch({
