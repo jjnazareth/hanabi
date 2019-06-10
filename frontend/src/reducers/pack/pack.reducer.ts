@@ -18,6 +18,5 @@ export default function (state = initialState, action: PackAction) {
             }
         default:
             return state;
-
     }
 }

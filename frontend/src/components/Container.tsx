@@ -46,7 +46,7 @@ class Container extends Component<IProps> {
 
   public componentDidMount(): void {
     const { room, pack, game } = this.props
-    
+
     let [turnIdx, dealerIdx] = [1, 2]
     this.props.initGame(turnIdx, dealerIdx)
    

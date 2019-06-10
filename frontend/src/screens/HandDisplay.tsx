@@ -27,6 +27,7 @@ import { Subheader } from 'material-ui';
 
 interface HandDisplayProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
+  dropCard: () => (void)
   holder: Player
   index: number
   numCards: number
@@ -42,7 +43,8 @@ interface CardInstance {
 }
 
 const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
-  ({ classes, card, index, isTurn, numCards, isDragging, connectDragSource, connectDropTarget }, ref) => {
+  ({ classes, card, index, isTurn, numCards, isDragging, 
+    connectDragSource, connectDropTarget }, ref) => {
 
     const elementRef = useRef(null)
     connectDragSource(elementRef)
@@ -87,6 +89,7 @@ const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
 const handDisplay = DropTarget(
   dndItemTypes.CARD,
   {
+    
     hover(
       props: HandDisplayProps,
       monitor: DropTargetMonitor,
@@ -148,6 +151,12 @@ const handDisplay = DropTarget(
       // to avoid expensive index searches.
       monitor.getItem().index = hoverIndex
     },
+    drop: ((props, monitor) => {
+     
+      // alert(JSON.stringify(monitor.getItem()))
+      props.dropCard()
+    
+    }),
   },
   (connect: DropTargetConnector) => ({
     connectDropTarget: connect.dropTarget(),
@@ -163,6 +172,7 @@ const handDisplay = DropTarget(
         isTurn: props.isTurn
       }),
       endDrag(props, monitor, component) {
+        
       }
     },
     // collecting function

@@ -21,11 +21,15 @@ const Hand: React.FC<HandProps> = (props) => {
     useEffect(() => {setCards(holder.hand)}, [holder.hand])
     const moveCard = (dragIndex: number, hoverIndex: number) => {
       const dragCard = cards[dragIndex]
-      setCards(
+      // alert ( "Drag: " + JSON.stringify(dragIndex)  + "Hover: " + JSON.stringify(hoverIndex))
+      setCards( 
         update(cards, {
           $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
         }),
       )
+    }
+    const finishMove = () => {
+      alert ("Is Done")
     }
     return (
       <Grid container className={classes.hand} justify = "flex-start" direction="row" 
@@ -33,12 +37,13 @@ const Hand: React.FC<HandProps> = (props) => {
         {cards.map((card, i) => (     
           <Grid key={card.idx} item > 
             <HandDisplay
-              holder={props.holder}
+              holder={holder}
               index={i}
               numCards={cards.length}
               isTurn= {isTurn}
               card={card}
               moveCard={moveCard}
+              dropCard= {finishMove}
             />
           </Grid>
         ))}
