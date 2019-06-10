@@ -42,8 +42,10 @@ interface CardInstance {
   getNode(): HTMLDivElement | null
 }
 
+
+
 const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
-  ({ classes, card, index, isTurn, numCards, isDragging, 
+  ({ classes, card, index, isTurn, numCards, isDragging,
     connectDragSource, connectDropTarget }, ref) => {
 
     const elementRef = useRef(null)
@@ -59,28 +61,23 @@ const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
 
         style={{
           opacity: opacity,
-          background: isTurn ?
+          background: isTurn ? "lightGrey" :
             card.colour.name == "Multi" ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
-            : "lightGrey"
+
         }} >
-
-        <Grid container justify="flex-start"><Typography variant="caption" >
-          {isTurn ? (numCards - index) : index + 1}</Typography></Grid>
-        <Grid container justify="flex-end">
-          <div style={{ "marginTop": -24 }}>
-            <Typography variant="h6">{//isTurn?"":
-              card.rank} </Typography>
-          </div>
-        </Grid>
-        <Grid container justify="center" >
-          <div style={{ "marginTop": -12 }}>
-            <Typography variant="h2">{//isTurn?"":
-              card.rank} </Typography>
-          </div>
-          {/* <Typography variant="h2">{isTurn? card.rank:""}</Typography> */}
-        </Grid>
-
-        <Grid container justify="flex-end"><Typography variant="caption" >{isTurn ? card.idx : ""}</Typography></Grid>
+        <div className={classes.cardIdx}>
+          <Typography variant="caption" >
+            {isTurn ? (numCards - index) : index + 1}</Typography>
+        </div>
+        <div className={classes.cardRankTop}>
+          <Typography variant="h6"> {isTurn ? "" : card.rank}</Typography>
+        </div>
+        <div className={classes.cardRankMid}>
+          <Typography variant="h2"> {isTurn ? "" : card.rank}</Typography>
+        </div>
+        <div className={classes.cardNo}>
+          <Typography variant="caption" >{isTurn ? "" : card.idx}</Typography>
+        </div>
       </Paper>
     )
   }
@@ -89,7 +86,6 @@ const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
 const handDisplay = DropTarget(
   dndItemTypes.CARD,
   {
-    
     hover(
       props: HandDisplayProps,
       monitor: DropTargetMonitor,
@@ -152,10 +148,10 @@ const handDisplay = DropTarget(
       monitor.getItem().index = hoverIndex
     },
     drop: ((props, monitor) => {
-     
-      // alert(JSON.stringify(monitor.getItem()))
-      props.dropCard()
-    
+      /* 
+       do not use this to find the final position of the card as
+       it will not fire if dropped in the space between cards
+     */
     }),
   },
   (connect: DropTargetConnector) => ({
@@ -172,7 +168,7 @@ const handDisplay = DropTarget(
         isTurn: props.isTurn
       }),
       endDrag(props, monitor, component) {
-        
+        props.dropCard()
       }
     },
     // collecting function

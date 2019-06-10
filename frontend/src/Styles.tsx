@@ -2,6 +2,7 @@ import React from 'react'
 import { withStyles, createStyles, Theme, createMuiTheme } from '@material-ui/core'
 import ThemeProvider from "@material-ui/core"
 import 'typeface-roboto'
+import { relative } from 'path';
 
 
 export const styles = (theme : Theme) => createStyles({
@@ -11,7 +12,6 @@ export const styles = (theme : Theme) => createStyles({
     padding:0,
     minHeight: 0,
     minWidth: 0,
-
   },
   hand: {
     margin: 0,
@@ -53,13 +53,21 @@ export const styles = (theme : Theme) => createStyles({
   }, 
   card: {
     border: '1px solid grey',
-    padding: 3,
-   
-    textAlign: 'left',
-    color: 'black',
-    height: 90,
+    position: "relative",
+    height: 95,
     width: 70,
-    
+  },
+  cardIdx : {
+    position: "absolute", left: "2px"
+  },
+  cardRankTop : {
+    position: "absolute", right: "2px" 
+  },
+  cardRankMid : {
+    position: "absolute", top: "20px", left: "20px"
+  },
+  cardNo : {
+    position: "absolute", bottom: "0px", right: "2px" 
   },
   buildArea: {
     marginTop: 0,
