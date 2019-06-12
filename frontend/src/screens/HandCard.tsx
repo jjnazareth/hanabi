@@ -25,7 +25,7 @@ import { withStyles, ThemeProvider } from '@material-ui/styles';
 import { Subheader } from 'material-ui';
 
 
-interface HandDisplayProps extends WithStyles<typeof styles> {
+interface HandCardProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
   dropCard: () => (void)
   holder: Player
@@ -44,7 +44,7 @@ interface CardInstance {
 
 
 
-const HandCard = React.forwardRef<HTMLDivElement, HandDisplayProps>(
+const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
   ({ classes, card, index, isTurn, numCards, isDragging,
     connectDragSource, connectDropTarget }, ref) => {
 
@@ -97,7 +97,7 @@ const handCard = DropTarget(
   dndItemTypes.CARD,
   {
     hover(
-      props: HandDisplayProps,
+      props: HandCardProps,
       monitor: DropTargetMonitor,
       component: CardInstance,
     ) {
@@ -171,7 +171,7 @@ const handCard = DropTarget(
   DragSource(
     dndItemTypes.CARD,
     {
-      beginDrag: (props: HandDisplayProps) => ({
+      beginDrag: (props: HandCardProps) => ({
         card: props.card,
         index: props.index,
         holder: props.holder,

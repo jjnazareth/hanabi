@@ -17,7 +17,7 @@ interface HandProps extends WithStyles<typeof styles> {
 
 const Hand: React.FC<HandProps> = (props) => {
   {
-    const { classes, holder, isTurn } = props
+    const { classes, holder,  isTurn } = props
     const [cards, setCards] = useState(holder.hand)
 
     useEffect(() => { setCards(holder.hand) }, [holder.hand])
@@ -31,20 +31,20 @@ const Hand: React.FC<HandProps> = (props) => {
       )
     }
     const finishMove = () => {
-
-      props.initHand(holder.turnIdx, props.isTurn? cards.reverse(): cards)
+      props.initHand(holder.turnIdx, props.isTurn? cards.slice().reverse(): cards)   
     }
+    const displayCards = isTurn? cards.slice().reverse() : cards
     return (
       <Grid container className={classes.hand} justify="flex-start" direction="row"
         style={{ backgroundColor: isTurn ? "#DCEDC8" : "" }} spacing={1}>
-        {cards.map((card, i) => (
-          <Grid key={card.idx} item >
+        {displayCards.map((displayCard, i) => (
+          <Grid key={displayCard.idx} item >
             <HandCard
               holder={holder}
               index={i}
               numCards={cards.length}
               isTurn={isTurn}
-              card={card}
+              card={displayCard}
               moveCard={moveCard}
               dropCard={finishMove}
             />
