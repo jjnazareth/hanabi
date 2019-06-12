@@ -22,23 +22,14 @@ export default function (state = initialState, action: RoomAction) {
                 ...state,
                 players: [...state.players, { name: action.name, playerId: inc.inc(), turnIdx: -1, hand: [] }]
             }
-
         case RoomActionNames.INIT_HAND:
-/* 
-            let players = state.players.slice()
-            let i = players.findIndex(p => p.turnIdx == action.turnIdx)
-            players[i].hand = action.cards
- */
-
             return {
                 ...state, players: state.players.map(p => {
                     return { ...p, hand: p.turnIdx == action.turnIdx ? action.cards : p.hand }
                     // index of player with the required turn index
                 })
             }
-
         case RoomActionNames.SEAT_PLAYERS:
-
             return {
                 ...state,
                 players:
@@ -48,6 +39,13 @@ export default function (state = initialState, action: RoomAction) {
                             turnIdx: action.turnIdxs[i]
                         }
                     })
+            }
+        case RoomActionNames.ARRANGE_CARDS:
+            return {
+                ...state, players: state.players.map(p => {
+                    return { ...p, hand: p.turnIdx == action.turnIdx ? action.cards : p.hand }
+                    // index of player with the required turn index
+                })
             }
         default:
             return state;

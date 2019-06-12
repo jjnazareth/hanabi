@@ -9,7 +9,7 @@ export interface IGameState {
     discards: Card[]
     buildPile: Card[]
     currentTurnIdx: number
-    dealerIdx: number, 
+    dealerIdx: number,
 }
 
 const initialState: IGameState = {
@@ -30,18 +30,13 @@ export default function (state = initialState, action: GameAction) {
         case GameActionNames.SET_NEXT_TURN:
             return {
                 ...state,
-                currentTurnIdx : (state.currentTurnIdx + 1) % action.numPlayers
+                currentTurnIdx: (state.currentTurnIdx + 1) % action.numPlayers
             }
 
         case GameActionNames.SET_DEALER:
             return {
                 ...state,
                 dealerIdx: action.dealerIdx
-            }
-        case GameActionNames.DEAL:
-            return {
-                ...state,
-
             }
         default:
             return state

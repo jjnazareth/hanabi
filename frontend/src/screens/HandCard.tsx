@@ -44,7 +44,7 @@ interface CardInstance {
 
 
 
-const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
+const HandCard = React.forwardRef<HTMLDivElement, HandDisplayProps>(
   ({ classes, card, index, isTurn, numCards, isDragging,
     connectDragSource, connectDropTarget }, ref) => {
 
@@ -56,34 +56,44 @@ const HandDisplay = React.forwardRef<HTMLDivElement, HandDisplayProps>(
     useImperativeHandle<{}, CardInstance>(ref, () => ({
       getNode: () => elementRef.current,
     }))
-    return (
-      <Paper className={classes.card} ref={elementRef}
+   
+    if (isTurn)
+      return (
+        <Paper className={classes.card} ref={elementRef}
+          style={{ opacity: opacity, background: "lightGrey" }} >
+          <div className={classes.cardIdx}>
+            <Typography variant="caption" > {numCards - index}</Typography>
+          </div>
+        </Paper>
+      )
+    else
+      return (
+        <Paper className={classes.card} ref={elementRef}
+          style={{
+            opacity: opacity,
+            background:
+              card.colour.name == "Multi" ?
+                'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
+          }}>
 
-        style={{
-          opacity: opacity,
-          background: isTurn ? "lightGrey" :
-            card.colour.name == "Multi" ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
-
-        }} >
-        <div className={classes.cardIdx}>
-          <Typography variant="caption" >
-            {isTurn ? (numCards - index) : index + 1}</Typography>
-        </div>
-        <div className={classes.cardRankTop}>
-          <Typography variant="h6"> {isTurn ? "" : card.rank}</Typography>
-        </div>
-        <div className={classes.cardRankMid}>
-          <Typography variant="h2"> {isTurn ? "" : card.rank}</Typography>
-        </div>
-        <div className={classes.cardNo}>
-          <Typography variant="caption" >{isTurn ? "" : card.idx}</Typography>
-        </div>
-      </Paper>
-    )
+          <div className={classes.cardIdx}>
+            <Typography variant="caption" > {index + 1}</Typography>
+          </div>
+          <div className={classes.cardRankTop}>
+            <Typography variant="h6"> <Typography variant="h6"> {card.rank}</Typography></Typography>
+          </div>
+          <div className={classes.cardRankMid}>
+            <Typography variant="h2"> {card.rank}</Typography>
+          </div>
+          <div className={classes.cardNo}>
+            <Typography variant="caption" >{card.idx}</Typography>
+          </div>
+        </Paper>
+      )
   }
 )
 
-const handDisplay = DropTarget(
+const handCard = DropTarget(
   dndItemTypes.CARD,
   {
     hover(
@@ -176,7 +186,7 @@ const handDisplay = DropTarget(
       connectDragSource: connect.dragSource(),
       isDragging: monitor.isDragging(),
     }),
-  )(HandDisplay),
+  )(HandCard),
 )
 
-export default withStyles(styles)(handDisplay)
+export default withStyles(styles)(handCard)
