@@ -8,6 +8,7 @@ import 'typeface-roboto'
 import { styles } from '../Styles'
 import { connect } from 'react-redux'
 import { initHand } from '../reducers/room/room.actions'
+import { CardRearrangeUpdate } from '../components/Game'
 
 interface HandProps extends WithStyles<typeof styles> {
   holder: Player,
@@ -15,38 +16,47 @@ interface HandProps extends WithStyles<typeof styles> {
   initHand: (turnIdx: number, cards: Card[]) => void
 }
 
+
+
 const Hand: React.FC<HandProps> = (props) => {
   {
-    const { classes, holder,  isTurn } = props
-    const [cards, setCards] = useState(holder.hand)
+    const { classes, holder, isTurn } = props
 
+    const [cards, setCards] = useState(holder.hand)
     useEffect(() => { setCards(holder.hand) }, [holder.hand])
+    
     const moveCard = (dragIndex: number, hoverIndex: number) => {
       const dragCard = cards[dragIndex]
-      // alert ( "Drag: " + JSON.stringify(dragIndex)  + "Hover: " + JSON.stringify(hoverIndex))
-      setCards(
-        update(cards, {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
-        }),
-      )
+      const updatedCards = update(cards, {
+        $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
+      })
+      setCards(updatedCards)
+        
+      CardRearrangeUpdate.set (updatedCards)
+      CardRearrangeUpdate.toUpdate = true
     }
-    const finishMove = () => {
-      props.initHand(holder.turnIdx, props.isTurn? cards.slice().reverse(): cards)   
+
+    const dispatchMove = () => {
+      {console.log(CardRearrangeUpdate.cards)}  
+      if (CardRearrangeUpdate.toUpdate) {
+        props.initHand(holder.turnIdx, CardRearrangeUpdate.cards )
+        CardRearrangeUpdate.toUpdate = false
+      }     
     }
-    const displayCards = isTurn? cards.slice().reverse() : cards
+    const cardsDisplay = isTurn? Array.from(cards).reverse() : cards
     return (
       <Grid container className={classes.hand} justify="flex-start" direction="row"
         style={{ backgroundColor: isTurn ? "#DCEDC8" : "" }} spacing={1}>
-        {displayCards.map((displayCard, i) => (
-          <Grid key={displayCard.idx} item >
+        {cardsDisplay.map((card, i) => (
+          <Grid key={card.idx} item >
             <HandCard
               holder={holder}
               index={i}
-              numCards={cards.length}
+              numCards={holder.hand.length}
               isTurn={isTurn}
-              card={displayCard}
+              card={card}
               moveCard={moveCard}
-              dropCard={finishMove}
+              dispatchMove={dispatchMove}
             />
           </Grid>
         ))}

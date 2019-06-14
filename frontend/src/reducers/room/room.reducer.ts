@@ -23,6 +23,7 @@ export default function (state = initialState, action: RoomAction) {
                 players: [...state.players, { name: action.name, playerId: inc.inc(), turnIdx: -1, hand: [] }]
             }
         case RoomActionNames.INIT_HAND:
+           
             return {
                 ...state, players: state.players.map(p => {
                     return { ...p, hand: p.turnIdx == action.turnIdx ? action.cards : p.hand }
@@ -40,13 +41,24 @@ export default function (state = initialState, action: RoomAction) {
                         }
                     })
             }
-        case RoomActionNames.ARRANGE_CARDS:
-            return {
-                ...state, players: state.players.map(p => {
-                    return { ...p, hand: p.turnIdx == action.turnIdx ? action.cards : p.hand }
-                    // index of player with the required turn index
-                })
+        case RoomActionNames.DISCARD:
+            
+            let obj =  {
+                ...state, 
+                players:
+                    state.players.map(p => 
+                         (
+                            p.playerId == action.player.playerId? 
+                                { ...action.player, 
+                                    hand : action.player.hand.filter
+                                        (card => card.idx !== action.card.idx)  }
+                            : p     
+                        )
+                    )            
+                  
             }
+            
+            return obj
         default:
             return state;
     }

@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
-import { RoomActionNames, AddPlayer, SeatPlayers, InitHand } from './room.actions.type'
-import { Card } from '../../globalTypes'
+import { RoomActionNames, AddPlayer, SeatPlayers, InitHand, Discard } from './room.actions.type'
+import { Card, Player } from '../../globalTypes'
 
 export const initialisePlayers  = (names: string[]) => (dispatch: Dispatch<AddPlayer>) => {
     names.forEach(n => {
@@ -27,6 +27,14 @@ export const initHand = (turnIdx: number, cards: Card[]) => (dispatch: Dispatch<
 
 }
 
+export const discard = (player: Player, card: Card) => (dispatch: Dispatch<Discard>) => {
+    dispatch({
+        type: RoomActionNames.DISCARD,
+        player: player,
+        card: card
+    })
+}
+
 // ---------------- action creators -----------------------
 export function addPlayer(playerName: string) {
     return {
@@ -42,3 +50,10 @@ export function seatPlayers(idxs: number[]) {
     }
 }
 
+export function discardCard(player: Player, card: Card) {
+    return {
+        type: RoomActionNames.DISCARD,
+        player: player,
+        card: card
+    }
+}

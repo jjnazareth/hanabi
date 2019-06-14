@@ -10,6 +10,7 @@ import 'typeface-roboto'
 
 import BuildArea from './BuildArea'
 import Discards from './Discards'
+import { CardRearrangeUpdate } from '../components/Game'
 
 import {
     DropTarget,
@@ -35,6 +36,10 @@ const Table: React.FC<TableProps> = ({
     connectDropTarget,
     classes
 }) => {
+
+    // inhibit update of card rearrangement
+    CardRearrangeUpdate.toUpdate = false
+
     const isActive = canDrop && isOver
     let colour = isActive ? '#FFC400' : ""
 

@@ -31,6 +31,13 @@ interface IProps extends WithStyles<typeof styles> {
   dealerIdx : number
 }
 
+export class CardRearrangeUpdate {
+  static cards: Card[];
+  static toUpdate: boolean = false
+  static set(cards : Card[])  {
+    this.cards = cards  }
+}
+
 class Game extends Component<IProps> {
   private deal = (pack: Card[], players: Player[], dealerIdx: number) => {
     const CARDS_IN_HAND: number = players.length < 4 ? 5 : 4
@@ -62,8 +69,6 @@ class Game extends Component<IProps> {
     return player ? player.hand : []
   }
   public componentDidMount(): void {
-    /* let [turnIdx, dealerIdx] = [1, 2]
-    setCurrentTurnIdx(turnIdx) */
     this.deal(this.props.pack.pack, this.props.room.players, this.props.dealerIdx) 
   }
   public render(): JSX.Element {
@@ -82,9 +87,12 @@ class Game extends Component<IProps> {
         </Grid>
         <Grid container>
           <Grid item xs={5}>
-            {this.props.room.players.map((player, i) =>
+            {room.players.sort((p,q) => p.turnIdx - q.turnIdx).map((player, i) =>
               <div key={i} className={classes.background} >
-                {player.name}             
+                {player.name}
+                {player.hand.map (c => 
+                  " " + c.idx + " "
+                )}
                 <Hand holder={player}  isTurn={game.currentTurnIdx == player.turnIdx} />
               </div>
             )}

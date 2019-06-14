@@ -27,11 +27,12 @@ import { Subheader } from 'material-ui';
 
 interface HandCardProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
-  dropCard: () => (void)
+  dispatchMove: () => (void)
   holder: Player
   index: number
   numCards: number
   card: Card
+  
   isTurn: boolean
   isDragging: boolean
   connectDragSource: ConnectDragSource
@@ -80,7 +81,7 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
             <Typography variant="caption" > {index + 1}</Typography>
           </div>
           <div className={classes.cardRankTop}>
-            <Typography variant="h6"> <Typography variant="h6"> {card.rank}</Typography></Typography>
+            <Typography variant="h6"> {card.rank}</Typography>
           </div>
           <div className={classes.cardRankMid}>
             <Typography variant="h2"> {card.rank}</Typography>
@@ -144,7 +145,7 @@ const handCard = DropTarget(
       if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
         return
       }
-      // cards should be exchanged in one hand only
+      // cards should be exchanged in one hand only  
       if (!(monitor.getItem().holder == props.holder)) {
         return
       }
@@ -156,6 +157,7 @@ const handCard = DropTarget(
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
       monitor.getItem().index = hoverIndex
+     
     },
     drop: ((props, monitor) => {
       /* 
@@ -178,7 +180,7 @@ const handCard = DropTarget(
         isTurn: props.isTurn
       }),
       endDrag(props, monitor, component) {
-        props.dropCard()
+        props.dispatchMove()
       }
     },
     // collecting function
