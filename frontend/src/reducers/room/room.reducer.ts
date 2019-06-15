@@ -1,13 +1,34 @@
 import { RoomAction, RoomActionNames } from './room.actions.type'
-import { Player } from '../../globalTypes'
+import { Card, DiscardPile, CardColour, CardRank, Player } from '../../globalTypes'
+
+export type Card = {
+    idx : number,
+    colour: CardColour, 
+    rank: CardRank
+}
 
 export interface IRoomState {
+  
     players: Player[]
+    lastDiscard: Card,
+    discardPiles : DiscardPile[]
 }
 
+
+
 const initialState: IRoomState = {
-    players: []
+    players: [],
+    lastDiscard: { idx: "", colour : { name: "WHITE", code: "#FFFFFF" }, rank: CardRank.Rank0 },
+    discardPiles : [
+        { colour: "White", cards: [{ idx: "", colour : { name: "White", code: "#FFFFFF" }, rank: CardRank.Rank0 }] }, 
+        { colour : "Yellow", cards: [{ idx: "", colour : { name: "Yellow", code: "#FFCC66" }, rank: CardRank.Rank0 }] },
+        { colour : "Green",cards: [{ idx: "", colour : { name: "Green", code: "#00CC00" }, rank: CardRank.Rank0 }] },
+        { colour : "Blue", cards: [{ idx: "", colour : { name: "Blue", code: "#0066CC" }, rank: CardRank.Rank0 }] },
+        { colour: "Red",cards: [{ idx: "", colour : { name: "Red", code: "#CC0033" }, rank: CardRank.Rank0 }] },
+        { colour : "Multi" ,cards: [{ idx: "", colour : { name: "Multi", code: "" }, rank: CardRank.Rank0 }] }
+    ]
 }
+
 class inc {
     static count: number = 0;
     static inc(): number {
@@ -42,9 +63,9 @@ export default function (state = initialState, action: RoomAction) {
                     })
             }
         case RoomActionNames.DISCARD:
-            
             let obj =  {
                 ...state, 
+                lastDiscard : action.card,
                 players:
                     state.players.map(p => 
                          (

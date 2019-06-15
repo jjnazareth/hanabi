@@ -54,11 +54,9 @@ class Container extends Component<IProps> {
   public render(): JSX.Element {
     const {game } = this.props
     return (
-     
       <React.Fragment>
         <div>
           <Room></Room>
-          {/*  <Pack></Pack> */}
           <Game dealerIdx ={game.dealerIdx}></Game>
         </div>
 

@@ -7,7 +7,6 @@ import { relative } from 'path';
 
 export const styles = (theme : Theme) => createStyles({
   root: {
-    
     margin: 0,
     padding:0,
     minHeight: 0,

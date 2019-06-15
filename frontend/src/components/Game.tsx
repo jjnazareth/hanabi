@@ -9,16 +9,13 @@ import { initialisePlayers, initSeats, initHand } from '../reducers/room/room.ac
 
 import Table from '../screens/Table'
 import { Card, Player } from '../globalTypes'
-// import { setNextTurn } from '../reducers/game/game.actions';
 import Hand from '../screens/Hand'
 import { Grid, WithStyles } from '@material-ui/core'
 import 'typeface-roboto'
 import { styles } from '../Styles'
 import { withStyles } from '@material-ui/core'
-import { Button } from "@material-ui/core"
 
-import Room from './Room'
-import Pack from './Pack'
+
 import { setCurrentTurnIdx } from '../reducers/game/game.actions';
 
 
@@ -86,7 +83,7 @@ class Game extends Component<IProps> {
           
         </Grid>
         <Grid container>
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             {room.players.sort((p,q) => p.turnIdx - q.turnIdx).map((player, i) =>
               <div key={i} className={classes.background} >
                 {player.name}
@@ -97,7 +94,7 @@ class Game extends Component<IProps> {
               </div>
             )}
           </Grid>
-          <Grid item xs={7} className={classes.background}>
+          <Grid item xs={4} className={classes.background}>
             <Table/>
           </Grid>
         </Grid>

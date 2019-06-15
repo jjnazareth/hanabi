@@ -26,10 +26,8 @@ class Pack extends Component<IProps> {
         )
     }
 }
-
 const mapStateToProps = (state: IGlobalState) => ({
     pack: state.pack, 
 })
-
 
 export default connect(mapStateToProps, null)(Pack)

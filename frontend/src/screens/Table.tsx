@@ -54,7 +54,7 @@ const Table: React.FC<TableProps> = ({
                 </Grid>
                 <br/>
                 <Grid item xs={12}>
-                    {/* <DiscardArea setNextTurn = {setNextTurn} numPlayers={room.players.length} /> */}
+                    <DiscardArea setNextTurn = {setNextTurn} numPlayers={room.players.length}  />
                 </Grid>
 
             </Grid>
