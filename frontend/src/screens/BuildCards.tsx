@@ -30,7 +30,6 @@ const BuildCards: React.FC<BuildCardsProps> =
           <Typography variant="caption" >{card.idx}</Typography>
         </div>
       </Paper>
-
     )
   }
 

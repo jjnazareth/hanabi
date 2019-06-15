@@ -26,24 +26,27 @@ const Hand: React.FC<HandProps> = (props) => {
     useEffect(() => { setCards(holder.hand) }, [holder.hand])
     
     const moveCard = (dragIndex: number, hoverIndex: number) => {
+
+      console.log ("Drag: " + JSON.stringify(dragIndex) + " Hover: " + JSON.stringify(hoverIndex))
       const dragCard = cards[dragIndex]
       const updatedCards = update(cards, {
         $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
       })
       setCards(updatedCards)
-        
+      console.log (updatedCards.map (c => c.idx))
       CardRearrangeUpdate.set (updatedCards)
       CardRearrangeUpdate.toUpdate = true
     }
 
     const dispatchMove = () => {
+  
       {console.log(CardRearrangeUpdate.cards)}  
       if (CardRearrangeUpdate.toUpdate) {
-        props.initHand(holder.turnIdx, CardRearrangeUpdate.cards )
+        props.initHand(holder.turnIdx, CardRearrangeUpdate.cards  )
         CardRearrangeUpdate.toUpdate = false
       }     
     }
-    const cardsDisplay = isTurn? Array.from(cards).reverse() : cards
+    const cardsDisplay = isTurn? Array.from(cards).reverse(): cards
     return (
       <Grid container className={classes.hand} justify="flex-start" direction="row"
         style={{ backgroundColor: isTurn ? "#DCEDC8" : "" }} spacing={1}>
@@ -51,7 +54,7 @@ const Hand: React.FC<HandProps> = (props) => {
           <Grid key={card.idx} item >
             <HandCard
               holder={holder}
-              index={i}
+              index={isTurn? holder.hand.length - 1 - i: i}
               numCards={holder.hand.length}
               isTurn={isTurn}
               card={card}

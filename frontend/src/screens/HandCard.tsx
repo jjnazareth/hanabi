@@ -63,11 +63,11 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
         <Paper className={classes.card} ref={elementRef}
           style={{ opacity: opacity, background: "lightGrey" }} >
           <div className={classes.cardIdx}>
-            <Typography variant="caption" > {numCards - index}</Typography>
+            <Typography variant="caption" > {index + 1}</Typography>
           </div>
         </Paper>
       )
-    else
+    else 
       return (
         <Paper className={classes.card} ref={elementRef}
           style={{

@@ -19,7 +19,7 @@ import {
 import { dndItemTypes } from './itemTypes'
 import { setNextTurn } from '../reducers/game/game.actions';
 
-export interface DiscardProps extends WithStyles<typeof styles> {
+export interface DiscardAreaProps extends WithStyles<typeof styles> {
     setNextTurn: (numPlayers: number) => (void)
     numPlayers: number
     discard: (player: Player, card: Card) => void
@@ -28,7 +28,7 @@ export interface DiscardProps extends WithStyles<typeof styles> {
     connectDropTarget: ConnectDropTarget
 }
 
-const Discards: React.FC<DiscardProps> = ({
+const DiscardArea: React.FC<DiscardAreaProps> = ({
     setNextTurn,
     numPlayers,
     canDrop,
@@ -36,7 +36,7 @@ const Discards: React.FC<DiscardProps> = ({
     connectDropTarget,
     classes
 }) => {
-
+    
     const isActive = canDrop && isOver
     let colour = isActive ? '#FF7043' : '#FCE4EC'
 
@@ -48,26 +48,26 @@ const Discards: React.FC<DiscardProps> = ({
     )
 }
 
-const discards = DropTarget(
+const discardArea = DropTarget(
 
     dndItemTypes.CARD,
     {
-        drop: ((props: DiscardProps, monitor) => {
+        drop: ((props: DiscardAreaProps, monitor) => {
             const { setNextTurn, numPlayers } = props
 
-            props.discard(monitor.getItem().holder,
+            discard(monitor.getItem().holder,
                 monitor.getItem().card)
             setNextTurn(numPlayers)
  
         }),
         hover(
-            props: DiscardProps,
+            props: DiscardAreaProps,
             monitor: DropTargetMonitor,
             //component: CardInstance,
           ) {
             // alert ("Hover")
           },
-        canDrop: ((props: DiscardProps, monitor) => {
+        canDrop: ((props: DiscardAreaProps, monitor) => {
             return monitor.getItem().isTurn && !CardRearrangeUpdate.toUpdate
         })
     },
@@ -77,7 +77,7 @@ const discards = DropTarget(
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
     }),
-)(Discards)
+)(DiscardArea)
 
-export default connect(null, { discard })(withStyles(styles)(discards))
+export default connect(null, { DiscardArea })(withStyles(styles)(discardArea))
 

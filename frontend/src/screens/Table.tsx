@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core'
 import 'typeface-roboto'
 
 import BuildArea from './BuildArea'
-import Discards from './Discards'
+import DiscardArea from './DiscardArea'
 import { CardRearrangeUpdate } from '../components/Game'
 
 import {
@@ -54,7 +54,7 @@ const Table: React.FC<TableProps> = ({
                 </Grid>
                 <br/>
                 <Grid item xs={12}>
-                    <Discards setNextTurn = {setNextTurn} numPlayers={room.players.length} />
+                    {/* <DiscardArea setNextTurn = {setNextTurn} numPlayers={room.players.length} /> */}
                 </Grid>
 
             </Grid>
