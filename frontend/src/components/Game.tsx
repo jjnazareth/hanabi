@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
-import { IPackState } from '../reducers/pack/pack.reducer'
 
 import { initialisePlayers, initSeats, initHand } from '../reducers/room/room.actions'
-
+import { initPack } from '../reducers/pack/pack.actions'
 import Table from '../screens/Table'
 import { Card, Player } from '../globalTypes'
 import Hand from '../screens/Hand'
@@ -22,7 +21,6 @@ import { setCurrentTurnIdx } from '../reducers/game/game.actions';
 interface IProps extends WithStyles<typeof styles> {
   game: IGameState
   room: IRoomState
-  pack: IPackState
   // setNextTurn: (numPlayers: number) => (void)
   initHand: (turnIdx: number, cards: Card[]) => void
   dealerIdx : number
@@ -66,7 +64,8 @@ class Game extends Component<IProps> {
     return player ? player.hand : []
   }
   public componentDidMount(): void {
-    this.deal(this.props.pack.pack, this.props.room.players, this.props.dealerIdx) 
+    let pack = initPack()
+    this.deal(pack, this.props.room.players, this.props.dealerIdx) 
   }
   public render(): JSX.Element {
     const { classes, game, room,  } = this.props
@@ -104,7 +103,6 @@ class Game extends Component<IProps> {
 
 const mapStateToProps = (state: IGlobalState) => ({
   room: state.room,
-  pack: state.pack,
   game: state.game,
 })
 

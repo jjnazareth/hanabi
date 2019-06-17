@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Room from './Room'
-import Pack from './Pack'
 import Game from './Game'
 import { initialisePlayers, initSeats, initHand } from '../reducers/room/room.actions'
 import { initPack } from '../reducers/pack/pack.actions'
 import { initGame } from '../reducers/game/game.actions'
 import { IGlobalState } from '../reducers'
 import { IRoomState } from '../reducers/room/room.reducer'
-import { IPackState } from '../reducers/pack/pack.reducer'
+
 import { IGameState } from '../reducers/game/game.reducer'
 import { Card, Player } from '../globalTypes'
 import store from '../store'
@@ -22,7 +21,7 @@ interface IProps {
   initHand: (turnIdx: number, cards: Card[]) => void
   initGame: (currentTurnIdx: number, dealerIdx: number) => void
   room: IRoomState
-  pack: IPackState
+
   game: IGameState
   setNextTurn: (numPlayers: number) => (void)
 }
@@ -45,7 +44,7 @@ class Container extends Component<IProps> {
   }
 
   public componentDidMount(): void {
-    const { room, pack, game } = this.props
+    const { room,  game } = this.props
 
     let [turnIdx, dealerIdx] = [1, 2]
     this.props.initGame(turnIdx, dealerIdx)
@@ -67,7 +66,7 @@ class Container extends Component<IProps> {
 
 const mapStateToProps = (state: IGlobalState) => ({
   room: state.room,
-  pack: state.pack,
+ 
   game: state.game,
 })
 

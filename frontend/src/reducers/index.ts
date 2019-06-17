@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux';
 import { roomReducer, IRoomState } from './room/room.reducer'
-import packReducer, { IPackState } from './pack/pack.reducer'
+
 import gameReducer, { IGameState } from './game/game.reducer';
 import { RoomAction } from './room/room.actions.type';
 import { RoomActionNames } from './room/room.actions.type'
 
 export interface IGlobalState {
   room: IRoomState,
-  pack: IPackState,
+ 
   game: IGameState
 }
 
 export default combineReducers({
   room: roomReducer,
-  pack: packReducer,
+ 
   game: gameReducer
 })
 

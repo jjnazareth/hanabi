@@ -29,7 +29,6 @@ class Room extends Component<IProps> {
 
 const mapStateToProps = (state: IGlobalState) => ({
     room: state.room,
-    pack: state.pack
 })
 
 export default connect(mapStateToProps, {
