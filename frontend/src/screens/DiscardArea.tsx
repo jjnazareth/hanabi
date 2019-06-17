@@ -10,7 +10,6 @@ import { discard } from '../reducers/room/room.actions'
 import { Card, Player } from '../globalTypes'
 import { CardRearrangeUpdate } from '../components/Game'
 import { Grid, Paper, WithStyles } from '@material-ui/core'
-
 import { Typography } from '@material-ui/core'
 
 
@@ -24,23 +23,25 @@ import {
 import { dndItemTypes } from './itemTypes'
 import { setNextTurn } from '../reducers/game/game.actions';
 import { IRoomState } from '../reducers/room/room.reducer';
+import { IGameState } from '../reducers/game/game.reducer';
 import DiscardPile from './DiscardPile'
 
 export interface DiscardAreaProps extends WithStyles<typeof styles> {
   setNextTurn: (numPlayers: number) => (void)
   numPlayers: number
   room: IRoomState
+  game: IGameState
   discard: (player: Player, card: Card) => void
   canDrop: boolean
   isOver: boolean
   connectDropTarget: ConnectDropTarget
 }
 
-
 const DiscardArea: React.FC<DiscardAreaProps> = ({
   //setNextTurn,
   numPlayers,
   room,
+  game,
   canDrop,
   isOver,
   connectDropTarget,
@@ -49,35 +50,16 @@ const DiscardArea: React.FC<DiscardAreaProps> = ({
 
   const isActive = canDrop && isOver
   let colour = isActive ? '#FF7043' : '#FCE4EC'
-  const { lastDiscard : card, discardPiles } = room
+  const { lastDiscard: card } = room
+  const { discardPiles } = game
   return (
     <div ref={connectDropTarget} className={classes.discards}
       style={{ backgroundColor: colour }}>
       <h3>{isActive ? 'Release to Discard' : 'Discards'}</h3>
-      
-      <Grid item>
-          <Paper className={classes.card}
-            style={{
-              background:
-                card.colour.name == "Multi" ?
-                  'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
-            }}>
-            <div className={classes.cardRankTop}>
-              <Typography variant="h6"> {card.rank}</Typography>
-            </div>
-            <div className={classes.cardRankMid}>
-              <Typography variant="h2"> {card.rank}</Typography>
-            </div>
-            <div className={classes.cardNo}>
-              <Typography variant="caption" >{card.idx}</Typography>
-            </div>
-          </Paper>
-        </Grid>
-
       <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
-        {discardPiles.map(({ colour, cards }, i) => (
-          <DiscardPile key= {i} cards={cards} />
-        ))}
+          {discardPiles.map(({ colour, cards }, i) => (
+            <DiscardPile key={i} cards={cards} />
+          ))}
       </Grid>
     </div>
   )
@@ -110,6 +92,7 @@ const discardArea = DropTarget(
 
 const mapStateToProps = (state: IGlobalState) => ({
   room: state.room,
+  game: state.game
 })
 
 export default connect(mapStateToProps, { discard })(withStyles(styles)(discardArea))

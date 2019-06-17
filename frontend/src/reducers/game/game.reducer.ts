@@ -2,11 +2,12 @@
 import { Action } from 'redux';
 
 import { GameAction, GameActionNames } from './game.actions.type'
-import { Card } from '../../globalTypes'
+import { RoomAction, RoomActionNames } from '../room/room.actions.type'
+import { Card, DiscardPile, CardColour, CardRank, Player } from '../../globalTypes'
 
 export interface IGameState {
     drawDeck: Card[]
-    discards: Card[]
+    discardPiles: DiscardPile[]
     buildPile: Card[]
     currentTurnIdx: number
     dealerIdx: number,
@@ -14,10 +15,27 @@ export interface IGameState {
 
 const initialState: IGameState = {
     drawDeck: [],
-    discards: [],
     buildPile: [],
     currentTurnIdx: -1,
-    dealerIdx: -1
+    dealerIdx: -1,
+    discardPiles: [
+      {
+        colour: "White", cards:
+          [
+            { idx: "", colour: { name: "White", code: "#FFFFFF" }, rank: CardRank.Rank5 },
+            { idx: "", colour: { name: "White", code: "#FFFFFF" }, rank: CardRank.Rank4 },
+            { idx: "", colour: { name: "White", code: "#FFFFFF" }, rank: CardRank.Rank3 },
+            { idx: "", colour: { name: "White", code: "#FFFFFF" }, rank: CardRank.Rank3 },
+            { idx: "", colour: { name: "White", code: "#FFFFFF" }, rank: CardRank.Rank3 },
+          ]
+      },
+      { colour: "Yellow", cards: [{ idx: "", colour: { name: "Yellow", code: "#FFCC66" }, rank: CardRank.Rank0 }] },
+      { colour: "Green", cards: [{ idx: "", colour: { name: "Green", code: "#00CC00" }, rank: CardRank.Rank0 }] },
+      { colour: "Blue", cards: [{ idx: "", colour: { name: "Blue", code: "#0066CC" }, rank: CardRank.Rank0 }] },
+      { colour: "Red", cards: [{ idx: "", colour: { name: "Red", code: "#CC0033" }, rank: CardRank.Rank0 }] },
+      { colour: "Multi", cards: [{ idx: "", colour: { name: "Multi", code: "" }, rank: CardRank.Rank0 }] },
+    ]
+  
 }
 
 export default function (state = initialState, action: GameAction) {
@@ -32,12 +50,16 @@ export default function (state = initialState, action: GameAction) {
                 ...state,
                 currentTurnIdx: (state.currentTurnIdx + 1) % action.numPlayers
             }
-
         case GameActionNames.SET_DEALER:
             return {
                 ...state,
                 dealerIdx: action.dealerIdx
             }
+        /* case RoomActionNames.DISCARD:
+            return {
+                ...state,
+                discards: action.card
+            } */
         default:
             return state
     }

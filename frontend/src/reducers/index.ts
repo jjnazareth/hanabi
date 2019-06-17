@@ -1,16 +1,34 @@
 import { combineReducers } from 'redux';
-import roomReducer, { IRoomState } from './room/room.reducer'
+import { roomReducer, IRoomState } from './room/room.reducer'
 import packReducer, { IPackState } from './pack/pack.reducer'
 import gameReducer, { IGameState } from './game/game.reducer';
-
-export default combineReducers({
-    room: roomReducer,
-    pack: packReducer,
-    game: gameReducer
-});
+import { RoomAction } from './room/room.actions.type';
+import { RoomActionNames } from './room/room.actions.type'
 
 export interface IGlobalState {
-    room: IRoomState,
-    pack: IPackState,
-    game: IGameState
+  room: IRoomState,
+  pack: IPackState,
+  game: IGameState
 }
+
+export default combineReducers({
+  room: roomReducer,
+  pack: packReducer,
+  game: gameReducer
+})
+
+function crossSliceReducer(state: IGlobalState, action: RoomAction) {
+  switch (action.type) {
+    case RoomActionNames.DISCARD:
+      return {
+        ...state,
+        room: roomReducer(state.room, action),
+        game: {
+          ...state.game,
+          discardPiles: []
+        }
+      }
+    default:
+      return state
+  }
+}  

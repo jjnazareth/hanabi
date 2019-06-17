@@ -24,8 +24,13 @@ export const styles = (theme : Theme) => createStyles({
     padding: 4,
     border: 1,
     spacing: 0,
-    width: "99%",
+    width: "100%",
     backgroundColor: "#F0F4C3"
+  },
+  discardPile: {
+    position: "relative",
+    height: 200,
+    width: 70,
   },
   gameState: {
     margin: 0,

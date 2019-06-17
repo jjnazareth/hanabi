@@ -24,7 +24,6 @@ import { CardColour, CardRank } from '../globalTypes'
 import { withStyles, ThemeProvider } from '@material-ui/styles';
 import { Subheader } from 'material-ui';
 
-
 interface HandCardProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
   dispatchMove: () => (void)
@@ -42,8 +41,6 @@ interface HandCardProps extends WithStyles<typeof styles> {
 interface CardInstance {
   getNode(): HTMLDivElement | null
 }
-
-
 
 const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
   ({ classes, card, index, isTurn, numCards, isDragging,
@@ -65,6 +62,9 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
           <div className={classes.cardIdx}>
             <Typography variant="caption" > {index + 1}</Typography>
           </div>
+          <div className={classes.cardNo}>
+            <Typography variant="caption" >{card.idx}</Typography>
+          </div>
         </Paper>
       )
     else 
@@ -76,7 +76,6 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
               card.colour.name == "Multi" ?
                 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
           }}>
-
           <div className={classes.cardIdx}>
             <Typography variant="caption" > {index + 1}</Typography>
           </div>

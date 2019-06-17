@@ -21,10 +21,8 @@ interface HandProps extends WithStyles<typeof styles> {
 const Hand: React.FC<HandProps> = (props) => {
   {
     const { classes, holder, isTurn } = props
-
     const [cards, setCards] = useState(holder.hand)
     useEffect(() => { setCards(holder.hand) }, [holder.hand])
-    
     const moveCard = (dragIndex: number, hoverIndex: number) => {
 
       console.log ("Drag: " + JSON.stringify(dragIndex) + " Hover: " + JSON.stringify(hoverIndex))
@@ -40,7 +38,6 @@ const Hand: React.FC<HandProps> = (props) => {
 
     const dispatchMove = () => {
   
-      {console.log(CardRearrangeUpdate.cards)}  
       if (CardRearrangeUpdate.toUpdate) {
         props.initHand(holder.turnIdx, CardRearrangeUpdate.cards  )
         CardRearrangeUpdate.toUpdate = false

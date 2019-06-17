@@ -13,18 +13,18 @@ interface DiscardPileProps extends WithStyles<typeof styles> {
 
 const DiscardPile: React.FC<DiscardPileProps> = (props) => {
   const { cards, classes } = props
-  return (  
-    <div>
+  return (
+    <Grid item>
 
 
-    <Grid container className={classes.buildCards} justify="center" direction="column" spacing={1}>
-      {cards.map((card, i) => (
-        <Grid key={i} item>
+      <Grid container className={classes.discardPile}>
+        {cards.map((card, i) => (
           <Paper className={classes.card}
             style={{
               background:
                 card.colour.name == "Multi" ?
-                  'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
+                  'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code,
+              position: "absolute", top: (i * 28)
             }}>
             <div className={classes.cardRankTop}>
               <Typography variant="h6"> {card.rank}</Typography>
@@ -36,10 +36,10 @@ const DiscardPile: React.FC<DiscardPileProps> = (props) => {
               <Typography variant="caption" >{card.idx}</Typography>
             </div>
           </Paper>
-        </Grid>
-      ))}
-     </Grid >
-    </div> 
+
+        ))}
+      </Grid>
+    </Grid>
   )
 }
 

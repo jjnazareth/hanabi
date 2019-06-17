@@ -87,9 +87,7 @@ class Game extends Component<IProps> {
             {room.players.sort((p,q) => p.turnIdx - q.turnIdx).map((player, i) =>
               <div key={i} className={classes.background} >
                 {player.name}
-                {player.hand.map (c => 
-                  " " + c.idx + " "
-                )}
+                
                 <Hand holder={player}  isTurn={game.currentTurnIdx == player.turnIdx} />
               </div>
             )}
