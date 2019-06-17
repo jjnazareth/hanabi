@@ -61,6 +61,7 @@ const DiscardArea: React.FC<DiscardAreaProps> = ({
             <DiscardPile key={i} cards={cards} />
           ))}
       </Grid>
+      {card.idx} {card.colour.name} {card.rank}
     </div>
   )
 }

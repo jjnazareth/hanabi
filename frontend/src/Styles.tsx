@@ -24,7 +24,7 @@ export const styles = (theme : Theme) => createStyles({
     padding: 4,
     border: 1,
     spacing: 0,
-    width: "100%",
+    width: "98%",
     backgroundColor: "#F0F4C3"
   },
   discardPile: {
@@ -76,19 +76,19 @@ export const styles = (theme : Theme) => createStyles({
   buildArea: {
     marginTop: 0,
     border: '1px solid grey',
-    padding: 4,
-    textAlign: 'center',
+    paddingLeft: 20,
+    textAlign: 'left',
     color: 'black',
-    height: 200,
+    height: 250,
     width: 700,
   },
   discards: {
     marginTop: 0,
     border: '1px solid grey',
-    padding: 4,
-    textAlign: 'center',
+    paddingLeft: 20,
+    textAlign: 'left',
     color: 'black',
-    height: 400,
+    height: 350,
     width: 700,
   },
   button: {

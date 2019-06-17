@@ -62,11 +62,9 @@ const BuildArea: React.FC<BuildAreaProps> = ({
       }
     })
   )
-
-
   return (
     <div ref={connectDropTarget} className={classes.buildArea} style={{ backgroundColor: colour }}>
-      <h3>{isActive ? 'Release to Place' : 'Build Pile'}</h3>
+      <h3>{isActive ? 'Release to Place' : 'Build Area'}</h3>
       <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
         {pack.slice(30, 36).map((card, i) => (
           <Grid key={card.idx} item>
