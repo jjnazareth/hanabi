@@ -1,4 +1,5 @@
 import { RoomAction, RoomActionNames } from './room.actions.type'
+import { GameAction } from '../game/game.actions.type'
 import { Card, DiscardPile, CardColour, CardRank, Player } from '../../globalTypes'
 
 export type Card = {
@@ -12,11 +13,9 @@ export interface IRoomState {
   lastDiscard: Card,
 }
 
-
-
 const initialState: IRoomState = {
   players: [],
-  lastDiscard: { idx: "", colour: { name: "WHITE", code: "#FFFFFF" }, rank: CardRank.Rank0 },
+  lastDiscard: { idx: "", colour: { name: "White", code: "#FFFFFF" }, rank: CardRank.Rank0 },
 }
 
 class inc {
@@ -26,7 +25,8 @@ class inc {
   }
 }
 
-export function roomReducer (state = initialState, action: RoomAction) {
+
+export function roomReducer (state = initialState, action:  RoomAction) {
   switch (action.type) {
     case RoomActionNames.ADD_PLAYER:
       return {

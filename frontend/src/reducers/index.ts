@@ -9,10 +9,20 @@ export interface IGlobalState {
   game: IGameState
 }
 
-export default combineReducers({
+export const rootReducer =  combineReducers({
   room: roomReducer,
   game: gameReducer
 })
+
+
+export const rootReducer2 = function  ( state : IGlobalState, action : any) {
+  const { room, game} = state
+  return {
+    ...state,
+    room : roomReducer(room, action),
+    game :gameReducer(game, action)
+  }
+} 
 
 function crossSliceReducer(state: IGlobalState, action: RoomAction) {
   switch (action.type) {
