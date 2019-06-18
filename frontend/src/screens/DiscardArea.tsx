@@ -6,7 +6,8 @@ import { withStyles } from '@material-ui/core'
 import 'typeface-roboto'
 import { styles } from '../Styles'
 import { connect } from 'react-redux'
-import { discard } from '../reducers/room/room.actions'
+import { discardFromHand } from '../reducers/room/room.actions'
+import { addToDiscardPile } from '../reducers/game/game.actions'
 import { Card, Player } from '../globalTypes'
 import { CardRearrangeUpdate } from '../components/Game'
 import { Grid, Paper, WithStyles } from '@material-ui/core'
@@ -31,7 +32,8 @@ export interface DiscardAreaProps extends WithStyles<typeof styles> {
   numPlayers: number
   room: IRoomState
   game: IGameState
-  discard: (player: Player, card: Card) => void
+  discardFromHand: (player: Player, card: Card) => void
+  addToDiscardPile: (card: Card) => void
   canDrop: boolean
   isOver: boolean
   connectDropTarget: ConnectDropTarget
@@ -53,7 +55,7 @@ const DiscardArea: React.FC<DiscardAreaProps> = ({
   const { lastDiscard: card } = room
   const { discardPiles } = game
   return (
-    <div ref={connectDropTarget} className={classes.discards}
+    <div ref={connectDropTarget} className={classes.discardArea}
       style={{ backgroundColor: colour }}>
       <h3>{isActive ? 'Release to Discard' : 'Discards'}</h3>
       <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
@@ -61,7 +63,6 @@ const DiscardArea: React.FC<DiscardAreaProps> = ({
             <DiscardPile key={i} cards={cards} />
           ))}
       </Grid>
-      {card.idx} {card.colour.name} {card.rank}
     </div>
   )
 }
@@ -71,10 +72,11 @@ const discardArea = DropTarget(
   dndItemTypes.CARD,
   {
     drop: ((props: DiscardAreaProps, monitor) => {
-      const { setNextTurn, numPlayers, discard } = props
+      const { setNextTurn, numPlayers, discardFromHand, addToDiscardPile } = props
 
-      discard(monitor.getItem().holder,
+      discardFromHand(monitor.getItem().holder,
         monitor.getItem().card)
+      addToDiscardPile(monitor.getItem().card)
       setNextTurn(numPlayers)
 
     }),
@@ -96,5 +98,9 @@ const mapStateToProps = (state: IGlobalState) => ({
   game: state.game
 })
 
-export default connect(mapStateToProps, { discard })(withStyles(styles)(discardArea))
+export default connect(mapStateToProps, 
+  { 
+    discardFromHand,
+    addToDiscardPile,
+  })(withStyles(styles)(discardArea))
 

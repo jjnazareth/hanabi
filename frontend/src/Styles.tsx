@@ -24,8 +24,6 @@ export const styles = (theme : Theme) => createStyles({
     padding: 4,
     border: 1,
     spacing: 0,
-    width: "98%",
-    backgroundColor: "#F0F4C3"
   },
   discardPile: {
     position: "relative",
@@ -82,7 +80,7 @@ export const styles = (theme : Theme) => createStyles({
     height: 250,
     width: 700,
   },
-  discards: {
+  discardArea: {
     marginTop: 0,
     border: '1px solid grey',
     paddingLeft: 20,
@@ -91,9 +89,7 @@ export const styles = (theme : Theme) => createStyles({
     height: 350,
     width: 700,
   },
-  button: {
-    margin: 1,
-  },
+ 
 })
 
 export default withStyles(styles) 

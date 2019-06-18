@@ -27,7 +27,7 @@ export const initHand = (turnIdx: number, cards: Card[]) => (dispatch: Dispatch<
 
 }
 
-export const discard = (player: Player, card: Card) => (dispatch: Dispatch<Discard>) => {
+export const discardFromHand = (player: Player, card: Card) => (dispatch: Dispatch<Discard>) => {
     dispatch({
         type: RoomActionNames.DISCARD,
         player: player,

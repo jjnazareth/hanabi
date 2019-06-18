@@ -39,7 +39,8 @@ class Game extends Component<IProps> {
     let numPlayers = players.length
     let arr = Array.from(Array(CARDS_IN_HAND).keys())
       .map(i => i * numPlayers) // 0,5,10,15,20 etc 
-      .map(i => i + 20) //leave 20 cards for no good reason
+      .map(i => i + 20)
+      .reverse() //leave 20 cards for no good reason
     players.forEach(p => {
       let handIdx = (p.turnIdx - dealerIdx - 1 + numPlayers) % numPlayers
       // dealer deals last to himself
@@ -76,13 +77,13 @@ class Game extends Component<IProps> {
           <Grid item xs={4}>
             Current Player: {this.currentPlayerName()}
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={8}>
             Dealer: {this.dealerName()}
           </Grid>
           
         </Grid>
         <Grid container>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             {room.players.sort((p,q) => p.turnIdx - q.turnIdx).map((player, i) =>
               <div key={i} className={classes.background} >
                 {player.name}
@@ -91,7 +92,7 @@ class Game extends Component<IProps> {
               </div>
             )}
           </Grid>
-          <Grid item xs={4} className={classes.background}>
+          <Grid item xs={7} className={classes.background}>
             <Table/>
           </Grid>
         </Grid>

@@ -16,11 +16,9 @@ export const rootReducer =  combineReducers({
 
 
 export const rootReducer2 = function  ( state : IGlobalState, action : any) {
-  const { room, game} = state
   return {
-    ...state,
-    room : roomReducer(room, action),
-    game :gameReducer(game, action)
+    room : roomReducer(state!.room, <any>action),
+    game : gameReducer(state!.game, <any>action)
   }
 } 
 

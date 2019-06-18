@@ -28,7 +28,7 @@ const initialState: IGameState = {
 
 }
 
-export function gameReducer(state = initialState, action: any ) {
+export function gameReducer(state = initialState, action: GameAction ) {
   switch (action.type) {
     case GameActionNames.SET_CURRENT_TURN:
       return {
@@ -45,7 +45,7 @@ export function gameReducer(state = initialState, action: any ) {
         ...state,
         dealerIdx: action.dealerIdx
       }
-    case RoomActionNames.DISCARD:
+    case GameActionNames.ADD_TO_DISCARD_PILE:
       return {
         ...state,
         discardPiles:  state.discardPiles.map (pile => (
