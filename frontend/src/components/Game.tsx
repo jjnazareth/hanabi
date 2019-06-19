@@ -1,36 +1,33 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Card, Player } from '../globalTypes'
 import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 
-import { initialisePlayers, initSeats, initHand } from '../reducers/room/room.actions'
+import { initHand } from '../reducers/room/room.actions'
 import { initPack } from '../reducers/pack/pack.actions'
 import Table from '../screens/Table'
-import { Card, Player } from '../globalTypes'
 import Hand from '../screens/Hand'
-import { Grid, WithStyles } from '@material-ui/core'
+
 import 'typeface-roboto'
+import { Grid, WithStyles, withStyles } from '@material-ui/core'
 import { styles } from '../Styles'
-import { withStyles } from '@material-ui/core'
-
-
-import { setCurrentTurnIdx } from '../reducers/game/game.actions';
 
 
 interface IProps extends WithStyles<typeof styles> {
-  game: IGameState
   room: IRoomState
-  // setNextTurn: (numPlayers: number) => (void)
+  game: IGameState
   initHand: (turnIdx: number, cards: Card[]) => void
-  dealerIdx : number
+  dealerIdx: number
 }
 
 export class CardRearrangeUpdate {
   static cards: Card[];
   static toUpdate: boolean = false
-  static set(cards : Card[])  {
-    this.cards = cards  }
+  static set(cards: Card[]) {
+    this.cards = cards
+  }
 }
 
 class Game extends Component<IProps> {
@@ -66,11 +63,11 @@ class Game extends Component<IProps> {
   }
   public componentDidMount(): void {
     let pack = initPack()
-    this.deal(pack, this.props.room.players, this.props.dealerIdx) 
+    this.deal(pack, this.props.room.players, this.props.dealerIdx)
   }
   public render(): JSX.Element {
-    const { classes, game, room,  } = this.props
-   
+    const { classes, game, room, } = this.props
+
     return (
       <React.Fragment>
         <Grid container className={classes.gameState} >
@@ -80,20 +77,19 @@ class Game extends Component<IProps> {
           <Grid item xs={8}>
             Dealer: {this.dealerName()}
           </Grid>
-          
         </Grid>
         <Grid container>
           <Grid item xs={5}>
-            {room.players.sort((p,q) => p.turnIdx - q.turnIdx).map((player, i) =>
+            {room.players.sort((p, q) => p.turnIdx - q.turnIdx).map((player, i) =>
               <div key={i} className={classes.background} >
                 {player.name}
-                
-                <Hand holder={player}  isTurn={game.currentTurnIdx == player.turnIdx} />
+
+                <Hand holder={player} isTurn={game.currentTurnIdx == player.turnIdx} />
               </div>
             )}
           </Grid>
           <Grid item xs={7} className={classes.background}>
-            <Table/>
+            <Table />
           </Grid>
         </Grid>
 
@@ -107,7 +103,6 @@ const mapStateToProps = (state: IGlobalState) => ({
   game: state.game,
 })
 
-export default connect(mapStateToProps, 
-  {
+export default connect(mapStateToProps, {
   initHand
-  })(withStyles(styles)(Game))
+})(withStyles(styles)(Game))

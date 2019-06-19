@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { IGlobalState } from '../reducers'
-
-import { withStyles } from '@material-ui/core'
-
-import 'typeface-roboto'
-import { styles } from '../Styles'
+import React from 'react'
 import { connect } from 'react-redux'
+import { Card, Player } from '../globalTypes'
+import { IRoomState } from '../reducers/room/room.reducer';
+import { IGameState } from '../reducers/game/game.reducer';
+import { IGlobalState } from '../reducers'
 import { discardFromHand } from '../reducers/room/room.actions'
 import { addToDiscardPile } from '../reducers/game/game.actions'
-import { Card, Player } from '../globalTypes'
 import { CardRearrangeUpdate } from '../components/Game'
-import { Grid, Paper, WithStyles } from '@material-ui/core'
-import { Typography } from '@material-ui/core'
+import DiscardPile from './DiscardPile'
 
+import 'typeface-roboto'
+import { Grid, WithStyles, withStyles } from '@material-ui/core'
+import { styles } from '../Styles'
 
 import {
   DropTarget,
@@ -20,12 +19,7 @@ import {
   DropTargetMonitor,
   DropTargetConnector,
 } from 'react-dnd'
-
 import { dndItemTypes } from './itemTypes'
-import { setNextTurn } from '../reducers/game/game.actions';
-import { IRoomState } from '../reducers/room/room.reducer';
-import { IGameState } from '../reducers/game/game.reducer';
-import DiscardPile from './DiscardPile'
 
 export interface DiscardAreaProps extends WithStyles<typeof styles> {
   setNextTurn: (numPlayers: number) => (void)
@@ -52,7 +46,6 @@ const DiscardArea: React.FC<DiscardAreaProps> = ({
 
   const isActive = canDrop && isOver
   let colour = isActive ? '#FF7043' : '#FCE4EC'
-  const { lastDiscard: card } = room
   const { discardPiles } = game
   return (
     <div ref={connectDropTarget} className={classes.discardArea}

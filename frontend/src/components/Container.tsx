@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import Room from './Room'
 import Game from './Game'
 import { initialisePlayers, initSeats, initHand } from '../reducers/room/room.actions'
-import { initPack } from '../reducers/pack/pack.actions'
 import { initGame } from '../reducers/game/game.actions'
 import { IGlobalState } from '../reducers'
 import { IRoomState } from '../reducers/room/room.reducer'
@@ -17,7 +16,6 @@ import { setNextTurn } from '../reducers/game/game.actions';
 interface IProps {
   initialisePlayers: (players: string[]) => void
   initSeats: (turnIdxs: number[]) => void
-  initPack: () => void
   initHand: (turnIdx: number, cards: Card[]) => void
   initGame: (currentTurnIdx: number, dealerIdx: number) => void
   room: IRoomState
@@ -65,16 +63,13 @@ class Container extends Component<IProps> {
 }
 
 const mapStateToProps = (state: IGlobalState) => ({
-  room: state.room,
- 
+  room: state.room, 
   game: state.game,
 })
-
 
 export default connect(mapStateToProps, {
   initialisePlayers,
   initSeats,
-  initPack,
   initGame,
   initHand,
   setNextTurn

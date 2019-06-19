@@ -1,12 +1,15 @@
 import { Action } from 'redux';
-import { Player, Card } from '../../globalTypes'
+import { Card } from '../../globalTypes'
 
 export enum GameActionNames {
     SET_CURRENT_TURN = 'SET_CURRENT_TURN',
     SET_NEXT_TURN = 'SET_NEXT_TURN',
     SET_DEALER = 'SET_DEALER',
-    ADD_TO_DISCARD_PILE = 'ADD_TO_DISCARD_PILE'
+    ADD_TO_DISCARD_PILE = 'ADD_TO_DISCARD_PILE',
+    ADD_TO_BUILD_PILE = 'ADD_TO_BUILD_PILE',
+    
 }
+
 export type SetCurrentTurnIdx = Action<GameActionNames.SET_CURRENT_TURN> & {
     currentTurnIdx: number 
 }
@@ -20,5 +23,9 @@ export type AddToDiscardPile = Action<GameActionNames.ADD_TO_DISCARD_PILE> & {
     card: Card 
 }
 
+export type AddToBuildPile = Action<GameActionNames.ADD_TO_BUILD_PILE> & {
+    card: Card 
+}
+
 export type GameAction = SetCurrentTurnIdx | SetNextTurnIdx 
-    | SetDealerIdx | AddToDiscardPile
+    | SetDealerIdx | AddToDiscardPile | AddToBuildPile

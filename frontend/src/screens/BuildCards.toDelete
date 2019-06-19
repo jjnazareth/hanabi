@@ -19,7 +19,6 @@ const BuildCards: React.FC<BuildCardsProps> =
           background:
             card.colour.name == "Multi" ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
         }} >
-
         <div className={classes.cardRankTop}>
           <Typography variant="h6"> {card.rank}</Typography>
         </div>

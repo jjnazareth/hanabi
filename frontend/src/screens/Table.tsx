@@ -1,16 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, WithStyles } from '@material-ui/core'
 import { IRoomState } from '../reducers/room/room.reducer'
 import { IGlobalState } from '../reducers'
-import { setNextTurn } from '../reducers/game/game.actions';
-import { styles } from '../Styles'
-import { withStyles } from '@material-ui/core'
-import 'typeface-roboto'
-
 import BuildArea from './BuildArea'
 import DiscardArea from './DiscardArea'
 import { CardRearrangeUpdate } from '../components/Game'
+import { setNextTurn } from '../reducers/game/game.actions';
+
+import 'typeface-roboto'
+import { Grid, WithStyles, withStyles } from '@material-ui/core'
+import { styles } from '../Styles'
 
 import {
     DropTarget,
@@ -85,5 +84,4 @@ const mapStateToProps = (state: IGlobalState) => ({
     room: state.room,
 })
   
-
 export default connect(mapStateToProps, {setNextTurn}) (withStyles(styles)(table))

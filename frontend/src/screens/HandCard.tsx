@@ -1,10 +1,10 @@
 import React, { useImperativeHandle, useRef } from 'react'
-
-import { Paper, Grid, WithStyles } from '@material-ui/core'
-import 'typeface-roboto'
-import { styles } from '../Styles'
-import { Typography } from '@material-ui/core'
 import { Card, Player } from '../globalTypes'
+import 'typeface-roboto'
+import {
+  Paper, Typography, WithStyles, withStyles
+} from '@material-ui/core'
+import { styles } from '../Styles'
 
 import {
   DragSource,
@@ -20,9 +20,6 @@ import {
 import { dndItemTypes } from './itemTypes'
 import { XYCoord } from 'dnd-core'
 
-import { CardColour, CardRank } from '../globalTypes'
-import { withStyles, ThemeProvider } from '@material-ui/styles';
-import { Subheader } from 'material-ui';
 
 interface HandCardProps extends WithStyles<typeof styles> {
   moveCard: (dragIndex: number, hoverIndex: number) => void
@@ -31,7 +28,7 @@ interface HandCardProps extends WithStyles<typeof styles> {
   index: number
   numCards: number
   card: Card
-  
+
   isTurn: boolean
   isDragging: boolean
   connectDragSource: ConnectDragSource
@@ -54,7 +51,7 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
     useImperativeHandle<{}, CardInstance>(ref, () => ({
       getNode: () => elementRef.current,
     }))
-   
+
     if (isTurn)
       return (
         <Paper className={classes.card} ref={elementRef}
@@ -67,7 +64,7 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
           </div>
         </Paper>
       )
-    else 
+    else
       return (
         <Paper className={classes.card} ref={elementRef}
           style={{
@@ -156,7 +153,7 @@ const handCard = DropTarget(
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
       monitor.getItem().index = hoverIndex
-     
+
     },
     drop: ((props, monitor) => {
       /* 

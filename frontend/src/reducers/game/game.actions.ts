@@ -1,6 +1,8 @@
 import { Dispatch } from 'redux'
-import { GameActionNames, SetCurrentTurnIdx, SetNextTurnIdx, SetDealerIdx,
-  AddToDiscardPile } from './game.actions.type'
+import {
+  GameActionNames, SetCurrentTurnIdx, SetNextTurnIdx, SetDealerIdx,
+  AddToDiscardPile, AddToBuildPile
+} from './game.actions.type'
 import { Card } from '../../globalTypes'
 
 export const initGame = (currentTurnIdx: number, dealerIdx: number) =>
@@ -31,6 +33,15 @@ export const addToDiscardPile = (card: Card) =>
       card: card
     })
   }
+
+export const addToBuildPile = (card: Card) =>
+  (dispatch: Dispatch<AddToBuildPile>) => {
+    dispatch({
+      type: GameActionNames.ADD_TO_BUILD_PILE,
+      card: card
+    })
+  }
+
 // ---------------- action creators -----------------------
 export function setCurrentTurnIdx(idx: number) {
   return {

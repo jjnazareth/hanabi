@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import HandCard from './HandCard'
-import update from 'immutability-helper'
+import { connect } from 'react-redux'
 import { Card, Player } from '../globalTypes'
-import { withStyles } from '@material-ui/core'
-import { Grid, WithStyles } from '@material-ui/core'
+import update from 'immutability-helper'
+
+import { initHand } from '../reducers/room/room.actions'
+import HandCard from './HandCard'
+import { CardRearrangeUpdate } from '../components/Game'
+
+import { Grid, WithStyles, withStyles } from '@material-ui/core'
 import 'typeface-roboto'
 import { styles } from '../Styles'
-import { connect } from 'react-redux'
-import { initHand } from '../reducers/room/room.actions'
-import { CardRearrangeUpdate } from '../components/Game'
 
 interface HandProps extends WithStyles<typeof styles> {
   holder: Player,

@@ -1,38 +1,37 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { IGlobalState } from '../reducers'
 import { IRoomState } from '../reducers/room/room.reducer'
-import { Card, Player } from '../globalTypes'
+import { IGlobalState } from '../reducers'
+import { initialisePlayers, initSeats } from '../reducers/room/room.actions'
 
-import { initialisePlayers, initSeats, initHand } from '../reducers/room/room.actions'
 interface IProps {
-    room: IRoomState
-    initialisePlayers: (players: string[]) => void
-    initSeats: (turnIdxs: number[]) => void  
+  room: IRoomState
+  initialisePlayers: (players: string[]) => void
+  initSeats: (turnIdxs: number[]) => void
 }
 
 class Room extends Component<IProps> {
-    public componentWillMount(): void {
-        let playerNames: string[] =
-            ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
-        this.props.initialisePlayers(playerNames)
-        this.props.initSeats([1, 3, 2, 4, 0])
-    }
-    public render(): JSX.Element {
-        const { room } = this.props
-        return (
-            <React.Fragment>
-            </React.Fragment>
-        )
-    }
+  public componentWillMount(): void {
+    let playerNames: string[] =
+      ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
+    this.props.initialisePlayers(playerNames)
+    this.props.initSeats([1, 3, 2, 4, 0])
+  }
+  public render(): JSX.Element {
+    const { room } = this.props
+    return (
+      <React.Fragment>
+      </React.Fragment>
+    )
+  }
 }
 
 const mapStateToProps = (state: IGlobalState) => ({
-    room: state.room,
+  room: state.room,
 })
 
 export default connect(mapStateToProps, {
-    initialisePlayers,
-    initSeats,
-    
+  initialisePlayers,
+  initSeats,
+
 })(Room)

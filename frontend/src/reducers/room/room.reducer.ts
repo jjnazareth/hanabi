@@ -1,6 +1,5 @@
 import { RoomAction, RoomActionNames } from './room.actions.type'
-import { GameAction } from '../game/game.actions.type'
-import { Card, DiscardPile, CardColour, CardRank, Player } from '../../globalTypes'
+import { Card, CardColour, CardRank, Player } from '../../globalTypes'
 
 export type Card = {
   idx: number,
@@ -10,12 +9,10 @@ export type Card = {
 
 export interface IRoomState {
   players: Player[]
-  lastDiscard: Card,
 }
 
 const initialState: IRoomState = {
   players: [],
-  lastDiscard: { idx: "", colour: { name: "White", code: "#FFFFFF" }, rank: CardRank.Rank0 },
 }
 
 class inc {
