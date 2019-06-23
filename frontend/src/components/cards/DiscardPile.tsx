@@ -1,11 +1,11 @@
 import React from 'react'
-import { Card } from '../globalTypes'
+import { Card } from '../../globalTypes'
 import 'typeface-roboto'
 import {
   Grid, Paper, Typography, WithStyles, withStyles
 } from '@material-ui/core'
 
-import { styles } from '../Styles'
+import { styles } from '../../Styles'
 
 interface DiscardPileProps extends WithStyles<typeof styles> {
   cards: Card[]

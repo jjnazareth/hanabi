@@ -1,17 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card, Player } from '../globalTypes'
-import { IRoomState } from '../reducers/room/room.reducer';
-import { IGameState } from '../reducers/game/game.reducer';
-import { IGlobalState } from '../reducers'
-import { discardFromHand } from '../reducers/room/room.actions'
-import { addToDiscardPile } from '../reducers/game/game.actions'
-import { CardRearrangeUpdate } from '../components/Game'
+import { Card, Player } from '../../globalTypes'
+import { IRoomState, roomReducer } from '../../reducers/room/room.reducer';
+import { IGameState } from '../../reducers/game/game.reducer';
+import { IGlobalState } from '../../reducers'
+import { discardFromHand, addCardToHand } from '../../reducers/room/room.actions'
+import { addToDiscardPile, removeCardFromDeck } from '../../reducers/game/game.actions'
+import { CardRearrangeUpdate } from '../../components/Game'
 import DiscardPile from './DiscardPile'
 
 import 'typeface-roboto'
 import { Grid, WithStyles, withStyles } from '@material-ui/core'
-import { styles } from '../Styles'
+import { styles } from '../../Styles'
 
 import {
   DropTarget,
@@ -28,6 +28,8 @@ export interface DiscardAreaProps extends WithStyles<typeof styles> {
   game: IGameState
   discardFromHand: (player: Player, card: Card) => void
   addToDiscardPile: (card: Card) => void
+  addCardToHand: (player: Player, card: Card) => void
+  removeCardFromDeck: () => void
   canDrop: boolean
   isOver: boolean
   connectDropTarget: ConnectDropTarget
@@ -52,9 +54,9 @@ const DiscardArea: React.FC<DiscardAreaProps> = ({
       style={{ backgroundColor: colour }}>
       <h3>{isActive ? 'Release to Discard' : 'Discards'}</h3>
       <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
-          {discardPiles.map(({ colour, cards }, i) => (
-            <DiscardPile key={i} cards={cards} />
-          ))}
+        {discardPiles.map(({ colour, cards }, i) => (
+          <DiscardPile key={i} cards={cards} />
+        ))}
       </Grid>
     </div>
   )
@@ -65,11 +67,17 @@ const discardArea = DropTarget(
   dndItemTypes.CARD,
   {
     drop: ((props: DiscardAreaProps, monitor) => {
-      const { setNextTurn, numPlayers, discardFromHand, addToDiscardPile } = props
+      const { setNextTurn, numPlayers, discardFromHand, addToDiscardPile,
+        addCardToHand, game, removeCardFromDeck } = props
 
-      discardFromHand(monitor.getItem().holder,
-        monitor.getItem().card)
-      addToDiscardPile(monitor.getItem().card)
+      let player = monitor.getItem().holder
+      let playerCard = monitor.getItem().card
+      let drawCard = game.drawDeck[0]
+      addCardToHand(player, drawCard)
+      discardFromHand(player, playerCard)
+      addToDiscardPile(playerCard)
+      removeCardFromDeck()
+      
       setNextTurn(numPlayers)
 
     }),
@@ -91,9 +99,11 @@ const mapStateToProps = (state: IGlobalState) => ({
   game: state.game
 })
 
-export default connect(mapStateToProps, 
-  { 
+export default connect(mapStateToProps,
+  {
     discardFromHand,
     addToDiscardPile,
+    addCardToHand,
+    removeCardFromDeck
   })(withStyles(styles)(discardArea))
 

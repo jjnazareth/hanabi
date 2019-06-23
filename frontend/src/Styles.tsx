@@ -2,8 +2,6 @@ import React from 'react'
 import { withStyles, createStyles, Theme, createMuiTheme } from '@material-ui/core'
 import ThemeProvider from "@material-ui/core"
 import 'typeface-roboto'
-import { relative } from 'path';
-
 
 export const styles = (theme : Theme) => createStyles({
   root: {
@@ -14,16 +12,23 @@ export const styles = (theme : Theme) => createStyles({
   },
   hand: {
     margin: 0,
-    padding: 4,
+    padding: 0,
     border: 1,
     spacing: 0,
     backgroundColor: "#F0F4C3"
   },
   buildCards: {
     margin: 0,
-    padding: 4,
+    padding: 0,
     border: 1,
     spacing: 0,
+  },
+  deck: {
+    margin: 0,
+    padding: 0,
+    border: 1,
+    spacing: 0,
+    backgroundColor: "lightGrey" //"#ECD3CA"
   },
   discardPile: {
     position: "relative",
@@ -66,10 +71,13 @@ export const styles = (theme : Theme) => createStyles({
     position: "absolute", right: "2px" 
   },
   cardRankMid : {
-    position: "absolute", top: "20px", left: "20px"
+    position: "absolute", top: "20px", left: "20px",
   },
   cardNo : {
     position: "absolute", bottom: "0px", right: "2px" 
+  },
+  cardDeck : {
+    paddingTop: 20,
   },
   buildArea: {
     marginTop: 0,

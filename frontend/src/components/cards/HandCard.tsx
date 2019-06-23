@@ -1,10 +1,10 @@
 import React, { useImperativeHandle, useRef } from 'react'
-import { Card, Player } from '../globalTypes'
+import { Card, Player } from '../../globalTypes'
 import 'typeface-roboto'
 import {
   Paper, Typography, WithStyles, withStyles
 } from '@material-ui/core'
-import { styles } from '../Styles'
+import { styles } from '../../Styles'
 
 import {
   DragSource,

@@ -1,15 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { IRoomState } from '../reducers/room/room.reducer'
-import { IGlobalState } from '../reducers'
+import { IRoomState } from '../../reducers/room/room.reducer'
+import { IGlobalState } from '../../reducers'
 import BuildArea from './BuildArea'
 import DiscardArea from './DiscardArea'
-import { CardRearrangeUpdate } from '../components/Game'
-import { setNextTurn } from '../reducers/game/game.actions';
+import { CardRearrangeUpdate } from '../../components/Game'
+import { setNextTurn } from '../../reducers/game/game.actions';
 
 import 'typeface-roboto'
 import { Grid, WithStyles, withStyles } from '@material-ui/core'
-import { styles } from '../Styles'
+import { styles } from '../../Styles'
 
 import {
     DropTarget,
@@ -46,7 +46,7 @@ const Table: React.FC<TableProps> = ({
         <div ref={connectDropTarget} className={classes.table}
             style={{ backgroundColor: colour }}>
             <Grid container direction="column" justify="space-around"
-                alignItems="center" >
+                alignItems="flex-start" >
                 <br />
                 <Grid item xs={12}>
                     <BuildArea setNextTurn = {setNextTurn} numPlayers={room.players.length} />
@@ -55,7 +55,6 @@ const Table: React.FC<TableProps> = ({
                 <Grid item xs={12}>
                     <DiscardArea setNextTurn = {setNextTurn} numPlayers={room.players.length}  />
                 </Grid>
-
             </Grid>
         </div > 
     )

@@ -13,7 +13,6 @@ interface BuildCardsProps extends WithStyles<typeof styles> {
 const BuildCards: React.FC<BuildCardsProps> =
   ({ classes, card }) => {
     return (
-
       <Paper className={classes.card}
         style={{
           background:

@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import {
   GameActionNames, SetCurrentTurnIdx, SetNextTurnIdx, SetDealerIdx,
-  AddToDiscardPile, AddToBuildPile
+  AddToDiscardPile, AddToBuildPile, InitDeck, RemoveCardFromDeck
 } from './game.actions.type'
 import { Card } from '../../globalTypes'
 
@@ -18,7 +18,6 @@ export const initGame = (currentTurnIdx: number, dealerIdx: number) =>
   }
 
 export const setNextTurn = (numPlayers: number) =>
-
   (dispatch: Dispatch<SetNextTurnIdx>) => {
     dispatch({
       type: GameActionNames.SET_NEXT_TURN,
@@ -39,6 +38,21 @@ export const addToBuildPile = (card: Card) =>
     dispatch({
       type: GameActionNames.ADD_TO_BUILD_PILE,
       card: card
+    })
+  }
+
+export const initDeck = (cards: Card[]) =>
+  (dispatch: Dispatch<InitDeck>) => {
+    dispatch({
+      type: GameActionNames.INIT_DECK,
+      cards: cards
+    })
+  }
+
+export const removeCardFromDeck = () =>
+  (dispatch: Dispatch<RemoveCardFromDeck>) => {
+    dispatch({
+      type: GameActionNames.REMOVE_CARD_FROM_DECK,
     })
   }
 

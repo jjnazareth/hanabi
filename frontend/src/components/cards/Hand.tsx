@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Card, Player } from '../globalTypes'
+import { Card, Player } from '../../globalTypes'
 import update from 'immutability-helper'
 
-import { initHand } from '../reducers/room/room.actions'
+import { initHand } from '../../reducers/room/room.actions'
 import HandCard from './HandCard'
-import { CardRearrangeUpdate } from '../components/Game'
+import { CardRearrangeUpdate } from '../../components/Game'
 
 import { Grid, WithStyles, withStyles } from '@material-ui/core'
 import 'typeface-roboto'
-import { styles } from '../Styles'
+import { styles } from '../../Styles'
 
 interface HandProps extends WithStyles<typeof styles> {
   holder: Player,
@@ -38,7 +38,6 @@ const Hand: React.FC<HandProps> = (props) => {
     }
 
     const dispatchMove = () => {
-  
       if (CardRearrangeUpdate.toUpdate) {
         props.initHand(holder.turnIdx, CardRearrangeUpdate.cards  )
         CardRearrangeUpdate.toUpdate = false

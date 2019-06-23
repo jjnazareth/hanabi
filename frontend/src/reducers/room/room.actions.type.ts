@@ -5,7 +5,8 @@ export enum RoomActionNames {
     ADD_PLAYER = 'ADD_PLAYER',
     SEAT_PLAYERS = 'SEAT_PLAYERS',
     INIT_HAND = 'INIT_HAND',
-    DISCARD = 'DISCARD'
+    DISCARD = 'DISCARD',
+    DRAW_CARD = 'DRAW_CARD'
 }
 export type AddPlayer = Action<RoomActionNames.ADD_PLAYER> &  {
     name: string
@@ -24,7 +25,11 @@ export type Discard = Action<RoomActionNames.DISCARD> & {
     card: Card
 }
 
+export type AddCard = Action<RoomActionNames.DRAW_CARD> & {
+    player: Player,
+    card: Card
+}
 
-export type RoomAction = AddPlayer | InitHand | SeatPlayers | Discard
+export type RoomAction = AddPlayer | InitHand | SeatPlayers | Discard | AddCard
 
 

@@ -23,7 +23,7 @@ class inc {
 }
 
 
-export function roomReducer (state = initialState, action:  RoomAction) {
+export function roomReducer(state = initialState, action: RoomAction) {
   switch (action.type) {
     case RoomActionNames.ADD_PLAYER:
       return {
@@ -31,7 +31,6 @@ export function roomReducer (state = initialState, action:  RoomAction) {
         players: [...state.players, { name: action.name, playerId: inc.inc(), turnIdx: -1, hand: [] }]
       }
     case RoomActionNames.INIT_HAND:
-
       return {
         ...state, players: state.players.map(p => {
           return { ...p, hand: p.turnIdx == action.turnIdx ? action.cards : p.hand }
@@ -52,20 +51,35 @@ export function roomReducer (state = initialState, action:  RoomAction) {
     case RoomActionNames.DISCARD:
       return {
         ...state,
-        lastDiscard: action.card,
         players:
           state.players.map(p =>
             (
               p.playerId == action.player.playerId ?
                 {
-                  ...action.player,
-                  hand: action.player.hand.filter
-                    (card => card.idx !== action.card.idx)
+                  ...p,
+                  hand: p.hand.filter  (card => card.idx != action.card.idx)
                 }
                 : p
             )
           )
-      }  
+      }
+      
+    case RoomActionNames.DRAW_CARD:
+      return {
+        ...state,
+        players:
+          state.players.map(p =>
+            (
+              p.playerId == action.player.playerId ?
+                {
+                  ...p,
+                  hand: [...p.hand, action.card]
+                }
+                : p
+            )
+          )
+      }
+     
     default:
       return state;
   }

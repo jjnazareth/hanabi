@@ -71,6 +71,16 @@ export function gameReducer(state = initialState, action: GameAction) {
           } : pile
         ))
       }
+    case GameActionNames.INIT_DECK:
+      return {
+        ...state,
+        drawDeck: action.cards
+      }
+    case GameActionNames.REMOVE_CARD_FROM_DECK:
+      return {
+        ...state,
+        drawDeck: [ ... state.drawDeck.slice(1)]
+      }
     default:
       return state
   }

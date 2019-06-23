@@ -14,11 +14,11 @@ export const rootReducer =  combineReducers({
   game: gameReducer
 })
 
-
-export const rootReducer2 = function  ( state : IGlobalState, action : any) {
+/* 
+export const rootReducer = function  ( state : IGlobalState, action : any) {
   return {
-    room : roomReducer(state!.room, <any>action),
-    game : gameReducer(state!.game, <any>action)
+    room : roomReducer(state.room, <any>action),
+    game : gameReducer(state.game, <any>action)
   }
 } 
 
@@ -37,3 +37,4 @@ function crossSliceReducer(state: IGlobalState, action: RoomAction) {
       return state
   }
 }  
+ */
