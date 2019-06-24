@@ -31,7 +31,6 @@ const initialState: IGameState = {
     { colour: "Red", cards: [] },
     { colour: "Multi", cards: [] },
   ]
-
 }
 
 export function gameReducer(state = initialState, action: GameAction) {
@@ -51,7 +50,7 @@ export function gameReducer(state = initialState, action: GameAction) {
         ...state,
         dealerIdx: action.dealerIdx
       }
-    case GameActionNames.ADD_TO_DISCARD_PILE:
+    case GameActionNames.ADD_CARD_TO_DISCARD_PILE:
       return {
         ...state,
         discardPiles: state.discardPiles.map(pile => (
@@ -61,7 +60,7 @@ export function gameReducer(state = initialState, action: GameAction) {
           } : pile
         ))
       }
-    case GameActionNames.ADD_TO_BUILD_PILE:
+    case GameActionNames.ADD_CARD_TO_BUILD_PILE:
       return {
         ...state,
         buildPiles: state.buildPiles.map(pile => (

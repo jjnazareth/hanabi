@@ -4,10 +4,8 @@ import { Card, Player } from '../../globalTypes'
 import { IRoomState } from '../../reducers/room/room.reducer';
 import { IGameState } from '../../reducers/game/game.reducer';
 import { IGlobalState } from '../../reducers'
-import { discardFromHand, addCardToHand } from '../../reducers/room/room.actions'
-import { addToDiscardPile, addToBuildPile,  removeCardFromDeck } from '../../reducers/game/game.actions'
-
 import BuildPile from './BuildPile'
+import { build } from '../../actions'
 
 import 'typeface-roboto'
 import { Grid, WithStyles, withStyles } from '@material-ui/core'
@@ -27,12 +25,7 @@ export interface BuildAreaProps extends WithStyles<typeof styles> {
   setNextTurn: (numPlayers: number) => (void)
   room: IRoomState
   game: IGameState
-  discardFromHand: (player: Player, card: Card) => void
-  addToDiscardPile: (card: Card) => void
-  addToBuildPile: (card: Card) => void
-  addCardToHand: (player: Player, card: Card) => void
-  removeCardFromDeck: () => void
-
+  build: (card: Card, player: Player, deck: Card[]) => void
   canDrop: boolean
   isOver: boolean
   connectDropTarget: ConnectDropTarget
@@ -55,7 +48,7 @@ const BuildArea: React.FC<BuildAreaProps> = ({
   return (
 
     <div ref={connectDropTarget} className={classes.buildArea} style={{ backgroundColor: colour }}>
-    
+
       <h3>{isActive ? 'Release to Place' : 'Build Area'}</h3>
       <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
         {buildPiles.map(({ colour, cards }, i) => (
@@ -71,18 +64,12 @@ const buildArea = DropTarget(
   dndItemTypes.CARD,
   {
     drop: ((props: BuildAreaProps, monitor) => {
-      const { setNextTurn, numPlayers, discardFromHand, addToBuildPile, addCardToHand,
-        game, removeCardFromDeck } = props
+      const { setNextTurn, numPlayers, game, build } = props
 
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
-      let drawCard = game.drawDeck[0]
-      
-      discardFromHand(player, playerCard)
-      addToBuildPile(monitor.getItem().card)
-      addCardToHand(player, drawCard)
-      removeCardFromDeck()
-      
+
+      build(playerCard, player, game.drawDeck)
       setNextTurn(numPlayers)
     }),
     canDrop: ((props: BuildAreaProps, monitor) => {
@@ -103,12 +90,6 @@ const mapStateToProps = (state: IGlobalState) => ({
   game: state.game
 })
 
-export default connect(mapStateToProps,
-  {
-    discardFromHand,
-    addToDiscardPile,
-    addToBuildPile,
-    addCardToHand,
-    removeCardFromDeck
-  
-  })(withStyles(styles)(buildArea))
+export default connect(mapStateToProps, {
+  build
+})(withStyles(styles)(buildArea))

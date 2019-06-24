@@ -1,14 +1,14 @@
 import { Action } from 'redux';
-import { Card } from '../../globalTypes'
+import { Card, Player } from '../../globalTypes'
 
 export enum GameActionNames {
     SET_CURRENT_TURN = 'SET_CURRENT_TURN',
     SET_NEXT_TURN = 'SET_NEXT_TURN',
     SET_DEALER = 'SET_DEALER',
-    ADD_TO_DISCARD_PILE = 'ADD_TO_DISCARD_PILE',
-    ADD_TO_BUILD_PILE = 'ADD_TO_BUILD_PILE',
+    ADD_CARD_TO_DISCARD_PILE = 'ADD_CARD_TO_DISCARD_PILE',
+    ADD_CARD_TO_BUILD_PILE = 'ADD_CARD_TO_BUILD_PILE',
     INIT_DECK = 'INIT_DECK',
-    REMOVE_CARD_FROM_DECK = 'PICK_CARD_FROM_DECK'
+    REMOVE_CARD_FROM_DECK = 'REMOVE_CARD_FROM_DECK'
 }
 
 export type SetCurrentTurnIdx = Action<GameActionNames.SET_CURRENT_TURN> & {
@@ -20,20 +20,25 @@ export type SetNextTurnIdx = Action<GameActionNames.SET_NEXT_TURN> & {
 export type SetDealerIdx = Action<GameActionNames.SET_DEALER> & {
     dealerIdx: number 
 }
+
+
+
 export type InitDeck = Action<GameActionNames.INIT_DECK> & {
     cards: Card[] 
 }
 
-export type AddToDiscardPile = Action<GameActionNames.ADD_TO_DISCARD_PILE> & {
+export type AddCardToDiscardPile = Action<GameActionNames.ADD_CARD_TO_DISCARD_PILE> & {
     card: Card 
 }
 
-export type AddToBuildPile = Action<GameActionNames.ADD_TO_BUILD_PILE> & {
+export type AddCardToBuildPile = Action<GameActionNames.ADD_CARD_TO_BUILD_PILE> & {
     card: Card 
 }
 
-export type RemoveCardFromDeck = Action<GameActionNames.REMOVE_CARD_FROM_DECK> 
-
+export type RemoveCardFromDeck = Action<GameActionNames.REMOVE_CARD_FROM_DECK> & {
+    deck: Card[]
+}
 
 export type GameAction = SetCurrentTurnIdx | SetNextTurnIdx 
-    | SetDealerIdx | InitDeck | AddToDiscardPile | AddToBuildPile | RemoveCardFromDeck
+    | SetDealerIdx | InitDeck
+    | AddCardToDiscardPile | AddCardToBuildPile | RemoveCardFromDeck

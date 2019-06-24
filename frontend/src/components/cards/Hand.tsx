@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
 import update from 'immutability-helper'
 
-import { initHand } from '../../reducers/room/room.actions'
+import { initHand } from '../../actions'
 import HandCard from './HandCard'
 import { CardRearrangeUpdate } from '../../components/Game'
 
@@ -25,14 +25,11 @@ const Hand: React.FC<HandProps> = (props) => {
     const [cards, setCards] = useState(holder.hand)
     useEffect(() => { setCards(holder.hand) }, [holder.hand])
     const moveCard = (dragIndex: number, hoverIndex: number) => {
-
-      console.log ("Drag: " + JSON.stringify(dragIndex) + " Hover: " + JSON.stringify(hoverIndex))
       const dragCard = cards[dragIndex]
       const updatedCards = update(cards, {
         $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
       })
       setCards(updatedCards)
-      console.log (updatedCards.map (c => c.idx))
       CardRearrangeUpdate.set (updatedCards)
       CardRearrangeUpdate.toUpdate = true
     }

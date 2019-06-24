@@ -6,23 +6,18 @@ export type Card = {
   colour: CardColour,
   rank: CardRank
 }
-
 export interface IRoomState {
   players: Player[]
 }
-
 const initialState: IRoomState = {
   players: [],
 }
-
 class inc {
   static count: number = 0;
   static inc(): number {
     return this.count++
   }
 }
-
-
 export function roomReducer(state = initialState, action: RoomAction) {
   switch (action.type) {
     case RoomActionNames.ADD_PLAYER:
@@ -48,7 +43,7 @@ export function roomReducer(state = initialState, action: RoomAction) {
             }
           })
       }
-    case RoomActionNames.DISCARD:
+    case RoomActionNames.REMOVE_CARD_FROM_HAND:
       return {
         ...state,
         players:
@@ -64,7 +59,7 @@ export function roomReducer(state = initialState, action: RoomAction) {
           )
       }
       
-    case RoomActionNames.DRAW_CARD:
+    case RoomActionNames.ADD_CARD_TO_HAND:
       return {
         ...state,
         players:

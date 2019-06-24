@@ -5,7 +5,7 @@ import { IGlobalState } from '../../reducers'
 import BuildArea from './BuildArea'
 import DiscardArea from './DiscardArea'
 import { CardRearrangeUpdate } from '../../components/Game'
-import { setNextTurn } from '../../reducers/game/game.actions';
+import { setNextTurn } from '../../actions';
 
 import 'typeface-roboto'
 import { Grid, WithStyles, withStyles } from '@material-ui/core'
@@ -65,7 +65,7 @@ const table = DropTarget(
     dndItemTypes.CARD,
     {
         drop: ((props: TableProps, monitor) => { 
-            // alert (JSON.stringify(monitor.getItem()))
+            
         }),
         canDrop: ((props: TableProps, monitor)  => {
             return monitor.getItem().isTurn

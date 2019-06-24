@@ -4,10 +4,9 @@ import { Card, Player } from '../../globalTypes'
 import { IRoomState, roomReducer } from '../../reducers/room/room.reducer';
 import { IGameState } from '../../reducers/game/game.reducer';
 import { IGlobalState } from '../../reducers'
-import { discardFromHand, addCardToHand } from '../../reducers/room/room.actions'
-import { addToDiscardPile, removeCardFromDeck } from '../../reducers/game/game.actions'
 import { CardRearrangeUpdate } from '../../components/Game'
 import DiscardPile from './DiscardPile'
+import { discard } from '../../actions'
 
 import 'typeface-roboto'
 import { Grid, WithStyles, withStyles } from '@material-ui/core'
@@ -26,10 +25,7 @@ export interface DiscardAreaProps extends WithStyles<typeof styles> {
   numPlayers: number
   room: IRoomState
   game: IGameState
-  discardFromHand: (player: Player, card: Card) => void
-  addToDiscardPile: (card: Card) => void
-  addCardToHand: (player: Player, card: Card) => void
-  removeCardFromDeck: () => void
+  discard: (card: Card, player: Player, deck: Card[]) => void
   canDrop: boolean
   isOver: boolean
   connectDropTarget: ConnectDropTarget
@@ -67,19 +63,13 @@ const discardArea = DropTarget(
   dndItemTypes.CARD,
   {
     drop: ((props: DiscardAreaProps, monitor) => {
-      const { setNextTurn, numPlayers, discardFromHand, addToDiscardPile,
-        addCardToHand, game, removeCardFromDeck } = props
+      const { setNextTurn, numPlayers, game, discard} = props
 
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
-      let drawCard = game.drawDeck[0]
-      addCardToHand(player, drawCard)
-      discardFromHand(player, playerCard)
-      addToDiscardPile(playerCard)
-      removeCardFromDeck()
-      
+     
+      discard (playerCard, player, game.drawDeck)
       setNextTurn(numPlayers)
-
     }),
 
     canDrop: ((props: DiscardAreaProps, monitor) => {
@@ -101,9 +91,6 @@ const mapStateToProps = (state: IGlobalState) => ({
 
 export default connect(mapStateToProps,
   {
-    discardFromHand,
-    addToDiscardPile,
-    addCardToHand,
-    removeCardFromDeck
+    discard
   })(withStyles(styles)(discardArea))
 
