@@ -8,7 +8,7 @@ import BuildPile from './BuildPile'
 import { build } from '../../actions'
 
 import 'typeface-roboto'
-import { Grid, WithStyles, withStyles } from '@material-ui/core'
+import { Grid, WithStyles, Typography, withStyles } from '@material-ui/core'
 import { styles } from '../../Styles'
 
 import {
@@ -48,8 +48,10 @@ const BuildArea: React.FC<BuildAreaProps> = ({
   return (
 
     <div ref={connectDropTarget} className={classes.buildArea} style={{ backgroundColor: colour }}>
+      <Typography variant="subtitle1" align="center">
+        {isActive ? 'Release to Place' : 'Build Area'}
+      </Typography>
 
-      <h3>{isActive ? 'Release to Place' : 'Build Area'}</h3>
       <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
         {buildPiles.map(({ colour, cards }, i) => (
           <BuildPile key={i} cards={cards} />

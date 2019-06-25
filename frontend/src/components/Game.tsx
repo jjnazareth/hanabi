@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Card, Player } from '../globalTypes'
+import { Card} from '../globalTypes'
 import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
-import { deal } from '../actions'
+import { initGame } from '../actions'
 
 import Table from './cards/Table'
 import Hand from './cards/Hand'
@@ -16,7 +16,8 @@ import { styles } from '../Styles'
 interface IProps extends WithStyles<typeof styles> {
   room: IRoomState
   game: IGameState
-  deal: (players: Player[], dealerIdx: number) => void 
+  initGame: (playerNames: string[], turnIdxs: number[],
+    currentTurnIdx: number, dealerIdx: number) => void
 }
 
 export class CardRearrangeUpdate {
@@ -45,12 +46,15 @@ class Game extends Component<IProps> {
   }
 
   public componentDidMount(): void {
-    const { room, game, deal } = this.props
-    deal(room.players, game.dealerIdx) 
+    let playerNames: string[] =
+      ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
+    let turnIdxs = [1, 3, 2, 4, 0]
+    let [currentTurnIdx, dealerIdx] = [1, 2]
+    this.props.initGame(playerNames, turnIdxs, currentTurnIdx, dealerIdx) 
   }
 
   public render(): JSX.Element {
-    const { classes, room, game  } = this.props
+    const { classes, room, game } = this.props
     return (
       <div style={{ backgroundColor: "lightGrey" }}>
         <Grid container className={classes.gameState} >
@@ -66,7 +70,11 @@ class Game extends Component<IProps> {
         </Grid>
         <Grid container>
           <Grid item xs={4}>
-            {room.players.sort((p, q) => p.turnIdx - q.turnIdx).map((player, i) =>
+            {room.players.sort((p, q) => {
+              const len = room.players.length
+              const fn = (idx: number) => (idx - game.currentTurnIdx + len) % len
+              return fn(p.turnIdx) - fn(q.turnIdx)
+            }).map((player, i) =>
               <div key={i} className={classes.background} >
                 {player.name}
                 <Hand holder={player} isTurn={game.currentTurnIdx == player.turnIdx} />
@@ -88,5 +96,5 @@ const mapStateToProps = (state: IGlobalState) => ({
 })
 
 export default connect(mapStateToProps, {
-  deal
+  initGame
 })(withStyles(styles)(Game))

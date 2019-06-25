@@ -17,8 +17,6 @@ interface HandProps extends WithStyles<typeof styles> {
   initHand: (turnIdx: number, cards: Card[]) => void
 }
 
-
-
 const Hand: React.FC<HandProps> = (props) => {
   {
     const { classes, holder, isTurn } = props

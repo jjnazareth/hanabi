@@ -30,7 +30,7 @@ export const styles = (theme : Theme) => createStyles({
     spacing: 0,
     backgroundColor: "lightGrey" //"#ECD3CA"
   },
-  discardPile: {
+  discardPile: { // used for build also
     position: "relative",
     height: 200,
     width: 70,
@@ -56,7 +56,7 @@ export const styles = (theme : Theme) => createStyles({
     spacing: 0,
     backgroundColor: "lightGrey",
     height: "100%",
-    width: 800,
+    // width: 800,
   }, 
   card: {
     border: '1px solid grey',
@@ -82,20 +82,20 @@ export const styles = (theme : Theme) => createStyles({
   buildArea: {
     marginTop: 0,
     border: '1px solid grey',
-    paddingLeft: 20,
+    paddingRight: 10,
     textAlign: 'left',
     color: 'black',
     height: 250,
-    width: 700,
+    // width: 500,
   },
   discardArea: {
     marginTop: 0,
     border: '1px solid grey',
-    paddingLeft: 20,
+    paddingRight: 10,
     textAlign: 'left',
     color: 'black',
     height: 350,
-    width: 700,
+    // width: 500,
   },
  
 })

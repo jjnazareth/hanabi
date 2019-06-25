@@ -9,7 +9,7 @@ import DiscardPile from './DiscardPile'
 import { discard } from '../../actions'
 
 import 'typeface-roboto'
-import { Grid, WithStyles, withStyles } from '@material-ui/core'
+import { Grid, WithStyles, Typography, withStyles } from '@material-ui/core'
 import { styles } from '../../Styles'
 
 import {
@@ -48,7 +48,10 @@ const DiscardArea: React.FC<DiscardAreaProps> = ({
   return (
     <div ref={connectDropTarget} className={classes.discardArea}
       style={{ backgroundColor: colour }}>
-      <h3>{isActive ? 'Release to Discard' : 'Discards'}</h3>
+        <Typography variant="subtitle1" align="center">
+        {isActive ? 'Release to Discard' : 'Discards'}
+      </Typography>
+
       <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
         {discardPiles.map(({ colour, cards }, i) => (
           <DiscardPile key={i} cards={cards} />

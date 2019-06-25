@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux'
+import { IGlobalState } from './reducers'
 import { Card, CardRank, Player } from './globalTypes'
 import {
   RoomActionNames, AddPlayer, SeatPlayers, InitHand,
@@ -68,7 +69,6 @@ export const build = (card: Card, player: Player, deck: Card[]) =>
       deck: deck
     })
   }
-
 export const initDeck = (cards: Card[]) =>
   (dispatch: Dispatch<InitDeck>) => {
     dispatch({
@@ -77,30 +77,31 @@ export const initDeck = (cards: Card[]) =>
     })
   }
 
-export const initGame = (names: string[], turnIdxs: number[],
+const initPlayers = (names: string[], turnIdxs: number[],
   currentTurnIdx: number, dealerIdx: number) => {
-  return (dispatch: Dispatch<AddPlayer | SeatPlayers | SetCurrentTurnIdx | SetDealerIdx>) => {
-    names.forEach(n => {
-      dispatch({
-        type: RoomActionNames.ADD_PLAYER,
-        name: n
-      })
-      dispatch({
-        type: RoomActionNames.SEAT_PLAYERS,
-        turnIdxs: turnIdxs
-      })
-      dispatch({
-        type: GameActionNames.SET_CURRENT_TURN,
-        currentTurnIdx: currentTurnIdx
-      })
-      dispatch({
-        type: GameActionNames.SET_DEALER,
-        dealerIdx: dealerIdx
-      })
-
-    })
+    return (dispatch: Dispatch<AddPlayer | SeatPlayers | SetCurrentTurnIdx 
+      | SetDealerIdx>) => {
+      names.forEach(n => {
+        dispatch({
+          type: RoomActionNames.ADD_PLAYER,
+          name: n
+        })
+        dispatch({
+          type: RoomActionNames.SEAT_PLAYERS,
+          turnIdxs: turnIdxs
+        })
+        dispatch({
+          type: GameActionNames.SET_CURRENT_TURN,
+          currentTurnIdx: currentTurnIdx
+        })
+        dispatch({
+          type: GameActionNames.SET_DEALER,
+          dealerIdx: dealerIdx
+        })
+      })    
   }
 }
+
 
 export const initHand = (turnIdx: number, cards: Card[]) => {
   return (dispatch: Dispatch<InitHand>) => {
@@ -112,7 +113,7 @@ export const initHand = (turnIdx: number, cards: Card[]) => {
   }
 }
 
-export const initPack = (): Card[] => {
+const initPack = (): Card[] => {
   let arrC = [
     { name: "White", code: "#FFFFFF" },
     { name: "Yellow", code: "#FFCC66" },
@@ -144,7 +145,7 @@ export const initPack = (): Card[] => {
   return pack
 }
 
-export const deal = (players: Player[], dealerIdx: number) => {
+const deal = (players: Player[], dealerIdx: number) => {
   return (dispatch: Dispatch<InitHand | InitDeck>) => {
     const numCardsInHand = (numPlayers: number) => (
       numPlayers < 4 ? 5 : 4
@@ -171,4 +172,12 @@ export const deal = (players: Player[], dealerIdx: number) => {
     })
   }
 } 
-  
+
+export const initGame = (names: string[], turnIdxs: number[],
+  currentTurnIdx: number, dealerIdx: number) => (dispatch: Dispatch<AddPlayer 
+    | SeatPlayers | SetCurrentTurnIdx | SetDealerIdx | InitDeck | InitHand>, 
+      getState : () => IGlobalState) => {
+    initPlayers(names, turnIdxs, currentTurnIdx, dealerIdx) (dispatch)
+    const {room, game} = getState()
+    deal(room.players, game.dealerIdx) (dispatch)
+}
