@@ -14,7 +14,8 @@ class Container extends Component<IProps> {
     let playerNames: string[] =
       ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
     let turnIdxs = [1, 3, 2, 4, 0]
-    let [currentTurnIdx, dealerIdx] = [1, 2]
+    let dealerIdx = 4
+    let currentTurnIdx = (dealerIdx + 1) % playerNames.length
     initGame(playerNames, turnIdxs, currentTurnIdx, dealerIdx)
   }
 
