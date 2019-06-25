@@ -18,8 +18,9 @@ interface HandProps extends WithStyles<typeof styles> {
 }
 
 const Hand: React.FC<HandProps> = (props) => {
-  {
+  { 
     const { classes, holder, isTurn } = props
+    console.log (holder)
     const [cards, setCards] = useState(holder.hand)
     useEffect(() => { setCards(holder.hand) }, [holder.hand])
     const moveCard = (dragIndex: number, hoverIndex: number) => {
@@ -56,10 +57,7 @@ const Hand: React.FC<HandProps> = (props) => {
           </Grid>
         ))}
       </Grid>
-
     )
   }
 }
-
-
 export default connect(null, { initHand })(withStyles(styles)(Hand))
