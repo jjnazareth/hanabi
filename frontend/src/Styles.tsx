@@ -37,7 +37,7 @@ export const styles = (theme : Theme) => createStyles({
   },
   gameState: {
     margin: 0,
-    padding: 8,
+    padding: 2,
     flexDirection: 'row',
     border: 1,
     spacing: 0 ,
@@ -45,7 +45,7 @@ export const styles = (theme : Theme) => createStyles({
   },
   background: {
     margin: 0,
-    padding: 8,
+    padding: 2,
     flexDirection: 'row',
     border: 1,
     spacing: 0 ,
