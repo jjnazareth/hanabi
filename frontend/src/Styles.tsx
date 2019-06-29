@@ -37,7 +37,7 @@ export const styles = (theme : Theme) => createStyles({
   },
   gameState: {
     margin: 0,
-    padding: 2,
+    padding: 0,
     flexDirection: 'row',
     border: 1,
     spacing: 0 ,
@@ -97,7 +97,16 @@ export const styles = (theme : Theme) => createStyles({
     height: 350,
     // width: 500,
   },
- 
+  
+  icon: {
+    margin: theme.spacing(1),
+  },
+  group: {
+    margin: theme.spacing(1, 0),
+  },
+  formControl: {
+    margin: theme.spacing(3),
+  },
 })
 
 export default withStyles(styles) 

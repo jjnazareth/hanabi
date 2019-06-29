@@ -1,3 +1,23 @@
+export type RankHint = {
+    type: "Rank",
+    rank: string,
+    position: number[]
+}
+
+export type ColourHint = {
+    type: "Colour",
+    colour: string,
+    position: number[]
+}
+
+export type HintType = RankHint | ColourHint
+export type HintChoices = {
+    playerName: string,
+    hints: HintType[]
+}
+
+
+
 
 export type Game = {
     drawDeck: Card[]

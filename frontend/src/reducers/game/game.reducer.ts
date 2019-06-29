@@ -78,7 +78,7 @@ export function gameReducer(state = initialState, action: GameAction) {
     case GameActionNames.REMOVE_CARD_FROM_DECK:
       return {
         ...state,
-        drawDeck: [ ... state.drawDeck.slice(1)]
+        drawDeck: state.drawDeck.slice(1)
       }
     default:
       return state

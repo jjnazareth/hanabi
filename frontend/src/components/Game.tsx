@@ -5,9 +5,10 @@ import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import Hand from './cards/Hand'
+import Hint from './cards/Hint'
 import Table from './cards/Table'
 import 'typeface-roboto'
-import { Grid, WithStyles, Typography, withStyles } from '@material-ui/core'
+import { Grid, WithStyles, Typography, Button, withStyles } from '@material-ui/core'
 import { styles } from '../Styles'
 
 export class CardRearrangeUpdate {
@@ -53,19 +54,20 @@ const Game: React.FC<IProps> = ({ classes, room, game }) => {
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item xs={4}>
+        <Grid item xs={5}>
           {room.players.sort((p, q) => {
             const len = room.players.length
             const fn = (idx: number) => (idx - game.currentTurnIdx + len) % len
             return fn(p.turnIdx) - fn(q.turnIdx)
-          }).map((player, i) =>
-            <div key={i} className={classes.background} >
+          }).map((player, i) => {
+             const isTurn = game.currentTurnIdx == player.turnIdx
+             return <div key={i} className={classes.background} >
               <Typography variant="caption">
-                {i == 0 ? (<b>{player.name}</b>) : (player.name)}
+                { isTurn? (<b>{player.name}</b>) : (player.name)}
               </Typography>
-              <Hand holder={player} isTurn={game.currentTurnIdx == player.turnIdx} />
+              <Hand holder={player} isTurn={isTurn} />
             </div>
-          )}
+          })}
         </Grid>
         <Grid item xs={7} className={classes.background}>
           <Table />
