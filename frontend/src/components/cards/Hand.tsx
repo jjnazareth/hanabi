@@ -61,11 +61,6 @@ const Hand: React.FC<HandProps> = (props) => {
             ))}
           </Grid>
           </Grid>
-          <Grid item xs={2}>
-            <Hint holder={holder} isTurn={isTurn}/>
-          </Grid>
-
-
         </Grid>
       </div>
     )

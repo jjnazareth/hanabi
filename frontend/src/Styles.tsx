@@ -107,6 +107,13 @@ export const styles = (theme : Theme) => createStyles({
   formControl: {
     margin: theme.spacing(3),
   },
+  button: {
+    textTransform : "none",
+    margin: 0,
+    padding:0,
+    minHeight: 0,
+    minWidth: 0,
+  }
 })
 
 export default withStyles(styles) 

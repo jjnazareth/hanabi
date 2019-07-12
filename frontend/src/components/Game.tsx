@@ -5,8 +5,10 @@ import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import Hand from './cards/Hand'
-import Hint from './cards/Hint'
 import Table from './cards/Table'
+import ButtonLink from './ButtonLink'
+import Hint from './cards/Hint'
+
 import 'typeface-roboto'
 import { Grid, WithStyles, Typography, Button, withStyles } from '@material-ui/core'
 import { styles } from '../Styles'
@@ -33,7 +35,7 @@ const Game: React.FC<IProps> = ({ classes, room, game }) => {
     let player = room.players.find(p => (p.turnIdx == game.dealerIdx))
     return player ? player.name : "No dealer"
   }
-  
+
   return (
     <div style={{ backgroundColor: "lightGrey" }}>
       <Grid container className={classes.gameState} >
@@ -60,13 +62,13 @@ const Game: React.FC<IProps> = ({ classes, room, game }) => {
             const fn = (idx: number) => (idx - game.currentTurnIdx + len) % len
             return fn(p.turnIdx) - fn(q.turnIdx)
           }).map((player, i) => {
-             const isTurn = game.currentTurnIdx == player.turnIdx
-             return <div key={i} className={classes.background} >
-              <Typography variant="caption">
-                { isTurn? (<b>{player.name}</b>) : (player.name)}
-              </Typography>
-              <Hand holder={player} isTurn={isTurn} />
-            </div>
+            const isTurn = game.currentTurnIdx == player.turnIdx
+            return (
+              <div key={i} className={classes.background} >   
+                <Hint holder={player} isTurn={isTurn} />
+                <Hand holder={player} isTurn={isTurn} />
+              </div>
+            )
           })}
         </Grid>
         <Grid item xs={7} className={classes.background}>
