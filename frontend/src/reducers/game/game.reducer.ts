@@ -1,13 +1,12 @@
-
-import { GameAction, GameActionNames } from './game.actions.type'
-import { Card, CardPile } from '../../globalTypes'
+import { GameAction, GameActionNames } from "./game.actions.type"
+import { Card, CardPile } from "../../globalTypes"
 
 export interface IGameState {
   drawDeck: Card[]
   discardPiles: CardPile[]
   buildPiles: CardPile[]
   currentTurnIdx: number
-  dealerIdx: number,
+  dealerIdx: number
 }
 
 const initialState: IGameState = {
@@ -18,9 +17,8 @@ const initialState: IGameState = {
     { colour: "Green", cards: [] },
     { colour: "Blue", cards: [] },
     { colour: "Red", cards: [] },
-    { colour: "Multi", cards: [] },
-  ]
-  ,
+    { colour: "Multi", cards: [] }
+  ],
   currentTurnIdx: -1,
   dealerIdx: -1,
   discardPiles: [
@@ -29,7 +27,7 @@ const initialState: IGameState = {
     { colour: "Green", cards: [] },
     { colour: "Blue", cards: [] },
     { colour: "Red", cards: [] },
-    { colour: "Multi", cards: [] },
+    { colour: "Multi", cards: [] }
   ]
 }
 
@@ -53,22 +51,30 @@ export function gameReducer(state = initialState, action: GameAction) {
     case GameActionNames.ADD_CARD_TO_DISCARD_PILE:
       return {
         ...state,
-        discardPiles: state.discardPiles.map(pile => (
-          pile.colour == action.card.colour.name ? {
-            colour: pile.colour, cards:
-              [...pile.cards, action.card].sort((x, y) => +x.rank - +y.rank)
-          } : pile
-        ))
+        discardPiles: state.discardPiles.map((pile) =>
+          pile.colour == action.card.colour.name
+            ? {
+                colour: pile.colour,
+                cards: [...pile.cards, action.card].sort(
+                  (x, y) => +x.rank - +y.rank
+                )
+              }
+            : pile
+        )
       }
     case GameActionNames.ADD_CARD_TO_BUILD_PILE:
       return {
         ...state,
-        buildPiles: state.buildPiles.map(pile => (
-          pile.colour == action.card.colour.name ? {
-            colour: pile.colour, cards:
-              [...pile.cards, action.card].sort((x, y) => +x.rank - +y.rank)
-          } : pile
-        ))
+        buildPiles: state.buildPiles.map((pile) =>
+          pile.colour == action.card.colour.name
+            ? {
+                colour: pile.colour,
+                cards: [...pile.cards, action.card].sort(
+                  (x, y) => +x.rank - +y.rank
+                )
+              }
+            : pile
+        )
       }
     case GameActionNames.INIT_DECK:
       return {

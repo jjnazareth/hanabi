@@ -1,19 +1,14 @@
-import { RoomAction, RoomActionNames } from './room.actions.type'
-import { Card, CardColour, CardRank, Player } from '../../globalTypes'
+import { RoomAction, RoomActionNames } from "./room.actions.type"
+import { Player } from "../../globalTypes"
 
-export type Card = {
-  idx: number,
-  colour: CardColour,
-  rank: CardRank
-}
 export interface IRoomState {
   players: Player[]
 }
 const initialState: IRoomState = {
-  players: [],
+  players: []
 }
 class inc {
-  static count: number = 0;
+  static count: number = 0
   static inc(): number {
     return this.count++
   }
@@ -23,61 +18,59 @@ export function roomReducer(state = initialState, action: RoomAction) {
     case RoomActionNames.ADD_PLAYER:
       return {
         ...state,
-        players: [...state.players, { name: action.name, playerId: inc.inc(), turnIdx: -1, hand: [] }]
+        players: [
+          ...state.players,
+          { name: action.name, playerId: inc.inc(), turnIdx: -1, hand: [] }
+        ]
       }
     case RoomActionNames.INIT_HAND:
       return {
-        ...state, players: state.players.map(p => {
-          return { ...p, hand: p.turnIdx == action.turnIdx ? action.cards : p.hand }
+        ...state,
+        players: state.players.map((p) => {
+          return {
+            ...p,
+            hand: p.turnIdx == action.turnIdx ? action.cards : p.hand
+          }
           // index of player with the required turn index
         })
       }
     case RoomActionNames.SEAT_PLAYERS:
       return {
         ...state,
-        players:
-          state.players.map((p, i) => {
-            return {
-              ...p,
-              turnIdx: action.turnIdxs[i]
-            }
-          })
+        players: state.players.map((p, i) => {
+          return {
+            ...p,
+            turnIdx: action.turnIdxs[i]
+          }
+        })
       }
     case RoomActionNames.REMOVE_CARD_FROM_HAND:
       return {
         ...state,
-        players:
-          state.players.map(p =>
-            (
-              p.playerId == action.player.playerId ?
-                {
-                  ...p,
-                  hand: p.hand.filter  (card => card.idx != action.card.idx)
-                }
-                : p
-            )
-          )
+        players: state.players.map((p) =>
+          p.playerId == action.player.playerId
+            ? {
+                ...p,
+                hand: p.hand.filter((card) => card.idx != action.card.idx)
+              }
+            : p
+        )
       }
-      
+
     case RoomActionNames.ADD_CARD_TO_HAND:
       return {
         ...state,
-        players:
-          state.players.map(p =>
-            (
-              p.playerId == action.player.playerId ?
-                {
-                  ...p,
-                  hand: [...p.hand, action.card]
-                }
-                : p
-            )
-          )
+        players: state.players.map((p) =>
+          p.playerId == action.player.playerId
+            ? {
+                ...p,
+                hand: [...p.hand, action.card]
+              }
+            : p
+        )
       }
-     
+
     default:
-      return state;
+      return state
   }
-
 }
-

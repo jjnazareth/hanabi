@@ -6,27 +6,27 @@ import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import Hand from './cards/Hand'
 import Table from './cards/Table'
-import ButtonLink from './ButtonLink'
 import Hint from './cards/Hint'
 
 import 'typeface-roboto'
-import { Grid, WithStyles, Typography, Button, withStyles } from '@material-ui/core'
-import { styles } from '../Styles'
+import { Grid, Typography } from '@material-ui/core'
+import { useStyles } from '../Styles'
 
 export class CardRearrangeUpdate {
-  static cards: Card[];
+  static cards: Card[]
   static toUpdate: boolean = false
   static set(cards: Card[]) {
     this.cards = cards
   }
 }
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   room: IRoomState
   game: IGameState
 }
 
-const Game: React.FC<IProps> = ({ classes, room, game }) => {
+const Game: React.FC<IProps> = ({ room, game }) => {
+  const classes = useStyles()
   const currentPlayerName = () => {
     let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
     return player ? player.name : "No person"
@@ -64,7 +64,7 @@ const Game: React.FC<IProps> = ({ classes, room, game }) => {
           }).map((player, i) => {
             const isTurn = game.currentTurnIdx == player.turnIdx
             return (
-              <div key={i} className={classes.background} >   
+              <div key={i} className={classes.background} >
                 <Hint holder={player} isTurn={isTurn} />
                 <Hand holder={player} isTurn={isTurn} />
               </div>
@@ -86,4 +86,4 @@ const mapStateToProps = (state: IGlobalState) => ({
 
 export default connect(mapStateToProps, {
 
-})(withStyles(styles)(Game))
+})(Game)

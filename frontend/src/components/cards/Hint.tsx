@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import { CardRank, Player, HintChoices, RankHint, ColourHint } from '../../globalTypes'
-import { WithStyles, withStyles, Icon, IconButton, Button } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import 'typeface-roboto'
-import { styles } from '../../Styles'
+import { useStyles } from '../../Styles'
 
 import HintDialog from './HintDialog'
-import ButtonLink from '../ButtonLink'
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   holder: Player
   isTurn: boolean
 }
 
-const Hint: React.FC<IProps> = ({ classes, holder, isTurn }) => {
-
+const Hint: React.FC<IProps> = ({ holder, isTurn }) => {
+  const classes = useStyles()
   let cardsWithPos = holder.hand.map((c, i) => ({ ...c, position: i }))
   let rankHints: RankHint[] =
     [CardRank.Rank1, CardRank.Rank2, CardRank.Rank3, CardRank.Rank4, CardRank.Rank5]
@@ -63,4 +62,4 @@ const Hint: React.FC<IProps> = ({ classes, holder, isTurn }) => {
     </div>
   )
 }
-export default (withStyles(styles)(Hint))
+export default (Hint)

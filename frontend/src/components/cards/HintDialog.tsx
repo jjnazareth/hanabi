@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { HintType, HintChoices} from '../../globalTypes'
+import { HintType, HintChoices } from '../../globalTypes'
 
-import { WithStyles, withStyles } from '@material-ui/core'
 import 'typeface-roboto'
-import { styles } from '../../Styles'
+import { useStyles } from '../../Styles'
 import {
   Button, Dialog, DialogTitle, DialogContent, DialogActions,
   Radio, RadioGroup, FormControlLabel
-} from '@material-ui/core';
+} from '@material-ui/core'
 
 
-
-
-interface IProps extends WithStyles<typeof styles> {
-  hintChoices : HintChoices
+interface IProps {
+  hintChoices: HintChoices
   keepMounted: boolean,
   value: string
   open: boolean,
@@ -21,13 +18,14 @@ interface IProps extends WithStyles<typeof styles> {
 }
 
 const HintDialog: React.FC<IProps> = (props) => {
-  const { classes, hintChoices, onClose, value: inputValue, open, ...other } = props;
-  const [value, setValue] = React.useState(inputValue);
-  const radioGroupRef = React.useRef<HTMLElement>(null);
-  
+  const classes = useStyles()
+  const { hintChoices, onClose, value: inputValue, open, ...other } = props
+  const [value, setValue] = React.useState(inputValue)
+  const radioGroupRef = React.useRef<HTMLElement>(null)
+
   function handleEntering() {
     if (radioGroupRef.current != null) {
-      radioGroupRef.current.focus();
+      radioGroupRef.current.focus()
     }
   }
   const handleCancel = () => {
@@ -38,11 +36,11 @@ const HintDialog: React.FC<IProps> = (props) => {
   }
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    setValue(newValue);
+    setValue(newValue)
   }
-  const hintToText = (hint : HintType) => {
-    switch (hint.type ) {
-      case "Rank" :
+  const hintToText = (hint: HintType) => {
+    switch (hint.type) {
+      case "Rank":
         return `You have "${hint.rank}" in position: ${hint.position}`
       case "Colour":
         return `You have "${hint.colour}" in position: ${hint.position}`
@@ -78,4 +76,4 @@ const HintDialog: React.FC<IProps> = (props) => {
   )
 }
 
-export default (withStyles(styles)(HintDialog))
+export default (HintDialog)

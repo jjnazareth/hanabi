@@ -1,15 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
-import { IRoomState } from '../../reducers/room/room.reducer';
-import { IGameState } from '../../reducers/game/game.reducer';
+import { IRoomState } from '../../reducers/room/room.reducer'
+import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
 import BuildPile from './BuildPile'
 import { build } from '../../actions'
 
+
 import 'typeface-roboto'
-import { Grid, WithStyles, Typography, withStyles } from '@material-ui/core'
-import { styles } from '../../Styles'
+import { Grid, Typography } from '@material-ui/core'
+import { useStyles } from '../../Styles'
 
 import {
   DropTarget,
@@ -19,8 +20,7 @@ import {
 } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 
-
-export interface BuildAreaProps extends WithStyles<typeof styles> {
+interface BuildAreaProps {
   numPlayers: number
   setNextTurn: (numPlayers: number) => (void)
   room: IRoomState
@@ -37,10 +37,9 @@ const BuildArea: React.FC<BuildAreaProps> = ({
   game,
   canDrop,
   isOver,
-  connectDropTarget,
-  classes
-}) => {
+  connectDropTarget, }) => {
 
+  const classes = useStyles()
   const isActive = canDrop && isOver
   let colour = isActive ? '#AED581' : '#DCEDC8'
   const { buildPiles } = game
@@ -94,4 +93,4 @@ const mapStateToProps = (state: IGlobalState) => ({
 
 export default connect(mapStateToProps, {
   build
-})(withStyles(styles)(buildArea))
+})(buildArea)

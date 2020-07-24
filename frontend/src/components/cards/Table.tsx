@@ -5,11 +5,11 @@ import { IGlobalState } from '../../reducers'
 import BuildArea from './BuildArea'
 import DiscardArea from './DiscardArea'
 import { CardRearrangeUpdate } from '../../components/Game'
-import { setNextTurn } from '../../actions';
+import { setNextTurn } from '../../actions'
 
 import 'typeface-roboto'
-import { Grid, WithStyles, withStyles } from '@material-ui/core'
-import { styles } from '../../Styles'
+import { Grid } from '@material-ui/core'
+import { useStyles } from '../../Styles'
 
 import {
   DropTarget,
@@ -19,7 +19,7 @@ import {
 } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 
-export interface TableProps extends WithStyles<typeof styles> {
+export interface TableProps {
   room: IRoomState
   setNextTurn: (numPlayers: number) => (void)
   canDrop: boolean
@@ -33,9 +33,9 @@ const Table: React.FC<TableProps> = ({
   canDrop,
   isOver,
   connectDropTarget,
-  classes
-}) => {
 
+}) => {
+  const classes = useStyles()
   // inhibit update of card rearrangement
   CardRearrangeUpdate.toUpdate = false
 
@@ -83,4 +83,4 @@ const mapStateToProps = (state: IGlobalState) => ({
   room: state.room,
 })
 
-export default connect(mapStateToProps, { setNextTurn })(withStyles(styles)(table))
+export default connect(mapStateToProps, { setNextTurn })(table)
