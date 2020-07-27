@@ -1,16 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
-import { IRoomState, roomReducer } from '../../reducers/room/room.reducer';
-import { IGameState } from '../../reducers/game/game.reducer';
+import { IRoomState, roomReducer } from '../../reducers/room/room.reducer'
+import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
 import { CardRearrangeUpdate } from '../../components/Game'
 import DiscardPile from './DiscardPile'
 import { discard } from '../../actions'
 
 import 'typeface-roboto'
-import { Grid, WithStyles, Typography, withStyles } from '@material-ui/core'
-import { styles } from '../../Styles'
+import { Grid, Typography } from '@material-ui/core'
+import { useStyles } from '../../Styles'
 
 import {
   DropTarget,
@@ -20,7 +20,7 @@ import {
 } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 
-export interface DiscardAreaProps extends WithStyles<typeof styles> {
+export interface DiscardAreaProps {
   setNextTurn: (numPlayers: number) => (void)
   numPlayers: number
   room: IRoomState
@@ -39,16 +39,16 @@ const DiscardArea: React.FC<DiscardAreaProps> = ({
   canDrop,
   isOver,
   connectDropTarget,
-  classes
-}) => {
 
+}) => {
+  const classes = useStyles()
   const isActive = canDrop && isOver
   let colour = isActive ? '#FF7043' : '#FCE4EC'
   const { discardPiles } = game
   return (
     <div ref={connectDropTarget} className={classes.discardArea}
       style={{ backgroundColor: colour }}>
-        <Typography variant="subtitle1" align="center">
+      <Typography variant="subtitle1" align="center">
         {isActive ? 'Release to Discard' : 'Discards'}
       </Typography>
 
@@ -66,12 +66,12 @@ const discardArea = DropTarget(
   dndItemTypes.CARD,
   {
     drop: ((props: DiscardAreaProps, monitor) => {
-      const { setNextTurn, numPlayers, game, discard} = props
+      const { setNextTurn, numPlayers, game, discard } = props
 
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
-     
-      discard (playerCard, player, game.drawDeck)
+
+      discard(playerCard, player, game.drawDeck)
       setNextTurn(numPlayers)
     }),
 
@@ -95,5 +95,5 @@ const mapStateToProps = (state: IGlobalState) => ({
 export default connect(mapStateToProps,
   {
     discard
-  })(withStyles(styles)(discardArea))
+  })(discardArea)
 

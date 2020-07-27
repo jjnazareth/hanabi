@@ -1,7 +1,14 @@
-import { RoomActionNames } from './room.actions.type'
-import { Card, Player } from '../../globalTypes'
+import { RoomActionNames } from "./room.actions.type"
+import { Card, Player } from "../../globalTypes"
 
 // ---------------- action creators -----------------------
+
+export function loginPlayer(playerName: string) {
+  return {
+    type: RoomActionNames.ADD_PLAYER,
+    playerName: playerName
+  }
+}
 export function addPlayer(playerName: string) {
   return {
     type: RoomActionNames.ADD_PLAYER,

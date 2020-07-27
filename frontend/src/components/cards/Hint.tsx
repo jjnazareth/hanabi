@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { CardRank, Player, HintChoices, RankHint, ColourHint } from '../../globalTypes'
-import { WithStyles, withStyles, Icon, IconButton } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import 'typeface-roboto'
-import { styles } from '../../Styles'
+import { useStyles } from '../../Styles'
 
 import HintDialog from './HintDialog'
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   holder: Player
   isTurn: boolean
 }
 
-const Hint: React.FC<IProps> = ({ classes, holder, isTurn }) => {
-
+const Hint: React.FC<IProps> = ({ holder, isTurn }) => {
+  const classes = useStyles()
   let cardsWithPos = holder.hand.map((c, i) => ({ ...c, position: i }))
   let rankHints: RankHint[] =
     [CardRank.Rank1, CardRank.Rank2, CardRank.Rank3, CardRank.Rank4, CardRank.Rank5]
@@ -41,7 +41,8 @@ const Hint: React.FC<IProps> = ({ classes, holder, isTurn }) => {
   const [value, setValue] = useState("")
 
   const handleClickOpen = () => {
-    setOpen(true)
+    if (!isTurn)
+      setOpen(true)
   }
   const handleClose = (newValue?: string) => {
     setOpen(false)
@@ -49,19 +50,16 @@ const Hint: React.FC<IProps> = ({ classes, holder, isTurn }) => {
       setValue(newValue)
     }
   }
+  return (
+    <div>
+      <Button size="small" className={classes.button} onClick={handleClickOpen}>
+        {holder.name}
+      </Button>
 
-  if (isTurn)
-    return <div />
-  else
-    return (
-      <div>
-        <IconButton color="primary" size="small" className={classes.icon} onClick={handleClickOpen}>
-          <Icon>?</Icon>
-        </IconButton>
-        <HintDialog keepMounted={true} open={open} onClose={handleClose} value={""}
-          hintChoices={hintChoices} />
-        {value && alert(value)}
-      </div>
-    )
+      <HintDialog keepMounted={true} open={open} onClose={handleClose} value={""}
+        hintChoices={hintChoices} />
+      {value && alert(value)}
+    </div>
+  )
 }
-export default (withStyles(styles)(Hint))
+export default (Hint)

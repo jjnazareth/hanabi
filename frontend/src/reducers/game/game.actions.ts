@@ -1,6 +1,5 @@
-
-import { GameActionNames } from './game.actions.type'
-import { Card } from '../../globalTypes'
+import { GameActionNames } from "./game.actions.type"
+import { Card } from "../../globalTypes"
 
 // ---------------- action creators -----------------------
 export function setCurrentTurnIdx(idx: number) {
@@ -22,20 +21,16 @@ export function addCardToDiscardPile(card: Card) {
   }
 }
 
-export function addCardToBuildPile (card: Card) {
+export function addCardToBuildPile(card: Card) {
   return {
     type: GameActionNames.ADD_CARD_TO_BUILD_PILE,
     card: card
-  }  
+  }
 }
 
-export function removeCardFromDeck (deck : Card[]) {
+export function removeCardFromDeck(deck: Card[]) {
   return {
     type: GameActionNames.REMOVE_CARD_FROM_DECK,
     deck: deck
-  }  
+  }
 }
-
-
-
-

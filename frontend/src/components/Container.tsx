@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Game from './Game'
 import { initGame } from '../actions'
+import { useEffect } from 'react'
+import Login from './Login'
+import { Fragment } from 'react'
 
 interface IProps {
   initGame: (playerNames: string[], turnIdxs: number[],
@@ -9,6 +12,7 @@ interface IProps {
 }
 
 class Container extends Component<IProps> {
+
   public componentDidMount(): void {
     const { initGame } = this.props
     let playerNames: string[] =
@@ -21,9 +25,13 @@ class Container extends Component<IProps> {
 
   public render(): JSX.Element {
     return (
-      <Game></Game>
+      <Fragment>
+        <Game></Game>
+      </Fragment>
     )
   }
+
 }
 
 export default connect(null, { initGame })(Container)
+

@@ -1,34 +1,27 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Typography } from '@material-ui/core'
-import { withStyles } from '@material-ui/core'
-import { styles } from '../Styles'
-import { Grid, WithStyles } from '@material-ui/core'
-import IconButton from '@material-ui/core/Icon'
-import AccountCircle from '@material-ui/core/Icon'
-import {Menu }from '@material-ui/core'
+import React, { useState, ChangeEvent } from 'react'
+import { AppBar, Toolbar, Typography, IconButton, Button, MenuItem, FormControl, InputLabel, Select } from '@material-ui/core'
+import { useStyles } from '../Styles'
+import MenuIcon from '@material-ui/icons/Menu'
 
-interface NavBarProps extends WithStyles<typeof styles> {
 
+interface NavBarProps {
 }
 
-const NavBar: React.FC<NavBarProps> =
-  ({ classes }) => {
-    const handleMenu = () => {}
-    const anchorEl = () => {}
-    return (
-      <div>
-        <AppBar position="static">
-          <Typography /* type="title"  */ color="inherit" className={classes.root}>
-            React Material UI Example
-            </Typography>
-          
-          <Toolbar>
-
-          </Toolbar>
-        </AppBar>
-      </div>
-    )
-  }
-export default withStyles(styles)(NavBar)
+export const NavBar: React.FC<NavBarProps> = () => {
+  const classes = useStyles()
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Hanabi
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  )
+}

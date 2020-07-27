@@ -2,9 +2,9 @@ import React, { useImperativeHandle, useRef } from 'react'
 import { Card, Player } from '../../globalTypes'
 import 'typeface-roboto'
 import {
-  Paper, Typography, WithStyles, withStyles
+  Paper, Typography
 } from '@material-ui/core'
-import { styles } from '../../Styles'
+import { useStyles } from '../../Styles'
 
 import {
   DragSource,
@@ -21,7 +21,7 @@ import { dndItemTypes } from './itemTypes'
 import { XYCoord } from 'dnd-core'
 
 
-interface HandCardProps extends WithStyles<typeof styles> {
+interface HandCardProps {
   moveCard: (dragIndex: number, hoverIndex: number) => void
   dispatchMove: () => (void)
   holder: Player
@@ -40,9 +40,10 @@ interface CardInstance {
 }
 
 const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
-  ({ classes, card, index, isTurn, numCards, isDragging,
+  ({ card, index, isTurn, numCards, isDragging,
     connectDragSource, connectDropTarget }, ref) => {
 
+    const classes = useStyles()
     const elementRef = useRef(null)
     connectDragSource(elementRef)
     connectDropTarget(elementRef)
@@ -187,4 +188,4 @@ const handCard = DropTarget(
   )(HandCard),
 )
 
-export default withStyles(styles)(handCard)
+export default (handCard)

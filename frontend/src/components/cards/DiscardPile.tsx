@@ -2,17 +2,18 @@ import React from 'react'
 import { Card } from '../../globalTypes'
 import 'typeface-roboto'
 import {
-  Grid, Paper, Typography, WithStyles, withStyles
+  Grid, Paper, Typography
 } from '@material-ui/core'
 
-import { styles } from '../../Styles'
+import { useStyles } from '../../Styles'
 
-interface DiscardPileProps extends WithStyles<typeof styles> {
+interface DiscardPileProps {
   cards: Card[]
 }
 
 const DiscardPile: React.FC<DiscardPileProps> =
-  ({ cards, classes }) => {
+  ({ cards }) => {
+    const classes = useStyles()
     return (
       <Grid item>
         <Grid container className={classes.discardPile}>
@@ -40,4 +41,4 @@ const DiscardPile: React.FC<DiscardPileProps> =
     )
   }
 
-export default (withStyles(styles)(DiscardPile))
+export default (DiscardPile)
