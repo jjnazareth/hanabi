@@ -1,5 +1,5 @@
 import { GameActionNames } from "./game.actions.type"
-import { Card } from "../../globalTypes"
+import { Card, PlayerHint } from "../../globalTypes"
 
 // ---------------- action creators -----------------------
 export function setCurrentTurnIdx(idx: number) {
@@ -32,5 +32,12 @@ export function removeCardFromDeck(deck: Card[]) {
   return {
     type: GameActionNames.REMOVE_CARD_FROM_DECK,
     deck: deck
+  }
+}
+
+export function giveHint(playerHint: PlayerHint) {
+  return {
+    type: GameActionNames.GIVE_HINT,
+    playerHint: playerHint
   }
 }

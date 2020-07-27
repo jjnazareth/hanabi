@@ -10,10 +10,16 @@ export type ColourHint = {
   position: number[]
 }
 
-export type HintType = RankHint | ColourHint
+export type RCHint = RankHint | ColourHint
 export type HintChoices = {
-  playerName: string
-  hints: HintType[]
+  player: Player
+  hints: RCHint[]
+}
+
+export type PlayerHint = {
+  fromPlayer: Player
+  toPlayer: Player
+  hintToString: string
 }
 
 export type Game = {

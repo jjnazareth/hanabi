@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
-import { CardRank, Player, HintChoices, RankHint, ColourHint } from '../../globalTypes'
+import { CardRank, Player, HintChoices, RankHint, ColourHint, PlayerHint } from '../../globalTypes'
 import { Button } from '@material-ui/core'
 import 'typeface-roboto'
 import { useStyles } from '../../Styles'
 
 import HintDialog from './HintDialog'
+import { connect } from 'react-redux'
+import { giveHint } from '../../actions'
 
 interface IProps {
   holder: Player
   isTurn: boolean
+  giveHint: (playerHint: PlayerHint) => void
 }
 
-const Hint: React.FC<IProps> = ({ holder, isTurn }) => {
+const Hint: React.FC<IProps> = ({ holder, isTurn, giveHint }) => {
   const classes = useStyles()
   let cardsWithPos = holder.hand.map((c, i) => ({ ...c, position: i }))
   let rankHints: RankHint[] =
@@ -34,21 +37,22 @@ const Hint: React.FC<IProps> = ({ holder, isTurn }) => {
       })).filter(obj => obj.position.length > 0)
 
   const hintChoices: HintChoices = {
-    playerName: holder.name, hints: [...rankHints, ...colourHints]
+    player: holder, hints: [...rankHints, ...colourHints]
   }
 
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
 
   const handleClickOpen = () => {
-    if (!isTurn)
-      setOpen(true)
+    if (!isTurn) setOpen(true)
   }
   const handleClose = (newValue?: string) => {
+
     setOpen(false)
-    if (newValue) {
-      setValue(newValue)
-    }
+    if (newValue) setValue(newValue)
+    // send hint. Still have to supply the player on turn!
+    giveHint({ fromPlayer: holder, toPlayer: holder, hintToString: newValue as string })
+
   }
   return (
     <div>
@@ -58,8 +62,10 @@ const Hint: React.FC<IProps> = ({ holder, isTurn }) => {
 
       <HintDialog keepMounted={true} open={open} onClose={handleClose} value={""}
         hintChoices={hintChoices} />
-      {value && alert(value)}
     </div>
+
   )
 }
-export default (Hint)
+export default connect(null, { giveHint })(Hint)
+
+

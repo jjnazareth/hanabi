@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { IGlobalState } from "./reducers"
-import { Card, CardRank, Player } from "./globalTypes"
+import { Card, CardRank, Player, PlayerHint } from "./globalTypes"
 import {
   RoomActionNames,
   LoginPlayer,
@@ -19,7 +19,8 @@ import {
   InitDeck,
   AddCardToDiscardPile,
   AddCardToBuildPile,
-  RemoveCardFromDeck
+  RemoveCardFromDeck,
+  GiveHint
 } from "./reducers/game/game.actions.type"
 
 export const setNextTurn = (numPlayers: number) => (
@@ -227,4 +228,12 @@ export const loginPlayer = (playerName: string) => (
   dispatch({
     type: RoomActionNames.LOGIN_PLAYER,
     name: playerName
+  })
+
+export const giveHint = (playerHint: PlayerHint) => (
+  dispatch: Dispatch<GiveHint>
+) =>
+  dispatch({
+    type: GameActionNames.GIVE_HINT,
+    playerHint: playerHint
   })

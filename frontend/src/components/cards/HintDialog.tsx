@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { HintType, HintChoices } from '../../globalTypes'
+import { HintChoices, RCHint } from '../../globalTypes'
 
 import 'typeface-roboto'
 import { useStyles } from '../../Styles'
@@ -38,7 +38,7 @@ const HintDialog: React.FC<IProps> = (props) => {
   const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setValue(newValue)
   }
-  const hintToText = (hint: HintType) => {
+  const hintToText = (hint: RCHint) => {
     switch (hint.type) {
       case "Rank":
         return `You have "${hint.rank}" in position: ${hint.position}`
@@ -53,7 +53,7 @@ const HintDialog: React.FC<IProps> = (props) => {
     <Dialog disableBackdropClick disableEscapeKeyDown maxWidth="xs"
       onEntering={handleEntering} aria-labelledby="confirmation-dialog-title"
       open={open} {...other} >
-      <DialogTitle id="confirmation-dialog-title">{hintChoices.playerName}</DialogTitle>
+      <DialogTitle id="confirmation-dialog-title">{hintChoices.player.name}</DialogTitle>
       <DialogContent dividers>
         <RadioGroup
           ref={radioGroupRef} aria-label=""

@@ -85,6 +85,7 @@ const Game: React.FC<IProps> = ({ room, game }) => {
           <Table />
         </Grid>
       </Grid>
+      {console.log(game.hints)}
     </div>
   )
 }

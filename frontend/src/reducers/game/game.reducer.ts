@@ -1,12 +1,13 @@
 import { GameAction, GameActionNames } from "./game.actions.type"
-import { Card, CardPile } from "../../globalTypes"
+import { Card, CardPile, PlayerHint } from "../../globalTypes"
 
 export interface IGameState {
   drawDeck: Card[]
-  discardPiles: CardPile[]
   buildPiles: CardPile[]
+  discardPiles: CardPile[]
   currentTurnIdx: number
   dealerIdx: number
+  hints: PlayerHint[]
 }
 
 const initialState: IGameState = {
@@ -19,8 +20,6 @@ const initialState: IGameState = {
     { colour: "Red", cards: [] },
     { colour: "Multi", cards: [] }
   ],
-  currentTurnIdx: -1,
-  dealerIdx: -1,
   discardPiles: [
     { colour: "White", cards: [] },
     { colour: "Yellow", cards: [] },
@@ -28,7 +27,10 @@ const initialState: IGameState = {
     { colour: "Blue", cards: [] },
     { colour: "Red", cards: [] },
     { colour: "Multi", cards: [] }
-  ]
+  ],
+  currentTurnIdx: -1,
+  dealerIdx: -1,
+  hints: []
 }
 
 export function gameReducer(state = initialState, action: GameAction) {
@@ -85,6 +87,11 @@ export function gameReducer(state = initialState, action: GameAction) {
       return {
         ...state,
         drawDeck: state.drawDeck.slice(1)
+      }
+    case GameActionNames.GIVE_HINT:
+      return {
+        ...state,
+        hints: [...state.hints, action.playerHint]
       }
     default:
       return state
