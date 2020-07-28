@@ -6,15 +6,16 @@ import { useStyles } from '../../Styles'
 
 import HintDialog from './HintDialog'
 import { connect } from 'react-redux'
-import { giveHint } from '../../actions'
+import { giveHint, setNextTurn } from '../../actions'
 
 interface IProps {
   holder: Player
   isTurn: boolean
   giveHint: (playerHint: PlayerHint) => void
+  setNextTurn: () => void
 }
 
-const Hint: React.FC<IProps> = ({ holder, isTurn, giveHint }) => {
+const Hint: React.FC<IProps> = ({ holder, isTurn, giveHint, setNextTurn }) => {
   const classes = useStyles()
   let cardsWithPos = holder.hand.map((c, i) => ({ ...c, position: i }))
   let rankHints: RankHint[] =
@@ -52,7 +53,7 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, giveHint }) => {
     if (newValue) setValue(newValue)
     // send hint. Still have to supply the player on turn!
     giveHint({ fromPlayer: holder, toPlayer: holder, hintToString: newValue as string })
-
+    setNextTurn()
   }
   return (
     <div>
@@ -66,6 +67,6 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, giveHint }) => {
 
   )
 }
-export default connect(null, { giveHint })(Hint)
+export default connect(null, { giveHint, setNextTurn })(Hint)
 
 

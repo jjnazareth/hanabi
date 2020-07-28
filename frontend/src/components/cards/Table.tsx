@@ -59,7 +59,6 @@ const Table: React.FC<TableProps> = ({
 }
 
 const table = DropTarget(
-
   dndItemTypes.CARD,
   {
     drop: ((props: TableProps, monitor) => {
