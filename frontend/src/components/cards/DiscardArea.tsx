@@ -20,8 +20,7 @@ import {
 import { dndItemTypes } from './itemTypes'
 
 export interface DiscardAreaProps {
-  setNextTurn: (numPlayers: number) => (void)
-  numPlayers: number
+  setNextTurn: () => void
   game: IGameState
   discard: (card: Card, player: Player, deck: Card[]) => void
   canDrop: boolean
@@ -56,13 +55,13 @@ const discardArea = DropTarget(
   dndItemTypes.CARD,
   {
     drop: ((props: DiscardAreaProps, monitor) => {
-      const { setNextTurn, numPlayers, game, discard } = props
+      const { setNextTurn, game, discard } = props
 
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
 
       discard(playerCard, player, game.drawDeck)
-      setNextTurn(numPlayers)
+      setNextTurn()
     }),
 
     canDrop: ((props: DiscardAreaProps, monitor) => {

@@ -20,8 +20,8 @@ import {
 import { dndItemTypes } from './itemTypes'
 
 interface BuildAreaProps {
-  numPlayers: number
-  setNextTurn: (numPlayers: number) => (void)
+
+  setNextTurn: () => void
   game: IGameState
   build: (card: Card, player: Player, deck: Card[]) => void
   canDrop: boolean
@@ -57,12 +57,12 @@ const buildArea = DropTarget(
   dndItemTypes.CARD,
   {
     drop: ((props: BuildAreaProps, monitor) => {
-      const { setNextTurn, numPlayers, game, build } = props
+      const { setNextTurn, game, build } = props
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
 
       build(playerCard, player, game.drawDeck)
-      setNextTurn(numPlayers)
+      setNextTurn()
     }),
     canDrop: ((props: BuildAreaProps, monitor) => {
       return monitor.getItem().isTurn

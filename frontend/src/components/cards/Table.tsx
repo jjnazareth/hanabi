@@ -19,7 +19,7 @@ import { dndItemTypes } from './itemTypes'
 
 export interface TableProps {
   numPlayers: number
-  setNextTurn: (numPlayers: number) => (void)
+  setNextTurn: () => void
   canDrop: boolean
   isOver: boolean
   connectDropTarget: ConnectDropTarget
@@ -47,11 +47,11 @@ const Table: React.FC<TableProps> = ({
         alignItems="center" >
         <br />
         <Grid item xs={12}>
-          <BuildArea setNextTurn={setNextTurn} numPlayers={numPlayers} />
+          <BuildArea setNextTurn={setNextTurn} />
         </Grid>
         <br />
         <Grid item xs={12}>
-          <DiscardArea setNextTurn={setNextTurn} numPlayers={numPlayers} />
+          <DiscardArea setNextTurn={setNextTurn} />
         </Grid>
       </Grid>
     </div >

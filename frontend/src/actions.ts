@@ -23,12 +23,14 @@ import {
   GiveHint
 } from "./reducers/game/game.actions.type"
 
-export const setNextTurn = (numPlayers: number) => (
-  dispatch: Dispatch<SetNextTurnIdx>
+export const setNextTurn = () => (
+  dispatch: Dispatch<SetNextTurnIdx>,
+  getState: () => IGlobalState
 ) => {
+  const { room } = getState()
   dispatch({
     type: GameActionNames.SET_NEXT_TURN,
-    numPlayers: numPlayers
+    numPlayers: room.players.length
   })
 }
 
