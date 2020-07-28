@@ -19,7 +19,6 @@ export class CardRearrangeUpdate {
   }
 }
 
-
 interface IProps {
   room: IRoomState
   game: IGameState
@@ -27,10 +26,17 @@ interface IProps {
 
 const Game: React.FC<IProps> = ({ room, game }) => {
   const classes = useStyles()
+  const loginPlayer = () => room.players.find(p => p.isLoggedIn)
   const loginPlayerName = () => {
-    let player = room.players.find(p => p.isLoggedIn)
+    let player = loginPlayer()
     return player ? player.name : "No person"
   }
+
+  const loginPlayerIdx = () => {
+    let player = loginPlayer()
+    return player ? player.turnIdx : 0
+  }
+
   const currentPlayerName = () => {
     let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
     return player ? player.name : "No person"
@@ -68,7 +74,8 @@ const Game: React.FC<IProps> = ({ room, game }) => {
         <Grid item xs={5}>
           {room.players.sort((p, q) => {
             const len = room.players.length
-            const fn = (idx: number) => (idx - game.currentTurnIdx + len) % len
+            // const fn = (idx: number) => (idx - game.currentTurnIdx + len) % len
+            const fn = (idx: number) => (idx - loginPlayerIdx() + len) % len
             return fn(p.turnIdx) - fn(q.turnIdx)
           }).map((player, i) => {
             const isTurn = game.currentTurnIdx == player.turnIdx
