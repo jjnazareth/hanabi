@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
-import { IRoomState, roomReducer } from '../../reducers/room/room.reducer'
 import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
 import { CardRearrangeUpdate } from '../../components/Game'
@@ -23,7 +22,6 @@ import { dndItemTypes } from './itemTypes'
 export interface DiscardAreaProps {
   setNextTurn: (numPlayers: number) => (void)
   numPlayers: number
-  room: IRoomState
   game: IGameState
   discard: (card: Card, player: Player, deck: Card[]) => void
   canDrop: boolean
@@ -31,17 +29,9 @@ export interface DiscardAreaProps {
   connectDropTarget: ConnectDropTarget
 }
 
-const DiscardArea: React.FC<DiscardAreaProps> = ({
-  //setNextTurn,
-  numPlayers,
-  room,
-  game,
-  canDrop,
-  isOver,
-  connectDropTarget,
-
-}) => {
+const DiscardArea: React.FC<DiscardAreaProps> = (props) => {
   const classes = useStyles()
+  const { game, canDrop, isOver, connectDropTarget } = props
   const isActive = canDrop && isOver
   let colour = isActive ? '#FF7043' : '#FCE4EC'
   const { discardPiles } = game
@@ -88,7 +78,6 @@ const discardArea = DropTarget(
 )(DiscardArea)
 
 const mapStateToProps = (state: IGlobalState) => ({
-  room: state.room,
   game: state.game
 })
 

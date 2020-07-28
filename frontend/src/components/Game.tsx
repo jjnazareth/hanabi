@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Card } from '../globalTypes'
 import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
@@ -82,7 +81,7 @@ const Game: React.FC<IProps> = ({ room, game }) => {
           })}
         </Grid>
         <Grid item xs={7} className={classes.background}>
-          <Table />
+          <Table numPlayers={room.players.length} />
         </Grid>
       </Grid>
       {console.log(game.hints)}
@@ -90,11 +89,5 @@ const Game: React.FC<IProps> = ({ room, game }) => {
   )
 }
 
-const mapStateToProps = (state: IGlobalState) => ({
-  room: state.room,
-  game: state.game,
-})
 
-export default connect(mapStateToProps, {
-
-})(Game)
+export default Game

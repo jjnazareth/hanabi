@@ -1,37 +1,40 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Fragment } from 'react'
+import { IRoomState, roomReducer } from '../reducers/room/room.reducer'
+import { IGameState } from '../reducers/game/game.reducer'
+import { IGlobalState } from '../reducers'
 import Game from './Game'
 import { initGame } from '../actions'
-import { useEffect } from 'react'
-import Login from './Login'
-import { Fragment } from 'react'
 
 interface IProps {
+  room: IRoomState
+  game: IGameState
   initGame: (playerNames: string[], turnIdxs: number[],
     currentTurnIdx: number, dealerIdx: number) => void
 }
 
-class Container extends Component<IProps> {
-
-  public componentDidMount(): void {
-    const { initGame } = this.props
+const Container: React.FC<IProps> = ({ room, game, initGame }) => {
+  useEffect(() => {
     let playerNames: string[] =
       ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
     let turnIdxs = [1, 3, 2, 4, 0]
     let dealerIdx = 4
     let currentTurnIdx = (dealerIdx + 1) % playerNames.length
     initGame(playerNames, turnIdxs, currentTurnIdx, dealerIdx)
-  }
+  }, [])
 
-  public render(): JSX.Element {
-    return (
-      <Fragment>
-        <Game></Game>
-      </Fragment>
-    )
-  }
-
+  return (
+    <Fragment>
+      <Game room={room} game={game}></Game>
+    </Fragment>
+  )
 }
 
-export default connect(null, { initGame })(Container)
+const mapStateToProps = (state: IGlobalState) => ({
+  room: state.room,
+  game: state.game,
+})
+
+export default connect(mapStateToProps, { initGame })(Container)
 

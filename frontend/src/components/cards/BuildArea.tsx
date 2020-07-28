@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
-import { IRoomState } from '../../reducers/room/room.reducer'
 import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
 import BuildPile from './BuildPile'
@@ -23,7 +22,6 @@ import { dndItemTypes } from './itemTypes'
 interface BuildAreaProps {
   numPlayers: number
   setNextTurn: (numPlayers: number) => (void)
-  room: IRoomState
   game: IGameState
   build: (card: Card, player: Player, deck: Card[]) => void
   canDrop: boolean
@@ -31,15 +29,9 @@ interface BuildAreaProps {
   connectDropTarget: ConnectDropTarget
 }
 
-const BuildArea: React.FC<BuildAreaProps> = ({
-  numPlayers,
-  setNextTurn,
-  game,
-  canDrop,
-  isOver,
-  connectDropTarget, }) => {
-
+const BuildArea: React.FC<BuildAreaProps> = (props) => {
   const classes = useStyles()
+  const { game, canDrop, isOver, connectDropTarget } = props
   const isActive = canDrop && isOver
   let colour = isActive ? '#AED581' : '#DCEDC8'
   const { buildPiles } = game
@@ -66,7 +58,6 @@ const buildArea = DropTarget(
   {
     drop: ((props: BuildAreaProps, monitor) => {
       const { setNextTurn, numPlayers, game, build } = props
-
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
 
@@ -87,7 +78,6 @@ const buildArea = DropTarget(
 )(BuildArea)
 
 const mapStateToProps = (state: IGlobalState) => ({
-  room: state.room,
   game: state.game
 })
 

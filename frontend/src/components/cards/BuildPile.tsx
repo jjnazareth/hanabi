@@ -10,9 +10,8 @@ interface BuildPileProps {
   cards: Card[]
 }
 
-const BuildPile: React.FC<BuildPileProps> = (props) => {
+const BuildPile: React.FC<BuildPileProps> = ({ cards }) => {
   const classes = useStyles()
-  const { cards } = props
   return (
     <Grid item>
       <Grid container className={classes.discardPile}>

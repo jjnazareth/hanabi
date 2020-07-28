@@ -1,7 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { IRoomState } from '../../reducers/room/room.reducer'
-import { IGlobalState } from '../../reducers'
 import BuildArea from './BuildArea'
 import DiscardArea from './DiscardArea'
 import { CardRearrangeUpdate } from '../../components/Game'
@@ -20,7 +18,7 @@ import {
 import { dndItemTypes } from './itemTypes'
 
 export interface TableProps {
-  room: IRoomState
+  numPlayers: number
   setNextTurn: (numPlayers: number) => (void)
   canDrop: boolean
   isOver: boolean
@@ -28,7 +26,7 @@ export interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({
-  room,
+  numPlayers,
   setNextTurn,
   canDrop,
   isOver,
@@ -49,11 +47,11 @@ const Table: React.FC<TableProps> = ({
         alignItems="center" >
         <br />
         <Grid item xs={12}>
-          <BuildArea setNextTurn={setNextTurn} numPlayers={room.players.length} />
+          <BuildArea setNextTurn={setNextTurn} numPlayers={numPlayers} />
         </Grid>
         <br />
         <Grid item xs={12}>
-          <DiscardArea setNextTurn={setNextTurn} numPlayers={room.players.length} />
+          <DiscardArea setNextTurn={setNextTurn} numPlayers={numPlayers} />
         </Grid>
       </Grid>
     </div >
@@ -79,8 +77,5 @@ const table = DropTarget(
   }),
 )(Table)
 
-const mapStateToProps = (state: IGlobalState) => ({
-  room: state.room,
-})
 
-export default connect(mapStateToProps, { setNextTurn })(table)
+export default connect(null, { setNextTurn })(table)
