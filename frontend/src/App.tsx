@@ -4,7 +4,7 @@ import store from './store'
 import Container from './components/Container'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContextProvider } from 'react-dnd'
-import { NavBar } from './components/NavBar'
+import { NavBar } from './components/NavigationBar'
 import Login from './components/Login'
 
 // import { BrowserRouter } from 'react-router-dom'
