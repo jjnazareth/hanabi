@@ -11,11 +11,12 @@ import { giveHint, setNextTurn } from '../../actions'
 interface IProps {
   holder: Player
   isTurn: boolean
+  playerId: number
   giveHint: (playerHint: PlayerHint) => void
   setNextTurn: () => void
 }
 
-const Hint: React.FC<IProps> = ({ holder, isTurn, giveHint, setNextTurn }) => {
+const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTurn }) => {
   const classes = useStyles()
   let cardsWithPos = holder.hand.map((c, i) => ({ ...c, position: i }))
   let rankHints: RankHint[] =
@@ -51,8 +52,8 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, giveHint, setNextTurn }) => {
 
     setOpen(false)
     if (newValue) setValue(newValue)
-    // send hint. Still have to supply the player on turn!
-    giveHint({ fromPlayer: holder, toPlayer: holder, hintToString: newValue as string })
+    // 
+    giveHint({ fromPlayerId: playerId, toPlayerId: holder.playerId, hintToString: newValue as string })
     setNextTurn()
   }
   return (

@@ -31,14 +31,17 @@ const Game: React.FC<IProps> = ({ room, game }) => {
     let player = loginPlayer()
     return player ? player.name : "No person"
   }
-
   const loginPlayerIdx = () => {
     let player = loginPlayer()
     return player ? player.turnIdx : 0
   }
-
+  const currentPlayer = () => room.players.find(p => (p.turnIdx == game.currentTurnIdx))
+  const currentPlayerId = () => {
+    let player = currentPlayer()
+    return player ? player.playerId : -1
+  }
   const currentPlayerName = () => {
-    let player = room.players.find(p => (p.turnIdx == game.currentTurnIdx))
+    let player = currentPlayer()
     return player ? player.name : "No person"
   }
   const dealerName = () => {
@@ -74,15 +77,14 @@ const Game: React.FC<IProps> = ({ room, game }) => {
         <Grid item xs={5}>
           {room.players.sort((p, q) => {
             const len = room.players.length
-            // const fn = (idx: number) => (idx - game.currentTurnIdx + len) % len
             const fn = (idx: number) => (idx - loginPlayerIdx() + len) % len
             return fn(p.turnIdx) - fn(q.turnIdx)
           }).map((player, i) => {
             const isTurn = game.currentTurnIdx == player.turnIdx
             return (
               <div key={i} className={classes.background} >
-                <Hint holder={player} isTurn={isTurn} />
-                <Hand holder={player} isTurn={isTurn} />
+                <Hint holder={player} isTurn={isTurn} playerId={currentPlayerId()} />
+                < Hand holder={player} isTurn={isTurn} />
               </div>
             )
           })}
@@ -91,7 +93,7 @@ const Game: React.FC<IProps> = ({ room, game }) => {
           <Table numPlayers={room.players.length} />
         </Grid>
       </Grid>
-      {/* {console.log(game.hints)} */}
+      {console.log(game.hints[game.hints.length - 1])}
     </div>
   )
 }

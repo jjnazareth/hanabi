@@ -17,8 +17,8 @@ export type HintChoices = {
 }
 
 export type PlayerHint = {
-  fromPlayer: Player
-  toPlayer: Player
+  fromPlayerId: number
+  toPlayerId: number
   hintToString: string
 }
 
