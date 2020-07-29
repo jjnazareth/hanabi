@@ -8,12 +8,7 @@ export interface IRoomState {
 const initialState: IRoomState = {
   players: []
 }
-class inc {
-  static count: number = 0
-  static inc(): number {
-    return this.count++
-  }
-}
+
 export function roomReducer(state = initialState, action: RoomAction) {
   switch (action.type) {
     case RoomActionNames.LOGIN_PLAYER:
@@ -31,7 +26,7 @@ export function roomReducer(state = initialState, action: RoomAction) {
           ...state.players,
           {
             name: action.name,
-            playerId: inc.inc(),
+            playerId: state.players.length,
             turnIdx: -1,
             hand: [],
             isLoggedIn: false

@@ -91,7 +91,7 @@ const Game: React.FC<IProps> = ({ room, game }) => {
           <Table numPlayers={room.players.length} />
         </Grid>
       </Grid>
-      {console.log(game.hints)}
+      {/* {console.log(game.hints)} */}
     </div>
   )
 }

@@ -26,6 +26,7 @@ const Container: React.FC<IProps> = ({ room, game, initGame }) => {
 
   return (
     <Fragment>
+      {console.log(room.players)}
       <Game room={room} game={game}></Game>
     </Fragment>
   )
