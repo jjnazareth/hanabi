@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import BuildArea from './BuildArea'
 import DiscardArea from './DiscardArea'
-import { CardRearrangeUpdate } from '../../components/Game'
 import { setNextTurn } from '../../actions'
 
 import 'typeface-roboto'
@@ -22,6 +21,7 @@ export interface TableProps {
   setNextTurn: () => void
   canDrop: boolean
   isOver: boolean
+  handleAllowRearrange: (allowArrange: boolean) => void
   connectDropTarget: ConnectDropTarget
 }
 
@@ -30,13 +30,15 @@ const Table: React.FC<TableProps> = ({
   setNextTurn,
   canDrop,
   isOver,
+  handleAllowRearrange,
   connectDropTarget,
 
 }) => {
-  const classes = useStyles()
-  // inhibit update of card rearrangement
-  CardRearrangeUpdate.toUpdate = false
 
+  const classes = useStyles()
+  // inhibit dispatch to redux store, as the mouse pointer is outside
+  // the area where cards are being rearranged in one hand
+  handleAllowRearrange(false)
   const isActive = canDrop && isOver
   let colour = isActive ? '#FFC400' : ""
 

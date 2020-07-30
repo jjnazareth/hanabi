@@ -60,7 +60,6 @@ const buildArea = DropTarget(
       const { setNextTurn, game, build } = props
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
-
       build(playerCard, player, game.drawDeck)
       setNextTurn()
     }),

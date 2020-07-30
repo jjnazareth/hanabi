@@ -5,7 +5,6 @@ import update from 'immutability-helper'
 
 import { initHand } from '../../actions'
 import HandCard from './HandCard'
-import { CardRearrangeUpdate } from '../../components/Game'
 
 import { Grid } from '@material-ui/core'
 import 'typeface-roboto'
@@ -14,30 +13,33 @@ import { useStyles } from '../../Styles'
 interface HandProps {
   holder: Player,
   isTurn: boolean,
+  allowArrange: boolean,
   initHand: (turnIdx: number, cards: Card[]) => void
 }
 
 const Hand: React.FC<HandProps> = (props) => {
   const classes = useStyles()
   {
-    const { holder, isTurn } = props
+    const { holder, isTurn, allowArrange } = props
     const [cards, setCards] = useState(holder.hand)
     useEffect(() => { setCards(holder.hand) }, [holder.hand])
+    // function called every time a card is moved in position in one hand
     const moveCard = (dragIndex: number, hoverIndex: number) => {
       const dragCard = cards[dragIndex]
       const updatedCards = update(cards, {
         $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
       })
       setCards(updatedCards)
-      CardRearrangeUpdate.set(updatedCards)
-      CardRearrangeUpdate.toUpdate = true
+      console.log("After set cards")
     }
 
+    // function called every time a card is dropped, either to build pile, discard
+    // or rearrange cards in one hand
     const dispatchMove = () => {
-      if (CardRearrangeUpdate.toUpdate) {
-        props.initHand(holder.turnIdx, CardRearrangeUpdate.cards)
-        CardRearrangeUpdate.toUpdate = false
-      }
+      console.log("In dispatch move")
+      const { initHand } = props
+      // dispatch to redux store only when cards are rearranged in one hand
+      allowArrange && initHand(holder.turnIdx, cards)
     }
     const cardsDisplay = isTurn ? Array.from(cards).reverse() : cards
     return (

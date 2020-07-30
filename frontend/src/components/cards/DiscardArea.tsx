@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
 import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
-import { CardRearrangeUpdate } from '../../components/Game'
 import DiscardPile from './DiscardPile'
 import { discard } from '../../actions'
 
@@ -56,16 +55,13 @@ const discardArea = DropTarget(
   {
     drop: ((props: DiscardAreaProps, monitor) => {
       const { setNextTurn, game, discard } = props
-
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
-
       discard(playerCard, player, game.drawDeck)
       setNextTurn()
     }),
-
     canDrop: ((props: DiscardAreaProps, monitor) => {
-      return monitor.getItem().isTurn && !CardRearrangeUpdate.toUpdate
+      return monitor.getItem().isTurn
     })
   },
 

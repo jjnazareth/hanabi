@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card } from '../globalTypes'
-import { IGlobalState } from '../reducers'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import Hand from './cards/Hand'
@@ -10,14 +9,6 @@ import Hint from './cards/Hint'
 import 'typeface-roboto'
 import { Grid, Typography } from '@material-ui/core'
 import { useStyles } from '../Styles'
-
-export class CardRearrangeUpdate {
-  static cards: Card[]
-  static toUpdate: boolean = false
-  static set(cards: Card[]) {
-    this.cards = cards
-  }
-}
 
 interface IProps {
   room: IRoomState
@@ -48,6 +39,12 @@ const Game: React.FC<IProps> = ({ room, game }) => {
     let player = room.players.find(p => (p.turnIdx == game.dealerIdx))
     return player ? player.name : "No dealer"
   }
+
+  // to disambiguate drag-and-drop for rearranging cards in one hand from
+  // drag-and-drop to build piles or discard
+  const [allowArrange, setAllowArrange] = useState<boolean>(true)
+  // callback to allow/forbid dispatch of card rearrangement to redux store
+  const handleAllowArrange = (allowArrange: boolean) => setAllowArrange(allowArrange)
 
   return (
     <div style={{ backgroundColor: "lightGrey" }}>
@@ -84,16 +81,16 @@ const Game: React.FC<IProps> = ({ room, game }) => {
             return (
               <div key={i} className={classes.background} >
                 <Hint holder={player} isTurn={isTurn} playerId={currentPlayerId()} />
-                < Hand holder={player} isTurn={isTurn} />
+                < Hand holder={player} isTurn={isTurn} allowArrange={allowArrange} />
               </div>
             )
           })}
         </Grid>
         <Grid item xs={7} className={classes.background}>
-          <Table numPlayers={room.players.length} />
+          <Table numPlayers={room.players.length} handleAllowRearrange={handleAllowArrange} />
         </Grid>
       </Grid>
-      {console.log(game.hints[game.hints.length - 1])}
+      {/* {console.log(game.hints[game.hints.length - 1])} */}
     </div>
   )
 }
