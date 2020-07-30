@@ -30,13 +30,11 @@ const Hand: React.FC<HandProps> = (props) => {
         $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
       })
       setCards(updatedCards)
-      console.log("After set cards")
     }
 
     // function called every time a card is dropped, either to build pile, discard
     // or rearrange cards in one hand
     const dispatchMove = () => {
-      console.log("In dispatch move")
       const { initHand } = props
       // dispatch to redux store only when cards are rearranged in one hand
       allowArrange && initHand(holder.turnIdx, cards)

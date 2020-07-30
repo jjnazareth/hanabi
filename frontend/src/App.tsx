@@ -1,33 +1,42 @@
 
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { Provider } from 'react-redux'
 import store from './store'
 import Container from './components/Container'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContextProvider } from 'react-dnd'
 import { NavBar } from './components/NavigationBar'
-import Login from './components/Login'
+import Login from './components/login/Login'
 
-// import { BrowserRouter } from 'react-router-dom'
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        {/* <BrowserRouter> */}
-        <Provider store={store}>
-          <NavBar />
-          <Login></Login>
-          <DragDropContextProvider backend={HTML5Backend}>
-            <Container>
-            </Container>
-          </DragDropContextProvider>
-        </Provider>
-        {/* </BrowserRouter> */}
-      </div>
-    )
-  }
+export const App: React.FC<{}> = () => {
+  return (
+    <Provider store={store}>
+      <NavBar />
+      <Login ></Login>
+      <DragDropContextProvider backend={HTML5Backend}>
+        <Container>
+        </Container>
+      </DragDropContextProvider>
+    </Provider>
+  )
 }
 
-export default App
+
+// class App extends Component
+//   render() {
+//     return (
+//       <Provider store={store}>
+//         <NavBar />
+//         <Login></Login>
+//         <DragDropContextProvider backend={HTML5Backend}>
+//           <Container>
+//           </Container>
+//         </DragDropContextProvider>
+//       </Provider>
+//     )
+//   }
+// }
+
+// export default App
 

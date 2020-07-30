@@ -1,18 +1,15 @@
 import React, { useState, ChangeEvent, useEffect } from 'react'
 import { FormControl, InputLabel, Select } from '@material-ui/core'
 import { MenuItem } from '@material-ui/core'
-import { loginPlayer } from '../actions'
-import { useStyles } from '../Styles'
+import { loginPlayer } from '../../actions'
+import { useStyles } from '../../Styles'
 import { connect } from 'react-redux'
-import { IGlobalState } from '../reducers'
-import { IRoomState } from '../reducers/room/room.reducer'
-
 
 interface IProps {
   loginPlayer: (playerName: string) => void
 }
 
-const Login: React.FC<IProps> = ({ loginPlayer }) => {
+const TestLogin: React.FC<IProps> = ({ loginPlayer }) => {
   const classes = useStyles()
   const [playerName, setPlayerName] = useState<string>("")
   const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
@@ -42,4 +39,4 @@ const Login: React.FC<IProps> = ({ loginPlayer }) => {
   )
 }
 
-export default connect(null, { loginPlayer })(Login)
+export default connect(null, { loginPlayer })(TestLogin)
