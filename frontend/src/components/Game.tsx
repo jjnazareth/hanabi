@@ -56,7 +56,7 @@ const Game: React.FC<IProps> = ({ room, game }) => {
       <Grid item xs={7} className={classes.background}>
         <Table numPlayers={room.players.length} handleAllowRearrange={handleAllowArrange} />
       </Grid>
-      {console.log(game.hints[game.hints.length - 1])}
+      {/* {console.log(game.hints[game.hints.length - 1])} */}
     </Grid>
   )
 }

@@ -27,7 +27,6 @@ const Container: React.FC<IProps> = ({ room, game, initGame }) => {
 
   return (
     <Fragment>
-      {console.log(room.players)}
       <GameStatus room={room} game={game}></GameStatus>
       <Game room={room} game={game}></Game>
     </Fragment>
