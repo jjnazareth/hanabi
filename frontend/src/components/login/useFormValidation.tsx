@@ -21,7 +21,7 @@ export const useFormValidation = (initialState: data, validate: (values: data) =
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value.trim()
     })
   }
 
