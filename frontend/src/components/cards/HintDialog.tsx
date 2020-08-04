@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { HintChoices, RCHint } from '../../globalTypes'
-
-import 'typeface-roboto'
 import { useStyles } from '../../Styles'
 import {
   Button, Dialog, DialogTitle, DialogContent, DialogActions,

@@ -1,6 +1,5 @@
 import React, { useImperativeHandle, useRef } from 'react'
 import { Card, Player } from '../../globalTypes'
-import 'typeface-roboto'
 import {
   Paper, Typography
 } from '@material-ui/core'

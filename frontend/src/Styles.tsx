@@ -1,7 +1,6 @@
 import React from 'react'
 import { makeStyles, createStyles, Theme, createMuiTheme } from '@material-ui/core'
 import ThemeProvider from "@material-ui/core"
-import 'typeface-roboto'
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({

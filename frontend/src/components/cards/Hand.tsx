@@ -7,7 +7,6 @@ import { initHand } from '../../actions'
 import HandCard from './HandCard'
 
 import { Grid } from '@material-ui/core'
-import 'typeface-roboto'
 import { useStyles } from '../../Styles'
 
 interface HandProps {

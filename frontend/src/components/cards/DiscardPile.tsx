@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from '../../globalTypes'
-import 'typeface-roboto'
+
 import {
   Grid, Paper, Typography
 } from '@material-ui/core'

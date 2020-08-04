@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { CardRank, Player, HintChoices, RankHint, ColourHint, PlayerHint } from '../../globalTypes'
 import { Button } from '@material-ui/core'
-import 'typeface-roboto'
 import { useStyles } from '../../Styles'
 
 import HintDialog from './HintDialog'

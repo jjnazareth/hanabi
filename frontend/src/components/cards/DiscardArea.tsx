@@ -6,7 +6,6 @@ import { IGlobalState } from '../../reducers'
 import DiscardPile from './DiscardPile'
 import { discard } from '../../actions'
 
-import 'typeface-roboto'
 import { Grid, Typography } from '@material-ui/core'
 import { useStyles } from '../../Styles'
 

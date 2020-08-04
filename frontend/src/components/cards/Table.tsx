@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import BuildArea from './BuildArea'
 import DiscardArea from './DiscardArea'
 import { setNextTurn } from '../../actions'
-
-import 'typeface-roboto'
 import { Grid } from '@material-ui/core'
 import { useStyles } from '../../Styles'
 

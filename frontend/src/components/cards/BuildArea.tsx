@@ -6,8 +6,6 @@ import { IGlobalState } from '../../reducers'
 import BuildPile from './BuildPile'
 import { build } from '../../actions'
 
-
-import 'typeface-roboto'
 import { Grid, Typography } from '@material-ui/core'
 import { useStyles } from '../../Styles'
 

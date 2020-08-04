@@ -5,7 +5,6 @@ import Hand from './cards/Hand'
 import Table from './cards/Table'
 import Hint from './cards/Hint'
 
-import 'typeface-roboto'
 import { Grid, Typography } from '@material-ui/core'
 import { useStyles } from '../Styles'
 
