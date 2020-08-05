@@ -5,19 +5,29 @@ import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
 import DiscardPile from './DiscardPile'
 import { discard } from '../../actions'
+import { Grid, Typography, makeStyles, Theme, createStyles } from '@material-ui/core'
 
-import { Grid, Typography } from '@material-ui/core'
-import { useStyles } from '../../Styles'
-
-import {
-  DropTarget,
-  ConnectDropTarget,
-  DropTargetMonitor,
-  DropTargetConnector,
-} from 'react-dnd'
+import { DropTarget, ConnectDropTarget, DropTargetMonitor, DropTargetConnector, } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 
-export interface DiscardAreaProps {
+
+interface IStyleProps {
+  isActive: boolean
+}
+
+const useStyles = makeStyles<Theme, IStyleProps>((theme: Theme) =>
+  createStyles({
+    discardArea: ({ isActive }) => ({
+      padding: 6,
+      spacing: theme.spacing(2),
+      height: 350,
+      width: 500,
+      backgroundColor: isActive ? '#FF7043' : '#FCE4EC'
+    }),
+  })
+)
+
+interface IProps {
   setNextTurn: () => void
   game: IGameState
   discard: (card: Card, player: Player, deck: Card[]) => void
@@ -26,10 +36,10 @@ export interface DiscardAreaProps {
   connectDropTarget: ConnectDropTarget
 }
 
-const DiscardArea: React.FC<DiscardAreaProps> = (props) => {
-  const classes = useStyles()
-  const { game, canDrop, isOver, connectDropTarget } = props
+
+const DiscardArea: React.FC<IProps> = ({ setNextTurn, game, discard, canDrop, isOver, connectDropTarget }) => {
   const isActive = canDrop && isOver
+  const classes = useStyles({ isActive })
   let colour = isActive ? '#FF7043' : '#FCE4EC'
   const { discardPiles } = game
   return (
@@ -39,7 +49,7 @@ const DiscardArea: React.FC<DiscardAreaProps> = (props) => {
         {isActive ? 'Release to Discard' : 'Discards'}
       </Typography>
 
-      <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
+      <Grid container justify="space-around" direction="row" spacing={1}>
         {discardPiles.map(({ colour, cards }, i) => (
           <DiscardPile key={i} cards={cards} />
         ))}
@@ -52,14 +62,14 @@ const discardArea = DropTarget(
 
   dndItemTypes.CARD,
   {
-    drop: ((props: DiscardAreaProps, monitor) => {
+    drop: ((props: IProps, monitor) => {
       const { setNextTurn, game, discard } = props
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
       discard(playerCard, player, game.drawDeck)
       setNextTurn()
     }),
-    canDrop: ((props: DiscardAreaProps, monitor) => {
+    canDrop: ((props: IProps, monitor) => {
       return monitor.getItem().isTurn
     })
   },

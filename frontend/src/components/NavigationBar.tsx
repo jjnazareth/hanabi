@@ -6,6 +6,7 @@ import { LoginDialog } from './login/LoginDialog'
 
 
 
+
 interface NavBarProps {
 }
 
@@ -18,10 +19,6 @@ export const NavBar: React.FC<NavBarProps> = () => {
     event.preventDefault()
     setOpen(true)
   }
-  // const handleClose = (newValue?: string) => {
-  //   setOpen(false)
-  //   if (newValue) setValue(newValue)
-  // }
 
   const handleClose = () => {
     setOpen(false)

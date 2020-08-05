@@ -31,12 +31,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       spacing: 0,
       backgroundColor: "#F0F4C3"
     },
-    buildCards: {
-      margin: 0,
-      padding: 0,
-      border: 1,
-      spacing: 0,
-    },
     deck: {
       margin: 0,
       padding: 0,
@@ -46,31 +40,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     discardPile: { // used for build also
       position: "relative",
-      height: 200,
       width: 70,
-    },
-    gameState: {
-      margin: 0,
-      padding: 0,
-      flexDirection: 'row',
-      border: 1,
-      spacing: 0,
-      backgroundColor: "#C5E1A5"
-    },
-    background: {
-      margin: 0,
-      padding: 2,
-      flexDirection: 'row',
-      border: 1,
-      spacing: 0,
-      backgroundColor: "lightGrey"
-    },
-    table: {
-      border: 0,
-      spacing: 0,
-      backgroundColor: "lightGrey",
-      height: "100%",
-      // width: 800,
+      height: 200,
     },
     card: {
       border: '1px solid grey',
@@ -92,24 +63,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     cardDeck: {
       paddingTop: 20,
-    },
-    buildArea: {
-      marginTop: 0,
-      border: '1px solid grey',
-      paddingRight: 10,
-      textAlign: 'left',
-      color: 'black',
-      height: 250,
-      // width: 500,
-    },
-    discardArea: {
-      marginTop: 0,
-      border: '1px solid grey',
-      paddingRight: 10,
-      textAlign: 'left',
-      color: 'black',
-      height: 350,
-      // width: 500,
     },
     icon: {
       margin: theme.spacing(1),

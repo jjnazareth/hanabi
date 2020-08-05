@@ -5,20 +5,28 @@ import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
 import BuildPile from './BuildPile'
 import { build } from '../../actions'
+import { Grid, Typography, makeStyles, Theme, createStyles, ThemeProvider } from '@material-ui/core'
 
-import { Grid, Typography } from '@material-ui/core'
-import { useStyles } from '../../Styles'
-
-import {
-  DropTarget,
-  ConnectDropTarget,
-  DropTargetMonitor,
-  DropTargetConnector,
-} from 'react-dnd'
+import { DropTarget, ConnectDropTarget, DropTargetMonitor, DropTargetConnector, } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 
-interface BuildAreaProps {
+interface IStyleProps {
+  isActive: boolean
+}
+const useStyles = makeStyles<Theme, IStyleProps>((theme: Theme) =>
+  createStyles({
+    buildArea: ({ isActive }) => ({
+      padding: 6,
+      spacing: theme.spacing(2),
+      width: 500,
+      height: 250,
+      backgroundColor: isActive ? '#AED581' : '#DCEDC8',
+    }),
 
+  })
+)
+
+interface IProps {
   setNextTurn: () => void
   game: IGameState
   build: (card: Card, player: Player, deck: Card[]) => void
@@ -27,22 +35,19 @@ interface BuildAreaProps {
   connectDropTarget: ConnectDropTarget
 }
 
-const BuildArea: React.FC<BuildAreaProps> = (props) => {
-  const classes = useStyles()
-  const { game, canDrop, isOver, connectDropTarget } = props
+const BuildArea: React.FC<IProps> = ({ game, canDrop, isOver, connectDropTarget }) => {
   const isActive = canDrop && isOver
-  let colour = isActive ? '#AED581' : '#DCEDC8'
+  const classes = useStyles({ isActive })
+  // let colour = isActive ? '#AED581' : '#DCEDC8'
   const { buildPiles } = game
 
   return (
-
-    <div ref={connectDropTarget} className={classes.buildArea} style={{ backgroundColor: colour }}>
+    <div ref={connectDropTarget} className={classes.buildArea} /* style={{ backgroundColor: colour }} */>
       <Typography variant="subtitle1" align="center">
         {isActive ? 'Release to Place' : 'Build Area'}
       </Typography>
-
-      <Grid container className={classes.buildCards} justify="center" direction="row" spacing={1}>
-        {buildPiles.map(({ colour, cards }, i) => (
+      <Grid container justify="space-around" >
+        {buildPiles.map(({ cards }, i) => (
           <BuildPile key={i} cards={cards} />
         ))}
       </Grid>
@@ -54,14 +59,14 @@ const buildArea = DropTarget(
 
   dndItemTypes.CARD,
   {
-    drop: ((props: BuildAreaProps, monitor) => {
+    drop: ((props: IProps, monitor) => {
       const { setNextTurn, game, build } = props
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
       build(playerCard, player, game.drawDeck)
       setNextTurn()
     }),
-    canDrop: ((props: BuildAreaProps, monitor) => {
+    canDrop: ((props: IProps, monitor) => {
       return monitor.getItem().isTurn
     })
   },

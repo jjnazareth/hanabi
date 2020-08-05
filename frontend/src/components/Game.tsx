@@ -4,9 +4,26 @@ import { IRoomState } from '../reducers/room/room.reducer'
 import Hand from './cards/Hand'
 import Table from './cards/Table'
 import Hint from './cards/Hint'
+import { Grid, Typography, makeStyles, Theme, createStyles } from '@material-ui/core'
 
-import { Grid, Typography } from '@material-ui/core'
-import { useStyles } from '../Styles'
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    // root: {
+    //   flexGrow: 1,
+    //   margin: 0,
+    //   padding: 0,
+    //   minHeight: 0,
+    //   minWidth: 0,
+    // },
+    player: {
+      margin: 4,
+      padding: 2,
+      // flexDirection: 'row',
+      // spacing: theme.spacing(2),
+      backgroundColor: "yellow"
+    },
+  })
+)
 
 interface IProps {
   room: IRoomState
@@ -34,7 +51,7 @@ const Game: React.FC<IProps> = ({ room, game }) => {
   const handleAllowArrange = (allowArrange: boolean) => setAllowArrange(allowArrange)
 
   return (
-    <Grid container>
+    <Grid container justify="space-around">
       <Grid item xs={5}>
         {room.players.sort((p, q) => {
           const len = room.players.length
@@ -45,14 +62,14 @@ const Game: React.FC<IProps> = ({ room, game }) => {
         }).map((player, i) => {
           const isTurn = game.currentTurnIdx == player.turnIdx
           return (
-            <div key={i} className={classes.background} >
+            <div key={i} className={classes.player} >
               <Hint holder={player} isTurn={isTurn} playerId={currentPlayerId()} />
               < Hand holder={player} isTurn={isTurn} allowArrange={allowArrange} />
             </div>
           )
         })}
       </Grid>
-      <Grid item xs={7} className={classes.background}>
+      <Grid item xs={7} >
         <Table numPlayers={room.players.length} handleAllowRearrange={handleAllowArrange} />
       </Grid>
       {/* {console.log(game.hints[game.hints.length - 1])} */}
