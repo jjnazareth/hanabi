@@ -10,18 +10,17 @@ interface IStyleProps {
 
 const useStylesCard = makeStyles<Theme, IStyleProps>((theme: Theme) =>
   createStyles({
-    card: ({ colour }) => ({
-      border: '1px solid grey',
-      position: "relative",
-      height: 95,
-      width: 70,
-      background: colour.name === "Multi" ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : colour.code
-    }),
   }),
 )
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
+    card: {
+      border: '1px solid grey',
+      position: "relative",
+      height: 95,
+      width: 70,
+    },
     discardPile: { // used for build also
       position: "relative",
       width: 70,
@@ -45,24 +44,26 @@ const BuildPile: React.FC<IProps> = ({ cards }) => {
   return (
     // <Grid item>
     <Grid item container className={classes.discardPile}>
-      {cards.map((card, i) => {
-        const classes = useStyles({ card })
-        return
+      {cards.map((card, i) => (
         <Paper key={i} className={classes.card}
           style={{
+            background:
+              card.colour.name == "Multi" ?
+                'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code,
+
             position: "absolute", top: (i * 28)
           }}>
-          <div className={classes.cardRankTop}>
-            <Typography variant="h6"> {card.rank}</Typography>
-          </div>
-          <div className={classes.cardRankMid}>
-            <Typography variant="h2"> {card.rank}</Typography>
-          </div>
-          <div className={classes.cardNo}>
-            <Typography variant="caption" >{card.idx}</Typography>
-          </div>
+          {/* <div className={classes.cardRankTop}> */}
+          <Typography variant="h6" className={classes.cardRankTop}> {card.rank}</Typography>
+          {/* </div> */}
+          {/* <div className={classes.cardRankMid}> */}
+          <Typography variant="h2" className={classes.cardRankMid}> {card.rank}</Typography>
+          {/* </div> */}
+          {/* <div className={classes.cardNo}> */}
+          <Typography variant="caption" className={classes.cardNo} >{card.idx}</Typography>
+          {/* </div> */}
         </Paper>
-      })}
+      ))}
     </Grid>
     // </Grid>
   )

@@ -18,7 +18,13 @@ import {
 
 import { dndItemTypes } from './itemTypes'
 import { XYCoord } from 'dnd-core'
+import { CardDisplay } from './CardDisplay'
 
+
+export enum CardFace {
+  FRONT = "FRONT",
+  BACK = "BACK",
+}
 
 interface HandCardProps {
   moveCard: (dragIndex: number, hoverIndex: number) => void
@@ -54,38 +60,15 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
 
     if (isTurn)
       return (
-        <Paper className={classes.card} ref={elementRef}
-          style={{ opacity: opacity, background: "lightGrey" }} >
-          <div className={classes.cardIdx}>
-            <Typography variant="caption" > {index + 1}</Typography>
-          </div>
-          <div className={classes.cardNo}>
-            <Typography variant="caption" >{card.idx}</Typography>
-          </div>
-        </Paper>
+        <div ref={elementRef} style={{ opacity: opacity }}>
+          <CardDisplay card={card} cardFace={CardFace.BACK} index={index + 1}></CardDisplay>
+        </div>
       )
     else
       return (
-        <Paper className={classes.card} ref={elementRef}
-          style={{
-            opacity: opacity,
-            background:
-              card.colour.name == "Multi" ?
-                'linear-gradient(to right bottom, #FFCC66, #9900FF)' : card.colour.code
-          }}>
-          <div className={classes.cardIdx}>
-            <Typography variant="caption" > {index + 1}</Typography>
-          </div>
-          <div className={classes.cardRankTop}>
-            <Typography variant="h6"> {card.rank}</Typography>
-          </div>
-          <div className={classes.cardRankMid}>
-            <Typography variant="h2"> {card.rank}</Typography>
-          </div>
-          <div className={classes.cardNo}>
-            <Typography variant="caption" >{card.idx}</Typography>
-          </div>
-        </Paper>
+        <div ref={elementRef} style={{ opacity: opacity }}>
+          <CardDisplay card={card} cardFace={CardFace.FRONT} index={index + 1} ></CardDisplay>
+        </div>
       )
   }
 )

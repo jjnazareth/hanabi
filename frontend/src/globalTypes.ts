@@ -44,6 +44,11 @@ export type Card = {
   colour: CardColour
   rank: CardRank
 }
+export enum CardFace {
+  FRONT = "FRONT",
+  BACK = "BACK"
+}
+
 export type Player = {
   isLoggedIn: boolean
   playerId: number
