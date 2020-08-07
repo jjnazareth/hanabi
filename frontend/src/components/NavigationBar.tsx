@@ -1,16 +1,31 @@
 import React, { useState, ChangeEvent } from 'react'
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core'
-import { useStyles } from '../Styles'
+import { AppBar, Toolbar, Typography, IconButton, Button, makeStyles, Theme, createStyles } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { LoginDialog } from './login/LoginDialog'
 
 
+const useStyles = makeStyles<Theme>((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      margin: 0,
+      padding: 0,
+      minHeight: 0,
+      minWidth: 0,
+    },
+    title: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+  })
+)
 
-
-interface NavBarProps {
+interface IProps {
 }
 
-export const NavBar: React.FC<NavBarProps> = () => {
+export const NavBar: React.FC<IProps> = () => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   // const [value, setValue] = useState("")

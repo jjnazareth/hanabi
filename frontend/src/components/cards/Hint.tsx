@@ -1,11 +1,22 @@
 import React, { useState } from 'react'
 import { CardRank, Player, HintChoices, RankHint, ColourHint, PlayerHint } from '../../globalTypes'
-import { Button } from '@material-ui/core'
-import { useStyles } from '../../Styles'
+import { Button, makeStyles, Theme, createStyles } from '@material-ui/core'
 
 import HintDialog from './HintDialog'
 import { connect } from 'react-redux'
 import { giveHint, setNextTurn } from '../../actions'
+import { Fragment } from 'react'
+
+
+
+const useStyles = makeStyles<Theme>((theme: Theme) =>
+  createStyles({
+    button: {
+    },
+  })
+)
+
+
 
 interface IProps {
   holder: Player
@@ -16,7 +27,7 @@ interface IProps {
 }
 
 const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTurn }) => {
-  const classes = useStyles()
+
   let cardsWithPos = holder.hand.map((c, i) => ({ ...c, position: i }))
   let rankHints: RankHint[] =
     [CardRank.Rank1, CardRank.Rank2, CardRank.Rank3, CardRank.Rank4, CardRank.Rank5]
@@ -56,14 +67,13 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
     setNextTurn()
   }
   return (
-    <div>
-      <Button size="small" className={classes.button} onClick={handleClickOpen}>
+    <Fragment>
+      <Button color="primary" disabled={isTurn} size="medium" onClick={handleClickOpen}>
         {holder.name}
       </Button>
-
       <HintDialog keepMounted={true} open={open} onClose={handleClose} value={""}
         hintChoices={hintChoices} />
-    </div>
+    </Fragment>
 
   )
 }

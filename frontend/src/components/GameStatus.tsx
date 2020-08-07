@@ -8,17 +8,9 @@ import Game from './Game'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // root: {
-    //   flexGrow: 1,
-    //   margin: 0,
-    //   padding: 0,
-    //   minHeight: 0,
-    //   minWidth: 0,
-    // },
     gameState: {
       margin: 4,
       padding: 2,
-      // flexDirection: 'row',
       spacing: theme.spacing(2),
       backgroundColor: "#C5E1A5"
     },

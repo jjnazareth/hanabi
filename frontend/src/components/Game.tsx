@@ -4,23 +4,19 @@ import { IRoomState } from '../reducers/room/room.reducer'
 import Hand from './cards/Hand'
 import Table from './cards/Table'
 import Hint from './cards/Hint'
-import { Grid, Typography, makeStyles, Theme, createStyles } from '@material-ui/core'
+import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 
+
+const baseStyle = { margin: 2, padding: 4 }
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // root: {
-    //   flexGrow: 1,
-    //   margin: 0,
-    //   padding: 0,
-    //   minHeight: 0,
-    //   minWidth: 0,
-    // },
     player: {
-      margin: 4,
-      padding: 2,
-      // flexDirection: 'row',
-      // spacing: theme.spacing(2),
-      backgroundColor: "yellow"
+      ...baseStyle,
+      backgroundColor: "#D1C894"
+    },
+    playerOnTurn: {
+      ...baseStyle,
+      backgroundColor: "#ebe9dd",
     },
   })
 )
@@ -51,7 +47,7 @@ const Game: React.FC<IProps> = ({ room, game }) => {
   const handleAllowArrange = (allowArrange: boolean) => setAllowArrange(allowArrange)
 
   return (
-    <Grid container justify="space-around">
+    <Grid container>
       <Grid item xs={5}>
         {room.players.sort((p, q) => {
           const len = room.players.length
@@ -62,9 +58,9 @@ const Game: React.FC<IProps> = ({ room, game }) => {
         }).map((player, i) => {
           const isTurn = game.currentTurnIdx == player.turnIdx
           return (
-            <div key={i} className={classes.player} >
+            <div key={i} className={isTurn ? classes.playerOnTurn : classes.player} >
               <Hint holder={player} isTurn={isTurn} playerId={currentPlayerId()} />
-              < Hand holder={player} isTurn={isTurn} allowArrange={allowArrange} />
+              <Hand holder={player} isTurn={isTurn} allowArrange={allowArrange} />
             </div>
           )
         })}

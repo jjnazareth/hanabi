@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { HintChoices, RCHint } from '../../globalTypes'
-import { useStyles } from '../../Styles'
-import {
-  Button, Dialog, DialogTitle, DialogContent, DialogActions,
-  Radio, RadioGroup, FormControlLabel
-} from '@material-ui/core'
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Radio, RadioGroup, FormControlLabel, DialogContentText, Typography } from '@material-ui/core'
 
 
 interface IProps {
@@ -16,7 +12,7 @@ interface IProps {
 }
 
 const HintDialog: React.FC<IProps> = (props) => {
-  const classes = useStyles()
+  // const classes = useStyles()
   const { hintChoices, onClose, value: inputValue, open, ...other } = props
   const [value, setValue] = React.useState(inputValue)
   const radioGroupRef = React.useRef<HTMLElement>(null)
@@ -39,20 +35,23 @@ const HintDialog: React.FC<IProps> = (props) => {
   const hintToText = (hint: RCHint) => {
     switch (hint.type) {
       case "Rank":
-        return `You have "${hint.rank}" in position: ${hint.position}`
+        return `"${hint.rank}" in position: ${hint.position}`
       case "Colour":
-        return `You have "${hint.colour}" in position: ${hint.position}`
+        return `"${hint.colour}" in position: ${hint.position}`
       default:
         return "Error"
     }
   }
 
   return (
-    <Dialog disableBackdropClick disableEscapeKeyDown maxWidth="xs"
+    <Dialog disableBackdropClick disableEscapeKeyDown maxWidth="sm"
       onEntering={handleEntering} aria-labelledby="confirmation-dialog-title"
       open={open} {...other} >
       <DialogTitle id="confirmation-dialog-title">{hintChoices.player.name}</DialogTitle>
       <DialogContent dividers>
+        <DialogContentText>
+          <Typography variant='h6'>You have</Typography>
+        </DialogContentText>
         <RadioGroup
           ref={radioGroupRef} aria-label=""
           name="" value={value}

@@ -5,7 +5,7 @@ import { CardDisplay } from './CardDisplay'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
-    cardPile: { // used for build also
+    cardPile: {
       position: "relative",
       width: 70,
       height: 200,

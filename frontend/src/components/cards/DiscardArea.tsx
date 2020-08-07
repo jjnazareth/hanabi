@@ -43,12 +43,10 @@ const DiscardArea: React.FC<IProps> = ({ setNextTurn, game, discard, canDrop, is
   let colour = isActive ? '#FF7043' : '#FCE4EC'
   const { discardPiles } = game
   return (
-    <div ref={connectDropTarget} className={classes.discardArea}
-      style={{ backgroundColor: colour }}>
+    <div ref={connectDropTarget} className={classes.discardArea} style={{ backgroundColor: colour }}>
       <Typography variant="subtitle1" align="center">
         {isActive ? 'Release to Discard' : 'Discards'}
       </Typography>
-
       <Grid container justify="space-around" direction="row" spacing={1}>
         {discardPiles.map(({ colour, cards }, i) => (
           <CardPile key={i} cards={cards} />

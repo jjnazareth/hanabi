@@ -1,37 +1,15 @@
 import React, { useImperativeHandle, useRef } from 'react'
-import { Card, Player } from '../../globalTypes'
-import {
-  Paper, Typography
-} from '@material-ui/core'
-import { useStyles } from '../../Styles'
-
-import {
-  DragSource,
-  DropTarget,
-  ConnectDropTarget,
-  ConnectDragSource,
-  DropTargetMonitor,
-  DropTargetConnector,
-  DragSourceConnector,
-  DragSourceMonitor,
-} from 'react-dnd'
-
+import { Card, Player, CardFace } from '../../globalTypes'
+import { DragSource, DropTarget, ConnectDropTarget, ConnectDragSource, DropTargetMonitor, DropTargetConnector, DragSourceConnector, DragSourceMonitor, } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 import { XYCoord } from 'dnd-core'
 import { CardDisplay } from './CardDisplay'
 
-
-export enum CardFace {
-  FRONT = "FRONT",
-  BACK = "BACK",
-}
-
-interface HandCardProps {
+interface IProps {
   moveCard: (dragIndex: number, hoverIndex: number) => void
   dispatchMove: () => (void)
   holder: Player
   index: number
-  numCards: number
   card: Card
 
   isTurn: boolean
@@ -44,11 +22,9 @@ interface CardInstance {
   getNode(): HTMLDivElement | null
 }
 
-const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
-  ({ card, index, isTurn, numCards, isDragging,
-    connectDragSource, connectDropTarget }, ref) => {
+const _HandCard = React.forwardRef<HTMLDivElement, IProps>(
+  ({ card, index, isTurn, isDragging, connectDragSource, connectDropTarget }, ref) => {
 
-    const classes = useStyles()
     const elementRef = useRef(null)
     connectDragSource(elementRef)
     connectDropTarget(elementRef)
@@ -69,30 +45,22 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
   }
 )
 
-const handCard = DropTarget(
+export const HandCard = DropTarget(
   dndItemTypes.CARD,
   {
     hover(
-      props: HandCardProps,
-      monitor: DropTargetMonitor,
-      component: CardInstance,
+      props: IProps, monitor: DropTargetMonitor, component: CardInstance,
     ) {
-      if (!component) {
-        return null
-      }
+      if (!component) { return null }
       // node = HTML Div element from imperative API
       const node = component.getNode()
-      if (!node) {
-        return null
-      }
+      if (!node) { return null }
 
       const dragIndex = monitor.getItem().index
       const hoverIndex = props.index
 
       // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return
-      }
+      if (dragIndex === hoverIndex) { return }
 
       // Determine rectangle on screen
       const hoverBoundingRect = node.getBoundingClientRect()
@@ -112,18 +80,12 @@ const handCard = DropTarget(
       // When dragging rightwards, only move when the cursor is above 50%
 
       // Dragging leftwards
-      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
-        return
-      }
+      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) { return }
 
       // Dragging rightwards
-      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
-        return
-      }
+      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) { return }
       // cards should be exchanged in one hand only  
-      if (!(monitor.getItem().holder == props.holder)) {
-        return
-      }
+      if (!(monitor.getItem().holder == props.holder)) { return }
 
       props.moveCard(dragIndex, hoverIndex)
 
@@ -148,7 +110,7 @@ const handCard = DropTarget(
   DragSource(
     dndItemTypes.CARD,
     {
-      beginDrag: (props: HandCardProps) => ({
+      beginDrag: (props: IProps) => ({
         card: props.card,
         index: props.index,
         holder: props.holder,
@@ -163,7 +125,5 @@ const handCard = DropTarget(
       connectDragSource: connect.dragSource(),
       isDragging: monitor.isDragging(),
     }),
-  )(HandCard),
+  )(_HandCard),
 )
-
-export default (handCard)
