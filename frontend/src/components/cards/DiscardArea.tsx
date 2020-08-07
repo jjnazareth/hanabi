@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
 import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
-import DiscardPile from './DiscardPile'
+import { CardPile } from './CardPile'
 import { discard } from '../../actions'
 import { Grid, Typography, makeStyles, Theme, createStyles } from '@material-ui/core'
 
@@ -51,7 +51,7 @@ const DiscardArea: React.FC<IProps> = ({ setNextTurn, game, discard, canDrop, is
 
       <Grid container justify="space-around" direction="row" spacing={1}>
         {discardPiles.map(({ colour, cards }, i) => (
-          <DiscardPile key={i} cards={cards} />
+          <CardPile key={i} cards={cards} />
         ))}
       </Grid>
     </div>

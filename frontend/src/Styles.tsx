@@ -49,18 +49,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       height: 95,
       width: 70,
     },
-    cardIdx: {
-      position: "absolute", left: "2px"
-    },
-    cardRankTop: {
-      position: "absolute", right: "2px"
-    },
-    cardRankMid: {
-      position: "absolute", top: "20px", left: "20px",
-    },
-    cardNo: {
-      position: "absolute", bottom: "0px", right: "2px"
-    },
     cardDeck: {
       paddingTop: 20,
     },

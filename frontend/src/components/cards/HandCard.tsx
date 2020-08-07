@@ -58,18 +58,14 @@ const HandCard = React.forwardRef<HTMLDivElement, HandCardProps>(
       getNode: () => elementRef.current,
     }))
 
-    if (isTurn)
-      return (
-        <div ref={elementRef} style={{ opacity: opacity }}>
+    return (
+      <div ref={elementRef} style={{ opacity: opacity }}>
+        {isTurn ?
           <CardDisplay card={card} cardFace={CardFace.BACK} index={index + 1}></CardDisplay>
-        </div>
-      )
-    else
-      return (
-        <div ref={elementRef} style={{ opacity: opacity }}>
-          <CardDisplay card={card} cardFace={CardFace.FRONT} index={index + 1} ></CardDisplay>
-        </div>
-      )
+          : <CardDisplay card={card} cardFace={CardFace.FRONT} index={index + 1} ></CardDisplay>
+        }
+      </div>
+    )
   }
 )
 

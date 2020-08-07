@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
 import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
-import BuildPile from './BuildPile'
+import { CardPile } from './CardPile'
 import { build } from '../../actions'
 import { Grid, Typography, makeStyles, Theme, createStyles, ThemeProvider } from '@material-ui/core'
 
@@ -48,7 +48,7 @@ const BuildArea: React.FC<IProps> = ({ game, canDrop, isOver, connectDropTarget 
       </Typography>
       <Grid container justify="space-around" >
         {buildPiles.map(({ cards }, i) => (
-          <BuildPile key={i} cards={cards} />
+          <CardPile key={i} cards={cards} />
         ))}
       </Grid>
     </div>

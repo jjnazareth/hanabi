@@ -6,6 +6,7 @@ import { Fragment } from 'react'
 interface IStyleProps {
   cardFace: CardFace
   colour: CardColour
+  index: number
 }
 
 const useStyles = makeStyles<Theme, IStyleProps>((theme: Theme) =>
@@ -15,28 +16,27 @@ const useStyles = makeStyles<Theme, IStyleProps>((theme: Theme) =>
       position: "relative",
       height: 95,
       width: 70,
-      backgroundColor: ({ cardFace, colour }) => (cardFace === CardFace.FRONT ?
-        (colour.name == "Multi" ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : colour.code) :
+      background: ({ cardFace, colour }) => ((cardFace === CardFace.FRONT) ?
+        ((colour.name == "Multi") ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : colour.code) :
         'lightGrey'
       )
     },
-    cardIdx: { position: "absolute", left: "2px" },
+    cardIdx: { position: "absolute", left: "2px", display: ({ index }) => index === 0 ? "none" : "" },
     cardRankTop: { position: "absolute", right: "2px", display: ({ cardFace }) => (cardFace === CardFace.FRONT ? "" : "none") },
     cardRankMid: { position: "absolute", top: "20px", left: "20px", display: ({ cardFace }) => (cardFace === CardFace.FRONT ? "" : "none") },
     cardNo: { position: "absolute", bottom: "0px", right: "2px" },
   })
 )
 
-
 interface IProps {
+  cardFace: CardFace
   card: Card
   index: number
-  cardFace: CardFace
 }
 
-export const CardDisplay: React.FC<IProps> = ({ cardFace, index, card }) => {
+export const CardDisplay: React.FC<IProps> = ({ cardFace, card, index }) => {
   const { colour } = card
-  const classes = useStyles({ cardFace, colour })
+  const classes = useStyles({ cardFace, colour, index })
   return (
     <Paper className={classes.card} >
       <Typography variant="caption" className={classes.cardIdx}> {index + 1}</Typography>
