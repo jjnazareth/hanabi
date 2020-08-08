@@ -23,7 +23,7 @@ export const CardPile: React.FC<IProps> = ({ cards }) => {
   return (
     <Grid item container className={classes.cardPile}>
       {cards.map((card, i) => (
-        <div style={{ position: "absolute", top: (i * 28) }}>
+        <div key={i} style={{ position: "absolute", top: (i * 28) }}>
           <CardDisplay card={card} index={0} cardFace={CardFace.FRONT}> </CardDisplay>
         </div>
       ))}
