@@ -24,7 +24,7 @@ const useStyles = makeStyles<Theme, IStyleProps>((theme: Theme) =>
   })
 )
 
-interface TableProps {
+interface IProps {
   numPlayers: number
   setNextTurn: () => void
   canDrop: boolean
@@ -33,7 +33,7 @@ interface TableProps {
   connectDropTarget: ConnectDropTarget
 }
 
-const Table: React.FC<TableProps> = ({ numPlayers, setNextTurn, canDrop, isOver, handleAllowRearrange, connectDropTarget, }) => {
+const Table: React.FC<IProps> = ({ numPlayers, setNextTurn, canDrop, isOver, handleAllowRearrange, connectDropTarget, }) => {
   const isActive = canDrop && isOver
   const classes = useStyles({ isActive })
   // inhibit dispatch to redux store, as the mouse pointer is outside
@@ -59,12 +59,8 @@ const Table: React.FC<TableProps> = ({ numPlayers, setNextTurn, canDrop, isOver,
 const table = DropTarget(
   dndItemTypes.CARD,
   {
-    drop: ((props: TableProps, monitor) => {
-
-    }),
-    canDrop: ((props: TableProps, monitor) => {
-      return monitor.getItem().isTurn
-    })
+    drop: ((props: IProps, monitor) => { }),
+    canDrop: ((props: IProps, monitor) => { return monitor.getItem().isTurn })
   },
 
   (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
@@ -73,6 +69,5 @@ const table = DropTarget(
     canDrop: monitor.canDrop(),
   }),
 )(Table)
-
 
 export default connect(null, { setNextTurn })(table)

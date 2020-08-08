@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import Hand from './cards/Hand'
-import Table from './cards/Table'
+import Table from './cards/PlayBorder'
 import Hint from './cards/Hint'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 
