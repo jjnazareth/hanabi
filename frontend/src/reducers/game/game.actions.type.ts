@@ -2,6 +2,7 @@ import { Action } from "redux"
 import { Card, Player, PlayerHint } from "../../globalTypes"
 
 export enum GameActionNames {
+  DESTRUCT_CARD_GAME = "DESTRUCT_CARD_GAME",
   SET_CURRENT_TURN = "SET_CURRENT_TURN",
   SET_NEXT_TURN = "SET_NEXT_TURN",
   SET_DEALER = "SET_DEALER",
@@ -11,6 +12,7 @@ export enum GameActionNames {
   REMOVE_CARD_FROM_DECK = "REMOVE_CARD_FROM_DECK",
   GIVE_HINT = "GIVE_HINT"
 }
+export type DestructCardGame = Action<GameActionNames.DESTRUCT_CARD_GAME>
 
 export type SetCurrentTurnIdx = Action<GameActionNames.SET_CURRENT_TURN> & {
   currentTurnIdx: number
@@ -28,9 +30,7 @@ export type InitDeck = Action<GameActionNames.INIT_DECK> & {
 
 export type AddCardToDiscardPile = Action<
   GameActionNames.ADD_CARD_TO_DISCARD_PILE
-> & {
-  card: Card
-}
+> & { card: Card }
 
 export type AddCardToBuildPile = Action<
   GameActionNames.ADD_CARD_TO_BUILD_PILE
@@ -49,6 +49,7 @@ export type GiveHint = Action<GameActionNames.GIVE_HINT> & {
 }
 
 export type GameAction =
+  | DestructCardGame
   | SetCurrentTurnIdx
   | SetNextTurnIdx
   | SetDealerIdx

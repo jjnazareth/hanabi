@@ -2,6 +2,13 @@ import { GameActionNames } from "./game.actions.type"
 import { Card, PlayerHint } from "../../globalTypes"
 
 // ---------------- action creators -----------------------
+
+export function initialiseCardGame() {
+  return {
+    type: GameActionNames.DESTRUCT_CARD_GAME
+  }
+}
+
 export function setCurrentTurnIdx(idx: number) {
   return {
     type: GameActionNames.SET_CURRENT_TURN,

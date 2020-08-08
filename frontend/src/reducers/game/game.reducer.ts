@@ -35,6 +35,8 @@ const initialState: IGameState = {
 
 export function gameReducer(state = initialState, action: GameAction) {
   switch (action.type) {
+    case GameActionNames.DESTRUCT_CARD_GAME:
+      return initialState
     case GameActionNames.SET_CURRENT_TURN:
       return {
         ...state,

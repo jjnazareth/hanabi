@@ -5,9 +5,7 @@ import SaveIcon from "@material-ui/icons/Save"
 import EditIcon from "@material-ui/icons/Edit"
 
 import { LoginForm } from './login/LoginForm'
-import { PlayersForm } from './login/PlayersForm'
-// import CustomizedMenus from './login/Menu'
-
+import Container from './Container'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
@@ -28,25 +26,29 @@ interface IProps {
 
 export const NavBar: React.FC<IProps> = () => {
   const classes = useStyles()
-  const [open, setOpen] = useState({ login: false, setup: false })
+  const [open, setOpen] = useState({ login: false, setup: false, play: false })
   // const [value, setValue] = useState("")
 
   const handleLoginOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
     setOpen({ ...open, login: true })
   }
-  const handleSetupOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSetup = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-    setOpen({ ...open, setup: true })
+    setOpen({ ...open, setup: true, play: false })
+  }
+  const handlePlay = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    setOpen({ ...open, setup: false, play: true })
   }
 
   const handleLoginClose = () => { setOpen({ ...open, login: false }) }
-  const handleSetupClose = () => { setOpen({ ...open, setup: false }) }
+
   const handleClick = () => { alert("Hello") }
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar className={classes.root} position="static">
         <Toolbar>
           <IconButton edge="start" onClick={handleClick} className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
@@ -54,16 +56,20 @@ export const NavBar: React.FC<IProps> = () => {
           <Typography variant="h6" className={classes.title}>
             Hanabi
           </Typography>
-          <Button onClick={handleSetupOpen} color="inherit">Setup</Button>
+          <Button onClick={handleSetup} color="inherit">Setup</Button>
+          <Button onClick={handlePlay} color="inherit">Play</Button>
           <IconButton color="inherit" aria-label="Edit">
             <SaveIcon />
           </IconButton>
           <Button onClick={handleLoginOpen} color="inherit">Login</Button>
+
           {/* </section> */}
         </Toolbar>
       </AppBar>
+
       <LoginForm open={open.login} handleClose={handleLoginClose}></LoginForm>
-      <PlayersForm open={open.setup} handleClose={handleSetupClose}></PlayersForm>
+      {open.setup && "Setup"}
+      {open.play && <Container></Container>}
     </div>
   )
 }

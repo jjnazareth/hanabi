@@ -15,11 +15,11 @@ export const App: React.FC<{}> = () => {
     <Fragment>
       <CssBaseline />
       <Provider store={store}>
-        <NavBar />
-        <TestLogin ></TestLogin>
         <DragDropContextProvider backend={HTML5Backend}>
-          <Container>
-          </Container>
+          <TestLogin ></TestLogin>
+          <NavBar />
+          {/* <Container>
+          </Container> */}
         </DragDropContextProvider>
       </Provider>
     </Fragment>

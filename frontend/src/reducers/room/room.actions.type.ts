@@ -3,6 +3,7 @@ import { Card, Player } from "../../globalTypes"
 
 export enum RoomActionNames {
   LOGIN_PLAYER = "LOGIN_PLAYER",
+  REMOVE_ALL_PLAYERS = "REMOVE_ALL_PLAYERS",
   ADD_PLAYER = "ADD_PLAYER",
   SEAT_PLAYERS = "SEAT_PLAYERS",
   INIT_HAND = "INIT_HAND",
@@ -13,6 +14,7 @@ export enum RoomActionNames {
 export type LoginPlayer = Action<RoomActionNames.LOGIN_PLAYER> & {
   name: string
 }
+export type RemoveAllPlayers = Action<RoomActionNames.REMOVE_ALL_PLAYERS>
 export type AddPlayer = Action<RoomActionNames.ADD_PLAYER> & {
   name: string
 }
@@ -44,3 +46,4 @@ export type RoomAction =
   | RemoveCardFromHand
   | AddCardToHand
   | LoginPlayer
+  | RemoveAllPlayers

@@ -68,6 +68,7 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
   }
   return (
     <Fragment>
+      {console.log(holder.name)}
       <Button color="primary" disabled={isTurn} size="medium" onClick={handleClickOpen}>
         {holder.name}
       </Button>

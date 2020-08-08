@@ -4,6 +4,7 @@ import { Card, CardRank, Player, PlayerHint } from "./globalTypes"
 import {
   RoomActionNames,
   LoginPlayer,
+  RemoveAllPlayers,
   AddPlayer,
   SeatPlayers,
   InitHand,
@@ -20,8 +21,21 @@ import {
   AddCardToDiscardPile,
   AddCardToBuildPile,
   RemoveCardFromDeck,
-  GiveHint
+  GiveHint,
+  DestructCardGame
 } from "./reducers/game/game.actions.type"
+
+export const flushCardGame = () => (dispatch: Dispatch<DestructCardGame>) => {
+  dispatch({
+    type: GameActionNames.DESTRUCT_CARD_GAME
+  })
+}
+
+export const flushPlayers = () => (dispatch: Dispatch<RemoveAllPlayers>) => {
+  dispatch({
+    type: RoomActionNames.REMOVE_ALL_PLAYERS
+  })
+}
 
 export const setNextTurn = () => (
   dispatch: Dispatch<SetNextTurnIdx>,

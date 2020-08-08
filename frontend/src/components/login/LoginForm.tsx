@@ -28,6 +28,7 @@ interface IProps {
 export const LoginForm: React.FC<IProps> = ({ open, handleClose }) => {
   const classes = useStyles()
   const initialState = { playerName: "", password: "" }
+
   const { handleSubmit, handleChange, handleBlur, values, errors, isSubmitting } = useFormValidation(initialState, validateAuth)
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="xs">
@@ -35,7 +36,7 @@ export const LoginForm: React.FC<IProps> = ({ open, handleClose }) => {
       <DialogContent >
         <TextField variant="filled" type="text" name="playerName" label="player name" fullWidth
           onChange={handleChange} onBlur={handleBlur} value={values.playerName}
-          autoComplete='off' placeholder="Your name"
+          autoComplete='off' placeholder="Your first name"
           error={errors.playerName.length > 0}
           helperText={errors.playerName.length > 0 ? errors.playerName : " "}
         />
@@ -50,7 +51,6 @@ export const LoginForm: React.FC<IProps> = ({ open, handleClose }) => {
         <Button onClick={handleSubmit} color="primary" >
           Submit
           </Button>
-
       </DialogActions>
     </Dialog>
   )

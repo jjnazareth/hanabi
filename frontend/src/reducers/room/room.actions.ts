@@ -5,7 +5,7 @@ import { Card, Player } from "../../globalTypes"
 
 export function loginPlayer(playerName: string) {
   return {
-    type: RoomActionNames.ADD_PLAYER,
+    type: RoomActionNames.LOGIN_PLAYER,
     playerName: playerName
   }
 }
@@ -13,6 +13,12 @@ export function addPlayer(playerName: string) {
   return {
     type: RoomActionNames.ADD_PLAYER,
     name: playerName
+  }
+}
+
+export function removeAllPlayers() {
+  return {
+    type: RoomActionNames.REMOVE_ALL_PLAYERS
   }
 }
 

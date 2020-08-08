@@ -19,6 +19,12 @@ export function roomReducer(state = initialState, action: RoomAction) {
           isLoggedIn: p.name === action.name
         }))
       }
+    case RoomActionNames.REMOVE_ALL_PLAYERS:
+      return {
+        ...state,
+        players: []
+      }
+
     case RoomActionNames.ADD_PLAYER:
       return {
         ...state,
