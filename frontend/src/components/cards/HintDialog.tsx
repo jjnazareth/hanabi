@@ -50,7 +50,8 @@ const HintDialog: React.FC<IProps> = (props) => {
       <DialogTitle id="confirmation-dialog-title">{hintChoices.player.name}</DialogTitle>
       <DialogContent dividers>
         <DialogContentText>
-          <Typography variant='h6'>You have</Typography>
+          {/* 'span' is required to inhibit <p> tag in <h6> */}
+          <Typography component='span' variant='h6'>You have</Typography>
         </DialogContentText>
         <RadioGroup
           ref={radioGroupRef} aria-label=""

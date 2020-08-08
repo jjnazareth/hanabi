@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
@@ -14,24 +14,23 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       '& .MuiTextField-root': {
         margin: theme.spacing(1),
-        // width: 200,
       },
     },
   })
 )
 
-const initialState = { playerName: "", password: "" }
 
 interface IProps {
   open: boolean
   handleClose: () => void
 }
 
-export const LoginDialog: React.FC<IProps> = ({ open, handleClose }) => {
+export const LoginForm: React.FC<IProps> = ({ open, handleClose }) => {
   const classes = useStyles()
+  const initialState = { playerName: "", password: "" }
   const { handleSubmit, handleChange, handleBlur, values, errors, isSubmitting } = useFormValidation(initialState, validateAuth)
   return (
-    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="md">
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="xs">
       <DialogTitle id="form-dialog-title">Login Name</DialogTitle>
       <DialogContent >
         <TextField variant="filled" type="text" name="playerName" label="player name" fullWidth
@@ -51,8 +50,10 @@ export const LoginDialog: React.FC<IProps> = ({ open, handleClose }) => {
         <Button onClick={handleSubmit} color="primary" >
           Submit
           </Button>
+
       </DialogActions>
     </Dialog>
   )
+
 }
 

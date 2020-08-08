@@ -13,6 +13,7 @@ export const useFormValidation = (initialState: data, validate: (values: data) =
       const noErrors = errors.playerName === "" && errors.password === ""/* Object.keys(errors).length === 0 */
       if (noErrors) {
         console.log("authenticated!", ucFirst(values.playerName), values.password)
+        setValues(initialState)
       }
       setSubmitting(false)
     }
