@@ -12,6 +12,7 @@ interface IProps {
   index: number
   card: Card
 
+  isHidden: boolean
   isTurn: boolean
   isDragging: boolean
   connectDragSource: ConnectDragSource
@@ -23,7 +24,7 @@ interface CardInstance {
 }
 
 const _HandCard = React.forwardRef<HTMLDivElement, IProps>(
-  ({ card, index, isTurn, isDragging, connectDragSource, connectDropTarget }, ref) => {
+  ({ card, index, isHidden, isDragging, connectDragSource, connectDropTarget }, ref) => {
 
     const elementRef = useRef(null)
     connectDragSource(elementRef)
@@ -36,7 +37,7 @@ const _HandCard = React.forwardRef<HTMLDivElement, IProps>(
 
     return (
       <div ref={elementRef} style={{ opacity: opacity }}>
-        {isTurn ?
+        {isHidden ?
           <CardDisplay card={card} cardFace={CardFace.BACK} index={index + 1}></CardDisplay>
           : <CardDisplay card={card} cardFace={CardFace.FRONT} index={index + 1} ></CardDisplay>
         }

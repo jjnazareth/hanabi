@@ -23,12 +23,13 @@ const useStyles = makeStyles<Theme, IStyleProps>((theme: Theme) =>
 
 interface IProps {
   holder: Player,
+  isHidden: boolean,
   isTurn: boolean,
   allowArrange: boolean,
   initHand: (turnIdx: number, cards: Card[]) => void
 }
 
-const Hand: React.FC<IProps> = ({ holder, isTurn, allowArrange, initHand }) => {
+const Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, allowArrange, initHand }) => {
   const classes = useStyles({ isTurn })
   const [cards, setCards] = useState(holder.hand)
   useEffect(() => { setCards(holder.hand) }, [holder.hand])
@@ -48,7 +49,7 @@ const Hand: React.FC<IProps> = ({ holder, isTurn, allowArrange, initHand }) => {
     // dispatch to redux store only when cards are rearranged in one hand
     allowArrange && initHand(holder.turnIdx, cards)
   }
-  const cardsDisplay = isTurn ? Array.from(cards).reverse() : cards
+  const cardsDisplay = isHidden ? Array.from(cards).reverse() : cards
   return (
     <Grid container className={classes.hand} spacing={2}>
       {/* style={{ backgroundColor: isTurn ? "#DCEDC8" : "" }}> */}
@@ -56,7 +57,8 @@ const Hand: React.FC<IProps> = ({ holder, isTurn, allowArrange, initHand }) => {
         <Grid item key={card.idx}>
           <HandCard
             holder={holder}
-            index={isTurn ? holder.hand.length - 1 - i : i}
+            index={isHidden ? holder.hand.length - 1 - i : i}
+            isHidden={isHidden}
             isTurn={isTurn}
             card={card}
             moveCard={moveCard}

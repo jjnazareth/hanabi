@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     playerOnTurn: {
       ...baseStyle,
-      backgroundColor: "#ebe9dd",
+      backgroundColor: "#ed581c",
     },
   })
 )
@@ -57,10 +57,11 @@ const Game: React.FC<IProps> = ({ room, game }) => {
           return fn(p.turnIdx) - fn(q.turnIdx)
         }).map((player, i) => {
           const isTurn = game.currentTurnIdx == player.turnIdx
+          const isHidden = i === 0
           return (
             <div key={i} className={isTurn ? classes.playerOnTurn : classes.player} >
               <Hint holder={player} isTurn={isTurn} playerId={currentPlayerId()} />
-              <Hand holder={player} isTurn={isTurn} allowArrange={allowArrange} />
+              <Hand holder={player} isHidden={isHidden} isTurn={isTurn} allowArrange={allowArrange} />
             </div>
           )
         })}

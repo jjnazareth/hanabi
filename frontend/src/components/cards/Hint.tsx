@@ -61,10 +61,11 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
   const handleClose = (newValue?: string) => {
 
     setOpen(false)
-    if (newValue) setValue(newValue)
-    // 
-    giveHint({ fromPlayerId: playerId, toPlayerId: holder.playerId, hintToString: newValue as string })
-    setNextTurn()
+    if (newValue) {
+      setValue(newValue)
+      giveHint({ fromPlayerId: playerId, toPlayerId: holder.playerId, hintToString: newValue as string })
+      setNextTurn()
+    }
   }
   return (
     <Fragment>
