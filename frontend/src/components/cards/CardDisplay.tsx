@@ -39,7 +39,7 @@ export const CardDisplay: React.FC<IProps> = ({ cardFace, card, index }) => {
   const classes = useStyles({ cardFace, colour, index })
   return (
     <Paper className={classes.card} >
-      <Typography variant="caption" className={classes.cardIdx}> {index + 1}</Typography>
+      <Typography variant="caption" className={classes.cardIdx}> {index}</Typography>
       <Typography variant="h6" className={classes.cardRankTop}> {card.rank}</Typography>
       <Typography variant="h2" className={classes.cardRankMid}> {card.rank}</Typography>
       <Typography variant="caption" className={classes.cardNo} >{card.idx}</Typography>

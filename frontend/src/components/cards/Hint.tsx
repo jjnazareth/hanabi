@@ -6,6 +6,8 @@ import HintDialog from './HintDialog'
 import { connect } from 'react-redux'
 import { giveHint, setNextTurn } from '../../actions'
 import { Fragment } from 'react'
+import { useEffect } from 'react'
+import { IGlobalState } from '../../reducers'
 
 
 
@@ -15,7 +17,6 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
     },
   })
 )
-
 
 
 interface IProps {
@@ -29,6 +30,7 @@ interface IProps {
 const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTurn }) => {
 
   let cardsWithPos = holder.hand.map((c, i) => ({ ...c, position: i }))
+  console.log(cardsWithPos)
   let rankHints: RankHint[] =
     [CardRank.Rank1, CardRank.Rank2, CardRank.Rank3, CardRank.Rank4, CardRank.Rank5]
       .map(r => ({
@@ -69,7 +71,6 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
   }
   return (
     <Fragment>
-      {console.log(holder.name)}
       <Button color="primary" disabled={isTurn} size="medium" onClick={handleClickOpen}>
         {holder.name}
       </Button>
@@ -79,6 +80,12 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
 
   )
 }
+
+
+const mapStateToProps = (state: IGlobalState) => ({
+  room: state.room
+})
+
 export default connect(null, { giveHint, setNextTurn })(Hint)
 
 
