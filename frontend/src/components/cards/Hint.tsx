@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CardRank, Player, HintChoices, RankHint, ColourHint, PlayerHint } from '../../globalTypes'
+import { CardRank, Player, HintChoices, RankHint, ColourHint, PlayerHint, Card } from '../../globalTypes'
 import { Button, makeStyles, Theme, createStyles } from '@material-ui/core'
 
 import HintDialog from './HintDialog'
@@ -8,8 +8,7 @@ import { giveHint, setNextTurn } from '../../actions'
 import { Fragment } from 'react'
 import { useEffect } from 'react'
 import { IGlobalState } from '../../reducers'
-
-
+import { CardDisplay } from './CardDisplay'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
@@ -17,6 +16,7 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
     },
   })
 )
+
 
 
 interface IProps {
@@ -27,10 +27,9 @@ interface IProps {
   setNextTurn: () => void
 }
 
-const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTurn }) => {
 
-  let cardsWithPos = holder.hand.map((c, i) => ({ ...c, position: i }))
-  console.log(cardsWithPos)
+const getHintChoices = (cards: Card[]) => {
+  const cardsWithPos = cards.map((c, i) => ({ ...c, position: i }))
   let rankHints: RankHint[] =
     [CardRank.Rank1, CardRank.Rank2, CardRank.Rank3, CardRank.Rank4, CardRank.Rank5]
       .map(r => ({
@@ -40,7 +39,7 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
           .map(card => card.position + 1)
       })).filter(obj => obj.position.length > 0)
 
-  let colourHints: ColourHint[] =
+  const colourHints: ColourHint[] =
     ["White", "Yellow", "Green", "Blue", "Red"]
       .map(colour => ({
         type: "Colour" as "Colour",
@@ -50,9 +49,20 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
           .map(card => card.position + 1)
       })).filter(obj => obj.position.length > 0)
 
+  return [...rankHints, ...colourHints]
+}
+
+
+const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTurn }) => {
+
   const hintChoices: HintChoices = {
-    player: holder, hints: [...rankHints, ...colourHints]
+    player: holder, hints: getHintChoices(holder.hand)
   }
+
+
+  useEffect(() => {
+
+  }, [holder.hand])
 
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")

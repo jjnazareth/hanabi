@@ -66,6 +66,7 @@ const Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, allowArrange, initHa
           />
         </Grid>
       ))}
+      {console.log(cards)}
     </Grid>
   )
 }
