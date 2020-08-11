@@ -3,7 +3,7 @@ import { Grid, Typography, makeStyles, Theme, createStyles } from '@material-ui/
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import { Fragment } from 'react'
-import Game from './Game'
+import { Game } from './Game'
 
 
 const useStyles = makeStyles((theme: Theme) =>

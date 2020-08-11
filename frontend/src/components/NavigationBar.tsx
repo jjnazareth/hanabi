@@ -2,10 +2,9 @@ import React, { useState, ChangeEvent } from 'react'
 import { AppBar, Toolbar, Typography, IconButton, Button, makeStyles, Theme, createStyles } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import SaveIcon from "@material-ui/icons/Save"
-import EditIcon from "@material-ui/icons/Edit"
 
 import { LoginForm } from './login/LoginForm'
-import Container from './Container'
+import { Container } from './Container'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({

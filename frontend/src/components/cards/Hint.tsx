@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { CardRank, Player, HintChoices, RankHint, ColourHint, PlayerHint, Card } from '../../globalTypes'
+import { CardRank, Player, HintChoices, RankHint, ColourHint, PlayerHint, Card, RCHint } from '../../globalTypes'
 import { Button, makeStyles, Theme, createStyles } from '@material-ui/core'
 
-import HintDialog from './HintDialog'
+import { HintDialog } from './HintDialog'
 import { connect } from 'react-redux'
 import { giveHint, setNextTurn } from '../../actions'
 import { Fragment } from 'react'
@@ -23,12 +23,13 @@ interface IProps {
   holder: Player
   isTurn: boolean
   playerId: number
+  hints: RCHint[]
   giveHint: (playerHint: PlayerHint) => void
   setNextTurn: () => void
 }
 
 
-const getHintChoices = (cards: Card[]) => {
+export const getHintChoices = (cards: Card[]) => {
   const cardsWithPos = cards.map((c, i) => ({ ...c, position: i }))
   let rankHints: RankHint[] =
     [CardRank.Rank1, CardRank.Rank2, CardRank.Rank3, CardRank.Rank4, CardRank.Rank5]
@@ -52,17 +53,7 @@ const getHintChoices = (cards: Card[]) => {
   return [...rankHints, ...colourHints]
 }
 
-
-const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTurn }) => {
-
-  const hintChoices: HintChoices = {
-    player: holder, hints: getHintChoices(holder.hand)
-  }
-
-
-  useEffect(() => {
-
-  }, [holder.hand])
+const _Hint: React.FC<IProps> = ({ holder, isTurn, playerId, hints, giveHint, setNextTurn }) => {
 
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
@@ -71,7 +62,6 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
     if (!isTurn) setOpen(true)
   }
   const handleClose = (newValue?: string) => {
-
     setOpen(false)
     if (newValue) {
       setValue(newValue)
@@ -85,17 +75,11 @@ const Hint: React.FC<IProps> = ({ holder, isTurn, playerId, giveHint, setNextTur
         {holder.name}
       </Button>
       <HintDialog keepMounted={true} open={open} onClose={handleClose} value={""}
-        hintChoices={hintChoices} />
+        hintChoices={{ player: holder, hints: hints }} />
     </Fragment>
-
   )
 }
 
-
-const mapStateToProps = (state: IGlobalState) => ({
-  room: state.room
-})
-
-export default connect(null, { giveHint, setNextTurn })(Hint)
+export const Hint = connect(null, { giveHint, setNextTurn })(_Hint)
 
 

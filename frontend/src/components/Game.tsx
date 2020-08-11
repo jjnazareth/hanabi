@@ -1,50 +1,46 @@
 import React, { useState } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
-import Hand from './cards/Hand'
-import Table from './cards/PlayBorder'
-import Hint from './cards/Hint'
+import { Hand } from './cards/Hand'
+import { PlayBorder } from './cards/PlayBorder'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 
 
-const baseStyle = { margin: 2, padding: 4 }
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    player: {
-      ...baseStyle,
-      backgroundColor: "#D1C894"
-    },
-    playerOnTurn: {
-      ...baseStyle,
-      backgroundColor: "#ed581c",
-    },
-  })
-)
+const useStyles = makeStyles((theme: Theme) => {
+  const baseStyle = { margin: 2, padding: 4 }
+  return (
+    createStyles({
+      player: {
+        ...baseStyle,
+        backgroundColor: "#D1C894"
+      },
+      playerOnTurn: {
+        ...baseStyle,
+        backgroundColor: "#ED581C",
+      },
+    })
+  )
+})
 
 interface IProps {
   room: IRoomState
   game: IGameState
 }
 
-const Game: React.FC<IProps> = ({ room, game }) => {
-  const classes = useStyles()
 
+export const Game: React.FC<IProps> = ({ room, game }) => {
+  const classes = useStyles()
   const loginPlayer = () => room.players.find(p => p.isLoggedIn)
-  const loginPlayerId = () => {
+  const loginPlayerIdx = () => {
     let player = loginPlayer()
     return player ? player.turnIdx : 0
   }
+
   const currentPlayer = () => room.players.find(p => (p.turnIdx == game.currentTurnIdx))
   const currentPlayerId = () => {
     let player = currentPlayer()
     return player ? player.playerId : -1
   }
-
-  // to disambiguate drag-and-drop for rearranging cards in one hand from
-  // drag-and-drop to build piles or discard
-  const [allowArrange, setAllowArrange] = useState<boolean>(true)
-  // callback to allow/forbid dispatch of card rearrangement to redux store
-  const handleAllowArrange = (allowArrange: boolean) => setAllowArrange(allowArrange)
 
   return (
     <Grid container>
@@ -53,27 +49,23 @@ const Game: React.FC<IProps> = ({ room, game }) => {
           const len = room.players.length
           // player logged in is always displayed first
           // other players are in order of turn to play
-          const fn = (idx: number) => (idx - loginPlayerId() + len) % len
+          const fn = (idx: number) => (idx - loginPlayerIdx() + len) % len
           return fn(p.turnIdx) - fn(q.turnIdx)
         }).map((player, i) => {
           const isTurn = game.currentTurnIdx == player.turnIdx
           const isHidden = i === 0
           return (
             <div key={i} className={isTurn ? classes.playerOnTurn : classes.player} >
-              <Hint holder={player} isTurn={isTurn} playerId={currentPlayerId()} />
-              <Hand holder={player} isHidden={isHidden} isTurn={isTurn} allowArrange={allowArrange} />
+              <Hand holder={player} isHidden={isHidden} isTurn={isTurn} playerId={currentPlayerId()} />
             </div>
           )
         })}
       </Grid>
       <Grid item xs={7} >
-        <Table numPlayers={room.players.length} handleAllowRearrange={handleAllowArrange} />
+        <PlayBorder numPlayers={room.players.length} />
       </Grid>
-      {/* {console.log(game.hints[game.hints.length - 1])} */}
     </Grid>
   )
 }
 
-
-export default Game
 

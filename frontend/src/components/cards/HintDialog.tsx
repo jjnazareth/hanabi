@@ -11,7 +11,7 @@ interface IProps {
   onClose: (value?: string) => void,
 }
 
-const HintDialog: React.FC<IProps> = (props) => {
+export const HintDialog: React.FC<IProps> = (props) => {
   // const classes = useStyles()
   const { hintChoices, onClose, value: inputValue, open, ...other } = props
   const [value, setValue] = React.useState(inputValue)
@@ -73,5 +73,3 @@ const HintDialog: React.FC<IProps> = (props) => {
     </Dialog>
   )
 }
-
-export default (HintDialog)

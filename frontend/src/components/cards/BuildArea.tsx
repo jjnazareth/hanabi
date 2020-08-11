@@ -35,14 +35,13 @@ interface IProps {
   connectDropTarget: ConnectDropTarget
 }
 
-const BuildArea: React.FC<IProps> = ({ game, canDrop, isOver, connectDropTarget }) => {
+const _BuildArea: React.FC<IProps> = ({ game, canDrop, isOver, connectDropTarget }) => {
   const isActive = canDrop && isOver
   const classes = useStyles({ isActive })
-  // let colour = isActive ? '#AED581' : '#DCEDC8'
   const { buildPiles } = game
 
   return (
-    <div ref={connectDropTarget} className={classes.buildArea} /* style={{ backgroundColor: colour }} */>
+    <div ref={connectDropTarget} className={classes.buildArea} >
       <Typography variant="subtitle1" align="center">
         {isActive ? 'Release to Place' : 'Build Area'}
       </Typography>
@@ -55,34 +54,29 @@ const BuildArea: React.FC<IProps> = ({ game, canDrop, isOver, connectDropTarget 
   )
 }
 
-const buildArea = DropTarget(
+const mapStateToProps = (state: IGlobalState) => ({ game: state.game })
+export const BuildArea = connect(mapStateToProps, { build })
+  (
+    DropTarget(
+      dndItemTypes.CARD,
+      {
+        drop: ((props: IProps, monitor) => {
+          const { setNextTurn, game, build } = props
+          let player = monitor.getItem().holder
+          let playerCard = monitor.getItem().card
+          build(playerCard, player, game.drawDeck)
+          setNextTurn()
+        }),
+        canDrop: ((props: IProps, monitor) => {
+          return monitor.getItem().isTurn
+        })
+      },
 
-  dndItemTypes.CARD,
-  {
-    drop: ((props: IProps, monitor) => {
-      const { setNextTurn, game, build } = props
-      let player = monitor.getItem().holder
-      let playerCard = monitor.getItem().card
-      build(playerCard, player, game.drawDeck)
-      setNextTurn()
-    }),
-    canDrop: ((props: IProps, monitor) => {
-      return monitor.getItem().isTurn
-    })
-  },
+      (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
 
-  (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    canDrop: monitor.canDrop(),
-
-  }),
-)(BuildArea)
-
-const mapStateToProps = (state: IGlobalState) => ({
-  game: state.game
-})
-
-export default connect(mapStateToProps, {
-  build
-})(buildArea)
+      }),
+    )(_BuildArea)
+  )

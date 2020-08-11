@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 import { IRoomState, roomReducer } from '../reducers/room/room.reducer'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IGlobalState } from '../reducers'
-import Game from './Game'
+import { Game } from './Game'
 import { flushPlayers, flushCardGame, initGame } from '../actions'
 import { GameStatus } from './GameStatus'
 import { useState } from 'react'
@@ -18,7 +18,7 @@ interface IProps {
   initGame: (playerNames: string[], turnIdxs: number[], currentTurnIdx: number, dealerIdx: number) => void
 }
 
-const Container: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, initGame }) => {
+const _Container: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, initGame }) => {
   useEffect(() => {
     let playerNames: string[] =
       ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
@@ -49,6 +49,5 @@ const mapStateToProps = (state: IGlobalState) => ({
   game: state.game,
 })
 
-
-export default connect(mapStateToProps, { flushPlayers, flushCardGame, initGame })(Container)
+export const Container = connect(mapStateToProps, { flushPlayers, flushCardGame, initGame })(_Container)
 

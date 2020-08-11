@@ -18,7 +18,7 @@ interface IProps {
   loginPlayer: (playerName: string) => void
 }
 
-const TestLogin: React.FC<IProps> = ({ loginPlayer }) => {
+const _TestLogin: React.FC<IProps> = ({ loginPlayer }) => {
   const classes = useStyles()
   const [playerName, setPlayerName] = useState<string>("")
   const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
@@ -46,4 +46,4 @@ const TestLogin: React.FC<IProps> = ({ loginPlayer }) => {
   )
 }
 
-export default connect(null, { loginPlayer })(TestLogin)
+export const TestLogin = connect(null, { loginPlayer })(_TestLogin)

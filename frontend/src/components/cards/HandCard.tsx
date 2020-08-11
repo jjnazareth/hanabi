@@ -49,9 +49,7 @@ const _HandCard = React.forwardRef<HTMLDivElement, IProps>(
 export const HandCard = DropTarget(
   dndItemTypes.CARD,
   {
-    hover(
-      props: IProps, monitor: DropTargetMonitor, component: CardInstance,
-    ) {
+    hover(props: IProps, monitor: DropTargetMonitor, component: CardInstance,) {
       if (!component) { return null }
       // node = HTML Div element from imperative API
       const node = component.getNode()
@@ -118,7 +116,11 @@ export const HandCard = DropTarget(
         isTurn: props.isTurn
       }),
       endDrag(props, monitor, component) {
-        props.dispatchMove()
+        console.log("end drag")
+        let result = monitor.getDropResult() // undefined if dropped on a non-target
+        if (result && result.arrange) { props.dispatchMove() }
+        // result.arrange is true if dropped within the hand
+        // dispatchMove is a callback in Hand which dispatches the hand to the redux store
       }
     },
     // collecting function

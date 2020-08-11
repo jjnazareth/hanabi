@@ -37,7 +37,7 @@ interface IProps {
 }
 
 
-const DiscardArea: React.FC<IProps> = ({ setNextTurn, game, discard, canDrop, isOver, connectDropTarget }) => {
+const _DiscardArea: React.FC<IProps> = ({ setNextTurn, game, discard, canDrop, isOver, connectDropTarget }) => {
   const isActive = canDrop && isOver
   const classes = useStyles({ isActive })
   let colour = isActive ? '#FF7043' : '#FCE4EC'
@@ -56,35 +56,31 @@ const DiscardArea: React.FC<IProps> = ({ setNextTurn, game, discard, canDrop, is
   )
 }
 
-const discardArea = DropTarget(
-
-  dndItemTypes.CARD,
-  {
-    drop: ((props: IProps, monitor) => {
-      const { setNextTurn, game, discard } = props
-      let player = monitor.getItem().holder
-      let playerCard = monitor.getItem().card
-      discard(playerCard, player, game.drawDeck)
-      setNextTurn()
-    }),
-    canDrop: ((props: IProps, monitor) => {
-      return monitor.getItem().isTurn
-    })
-  },
-
-  (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    canDrop: monitor.canDrop(),
-  }),
-)(DiscardArea)
 
 const mapStateToProps = (state: IGlobalState) => ({
   game: state.game
 })
 
-export default connect(mapStateToProps,
-  {
-    discard
-  })(discardArea)
-
+export const DiscardArea = connect(mapStateToProps, { discard })
+  (
+    DropTarget(
+      dndItemTypes.CARD,
+      {
+        drop: ((props: IProps, monitor) => {
+          const { setNextTurn, game, discard } = props
+          let player = monitor.getItem().holder
+          let playerCard = monitor.getItem().card
+          discard(playerCard, player, game.drawDeck)
+          setNextTurn()
+        }),
+        canDrop: ((props: IProps, monitor) => {
+          return monitor.getItem().isTurn
+        })
+      },
+      (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      }),
+    )(_DiscardArea)
+  )

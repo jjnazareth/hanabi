@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import BuildArea from './BuildArea'
-import DiscardArea from './DiscardArea'
+import { BuildArea } from './BuildArea'
+import { DiscardArea } from './DiscardArea'
 import { setNextTurn } from '../../actions'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { DropTarget, ConnectDropTarget, DropTargetMonitor, DropTargetConnector } from 'react-dnd'
@@ -29,16 +29,15 @@ interface IProps {
   setNextTurn: () => void
   canDrop: boolean
   isOver: boolean
-  handleAllowRearrange: (allowArrange: boolean) => void
+  // handleAllowRearrange: (allowArrange: boolean) => void
   connectDropTarget: ConnectDropTarget
 }
 
-const Table: React.FC<IProps> = ({ numPlayers, setNextTurn, canDrop, isOver, handleAllowRearrange, connectDropTarget, }) => {
+const _PlayBorder: React.FC<IProps> = ({ numPlayers, setNextTurn, canDrop, isOver, /* handleAllowRearrange.\, */ connectDropTarget, }) => {
   const isActive = canDrop && isOver
   const classes = useStyles({ isActive })
   // inhibit dispatch to redux store, as the mouse pointer is outside
   // the area where cards are being rearranged in one hand
-  handleAllowRearrange(false)
   let colour = isActive ? '#FFC400' : ""
 
   return (
@@ -56,18 +55,21 @@ const Table: React.FC<IProps> = ({ numPlayers, setNextTurn, canDrop, isOver, han
   )
 }
 
-const table = DropTarget(
-  dndItemTypes.CARD,
-  {
-    drop: ((props: IProps, monitor) => { }),
-    canDrop: ((props: IProps, monitor) => { return monitor.getItem().isTurn })
-  },
+export const PlayBorder = connect(null, { setNextTurn })
+  (
+    DropTarget(
+      dndItemTypes.CARD,
+      {
+        hover(props: IProps, monitor: DropTargetMonitor) {
+        },
+        drop: ((props: IProps, monitor) => { }),
+        canDrop: ((props: IProps, monitor) => { return monitor.getItem().isTurn })
+      },
 
-  (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    canDrop: monitor.canDrop(),
-  }),
-)(Table)
-
-export default connect(null, { setNextTurn })(table)
+      (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      }),
+    )(_PlayBorder)
+  )
