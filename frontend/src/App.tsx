@@ -5,9 +5,10 @@ import store from './store'
 import { Container } from './components/Container'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContextProvider } from 'react-dnd'
-import { NavBar } from './components/NavigationBar'
+import { NavBar } from './components/NavBar'
 import { TestLogin } from './components/login/TestLogin'
 import { CssBaseline } from '@material-ui/core'
+import { TestNavBar } from './components/TestNavBar'
 
 
 export const App: React.FC<{}> = () => {
@@ -17,7 +18,7 @@ export const App: React.FC<{}> = () => {
       <Provider store={store}>
         <DragDropContextProvider backend={HTML5Backend}>
           <TestLogin ></TestLogin>
-          <NavBar />
+          <TestNavBar />
           {/* <Container>
           </Container> */}
         </DragDropContextProvider>
