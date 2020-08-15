@@ -18,7 +18,7 @@ export const App: React.FC<{}> = () => {
       <Provider store={store}>
         <DragDropContextProvider backend={HTML5Backend}>
           <TestLogin ></TestLogin>
-          <TestNavBar />
+          <NavBar />
           {/* <Container>
           </Container> */}
         </DragDropContextProvider>

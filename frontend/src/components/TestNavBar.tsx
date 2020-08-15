@@ -1,24 +1,39 @@
-import React from "react"
-import { BrowserRouter, Route, Switch } from "react-router-dom"
-
-import { Home } from "../components/Home"
-import { About } from "../components/About"
-import { Contact } from "../components/Contact"
+import React, { useState, Fragment } from "react"
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom"
 import { Error } from "../components/Error"
-import { Navigation } from "../components/Navigation"
+import { useEffect } from "react"
+import { Writers } from './writers/Writers'
 
-export const TestNavBar: React.FC<{}> = () => {
+export const TestNavBar: React.FC = () => {
+  const [state, setState] = useState({ writers: [], isLoading: false })
+  useEffect(() => {
+    setState({ ...state, isLoading: true })
+    const fetchData = async () => {
+      await fetch("http://localhost:3004/writers")
+        .then(res => res.json())
+        .then(data => setState({ writers: data, isLoading: false }))
+    }
+    fetchData()
+    // return () => {
+    // }
+  }, [])
+
+  const { writers } = state
   return (
     <BrowserRouter>
-      <div>
-        <Navigation />
+      <Fragment>
+        <ul>
+          <li><Link to="/writers">Writers</Link></li>
+        </ul>
+        <hr />
         <Switch>
-          <Route path="/" component={Home} exact />
-          <Route path="/about" component={About} />
-          <Route path="/contact" component={Contact} />
+          <Route path="/writers" render={props => {
+            const { match } = props
+            return <Writers match={match} writers={writers} />
+          }} />
           <Route component={Error} />
         </Switch>
-      </div>
+      </Fragment>
     </BrowserRouter>
   )
 }
