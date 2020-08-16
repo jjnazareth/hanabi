@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
       spacing: theme.spacing(2),
       backgroundColor: "#C5E1A5"
     },
-
   })
 )
 
@@ -43,7 +42,6 @@ export const GameStatus: React.FC<IProps> = ({ room, game }) => {
 
   return (
     <Fragment>
-
       <Grid container className={classes.gameState} >
         <Grid item xs={4}>
           <Typography variant="subtitle2">

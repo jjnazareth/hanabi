@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import { Hand } from './cards/Hand'
 import { PlayBorder } from './cards/PlayBorder'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
+import { GameStatus } from './GameStatus'
 
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -43,28 +44,31 @@ export const Game: React.FC<IProps> = ({ room, game }) => {
   }
 
   return (
-    <Grid container>
-      <Grid item xs={5}>
-        {room.players.sort((p, q) => {
-          const len = room.players.length
-          // player logged in is always displayed first
-          // other players are in order of turn to play
-          const fn = (idx: number) => (idx - loginPlayerIdx() + len) % len
-          return fn(p.turnIdx) - fn(q.turnIdx)
-        }).map((player, i) => {
-          const isTurn = game.currentTurnIdx == player.turnIdx
-          const isHidden = i === 0
-          return (
-            <div key={i} className={isTurn ? classes.playerOnTurn : classes.player} >
-              <Hand holder={player} isHidden={isHidden} isTurn={isTurn} playerId={currentPlayerId()} />
-            </div>
-          )
-        })}
+    <Fragment>
+      <GameStatus room={room} game={game}></GameStatus>
+      <Grid container>
+        <Grid item xs={5}>
+          {room.players.sort((p, q) => {
+            const len = room.players.length
+            // player logged in is always displayed first
+            // other players are in order of turn to play
+            const fn = (idx: number) => (idx - loginPlayerIdx() + len) % len
+            return fn(p.turnIdx) - fn(q.turnIdx)
+          }).map((player, i) => {
+            const isTurn = game.currentTurnIdx == player.turnIdx
+            const isHidden = i === 0
+            return (
+              <div key={i} className={isTurn ? classes.playerOnTurn : classes.player} >
+                <Hand holder={player} isHidden={isHidden} isTurn={isTurn} playerId={currentPlayerId()} />
+              </div>
+            )
+          })}
+        </Grid>
+        <Grid item xs={7} >
+          <PlayBorder numPlayers={room.players.length} />
+        </Grid>
       </Grid>
-      <Grid item xs={7} >
-        <PlayBorder numPlayers={room.players.length} />
-      </Grid>
-    </Grid>
+    </Fragment>
   )
 }
 
