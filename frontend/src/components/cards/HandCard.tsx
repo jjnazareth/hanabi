@@ -2,7 +2,7 @@ import React, { useImperativeHandle, useRef } from 'react'
 import { Card, Player, CardFace } from '../../globalTypes'
 import { DragSource, DropTarget, ConnectDropTarget, ConnectDragSource, DropTargetMonitor, DropTargetConnector, DragSourceConnector, DragSourceMonitor, } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
-import { XYCoord } from 'dnd-core'
+import { XYCoord } from 'react-dnd'
 import { CardDisplay } from './CardDisplay'
 
 interface IProps {
@@ -73,11 +73,11 @@ export const HandCard = DropTarget(
 
       // Get pixels to the left
       const hoverClientX = (clientOffset as XYCoord).x - hoverBoundingRect.left
-
-      // Only perform the move when the mouse has crossed half of the items width
-      // When dragging leftwards, only move when the cursor is below 50%
-      // When dragging rightwards, only move when the cursor is above 50%
-
+      /* 
+        Only perform the move when the mouse has crossed half of the items width
+        When dragging leftwards, only move when the cursor is below 50%
+        When dragging rightwards, only move when the cursor is above 50%
+      */
       // Dragging leftwards
       if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) { return }
 
@@ -87,11 +87,12 @@ export const HandCard = DropTarget(
       if (!(monitor.getItem().holder == props.holder)) { return }
 
       props.moveCard(dragIndex, hoverIndex)
-
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
+      /*       
+      Note: we're mutating the monitor item here!
+      Generally it's better to avoid mutations,
+      but it's good here for the sake of performance
+      to avoid expensive index searches.
+      */
       monitor.getItem().index = hoverIndex
 
     },

@@ -40,5 +40,91 @@
       "description": "Indian spiritual guru, considered as a Godman and leader of the Rajneesh movement. During his lifetime he was viewed as a controversial mystic, guru, and spiritual teacher. He advocated a more open attitude towards human sexuality, earning him the nickname \"sex guru\" in the Indian and later international press, although this attitude became more acceptable with time.",
       "image": "http://www.sannyas.wiki/images/5/5f/Osho_HD_083.jpg"
     }
+  ],
+  "texts": [
+    {
+      "id": "self-reliance",
+      "writerId": "ralph-waldo-emerson",
+      "title": "Self-Reliance",
+      "description": "An essay that contains the most thorough statement of one of Emerson's recurrent themes: the need for each individual to avoid conformity and false consistency, and follow their own instincts and ideas.",
+      "published": 1841
+    },
+    {
+      "id": "nature",
+      "writerId": "ralph-waldo-emerson",
+      "title": "Nature",
+      "description": "An essay that puts forth the foundation of transcendentalism, a belief system that espouses a non-traditional appreciation of nature.",
+      "published": 1836
+    },
+    {
+      "id": "thus-spoke-zarathustra",
+      "writerId": "friedrich-nietzsche",
+      "title": "Thus Spoke Zarathustra",
+      "description": "A philosophical novel that deals with ideas such as the \"eternal recurrence of the same\", the parable on the \"death of God\", and the \"prophecy\" of the Übermensch.",
+      "published": 1883
+    },
+    {
+      "id": "beyond-good-and-evil",
+      "writerId": "friedrich-nietzsche",
+      "title": "Beyond Good and Evil",
+      "description": "A book that expands the ideas of his previous work, Thus Spoke Zarathustra, with a more critical and polemical approach.",
+      "published": 1886
+    },
+    {
+      "id": "on-the-genealogy-of-morality",
+      "writerId": "friedrich-nietzsche",
+      "title": "On the Genealogy of Morality",
+      "description": "",
+      "published": 1887
+    },
+    {
+      "id": "man-and-his-symbols",
+      "writerId": "carl-jung",
+      "title": "Man and His Symbols",
+      "description": "",
+      "published": 1964
+    },
+    {
+      "id": "the-archetypes-and-the-collective-unconscious",
+      "writerId": "carl-jung",
+      "title": "The Archetypes and the Collective Unconscious",
+      "description": "Part 1 of Volume 9 in The Collected Works of C. G. Jung, a series of books published by Princeton University Press in the U.S. and Routledge & Kegan Paul in the U.K.",
+      "published": 1981
+    },
+    {
+      "id": "memories-dreams-reflections",
+      "writerId": "carl-jung",
+      "title": "Memories, Dreams, Reflections",
+      "description": "An autobiographical book by Swiss psychologist Carl Jung and an associate, Aniela Jaffé.",
+      "published": 1962
+    },
+    {
+      "id": "the-hero-with-a-thousand-faces",
+      "writerId": "joseph-campbell",
+      "title": "The Hero with a Thousand Faces",
+      "description": "A work of comparative mythology by American mythologist Joseph Campbell, in which he discusses his theory of the journey of the archetypal hero found in world mythologies.",
+      "published": 1949
+    },
+    {
+      "id": "the-power-of-myth",
+      "writerId": "joseph-campbell",
+      "title": "The Power of Myth",
+      "description": "A book based on the 1988 PBS documentary Joseph Campbell and the Power of Myth.",
+      "published": 1988
+    },
+    {
+      "id": "the-book-of-secrets-112-meditations-to-discover-the-mystery-within",
+      "writerId": "osho",
+      "title": "The Book of Secrets: 112 Meditations to Discover the Mystery Within",
+      "description": "In this comprehensive and practical guide, the secrets of the ancient science of Tantra become available to a contemporary audience for the first time.",
+      "published": ""
+    },
+    {
+      "id": "love-freedom-aloneness-the-koan-of-relationships",
+      "writerId": "osho",
+      "title": "Love, Freedom, Aloneness: The Koan of Relationships",
+      "description": "",
+      "published": 2002
+    }
   ]
 }

@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 import { Fragment } from 'react'
+import { IText, Text } from './Text'
+import { match, Link, Route, RouteComponentProps } from 'react-router-dom'
 
 export interface IWriter {
   id: string
@@ -7,15 +9,34 @@ export interface IWriter {
   born: string
   deceased: string
   description: string
+  texts: IText[]
+
 }
 
-export const Writer: FC<IWriter> = ({ id, name, description }) => {
+interface IProps extends IWriter {
+  match: match
+}
 
+export const Writer: FC<IProps> = ({ match, id, name, description, texts }) => {
   return (
-    <Fragment>
-      {id} {name}
 
+    <Fragment>
+      <hr />
+      {id} {name}
+      <br />
       {description}
+      <ul>
+        {texts.map(({ id, title }) => (
+          <li key={id}><Link to={`${match.url}/${id}`}> {title} </Link></li>
+        ))}
+      </ul>
+      <Route path={`${match.url}/:textId`} render={
+        ({ match }: RouteComponentProps<{ textId: string }>) => {
+          const text = texts.find(text => text.id === match.params.textId)
+          return text !== undefined ? <Text {...text} /> : <Fragment />
+        }
+      }>
+      </Route>
     </Fragment>
   )
 }

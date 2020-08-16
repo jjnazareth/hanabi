@@ -8,10 +8,6 @@ import { Link as RouterLink, withRouter, BrowserRouter } from "react-router-dom"
 import { Route, Switch } from "react-router-dom"
 import { Setup } from './Setup'
 import { Game } from './Game'
-import { IRoomState } from '../reducers/room/room.reducer'
-import { IGameState } from '../reducers/game/game.reducer'
-
-
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
@@ -32,8 +28,6 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
   })
 )
 
-
-
 export const NavBar: React.FC<{}> = () => {
 
   const classes = useStyles()
@@ -43,7 +37,6 @@ export const NavBar: React.FC<{}> = () => {
     { menuTitle: "Setup", pageURL: "/" },
     { menuTitle: "Play", pageURL: "/play" },
   ]
-
 
   const handleLoginOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
