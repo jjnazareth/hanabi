@@ -1,11 +1,13 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import { Hand } from './cards/Hand'
 import { PlayBorder } from './cards/PlayBorder'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { GameStatus } from './GameStatus'
-
+import { initGame, flushPlayers, flushCardGame } from '../actions'
+import { connect } from 'react-redux'
+import { IGlobalState } from '../reducers'
 
 const useStyles = makeStyles((theme: Theme) => {
   const baseStyle = { margin: 2, padding: 4 }
@@ -26,10 +28,28 @@ const useStyles = makeStyles((theme: Theme) => {
 interface IProps {
   room: IRoomState
   game: IGameState
+  flushPlayers: () => void
+  flushCardGame: () => void
+  initGame: (playerNames: string[], turnIdxs: number[], currentTurnIdx: number, dealerIdx: number) => void
 }
 
+const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, initGame }) => {
+  useEffect(() => {
+    let playerNames: string[] =
+      ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
+    let turnIdxs = [1, 3, 2, 4, 0]
+    let dealerIdx = 4
 
-export const Game: React.FC<IProps> = ({ room, game }) => {
+    let currentTurnIdx = (dealerIdx + 1) % playerNames.length
+    initGame(playerNames, turnIdxs, currentTurnIdx, dealerIdx)
+    console.log("Mounting")
+    return () => {
+      flushPlayers()
+      flushCardGame()
+      console.log("Cleanup")
+    }
+  }, [])
+
   const classes = useStyles()
   const loginPlayer = () => room.players.find(p => p.isLoggedIn)
   const loginPlayerIdx = () => {
@@ -72,4 +92,10 @@ export const Game: React.FC<IProps> = ({ room, game }) => {
   )
 }
 
+const mapStateToProps = (state: IGlobalState) => ({
+  room: state.room,
+  game: state.game,
+})
+
+export const Game = connect(mapStateToProps, { flushPlayers, flushCardGame, initGame })(_Game)
 

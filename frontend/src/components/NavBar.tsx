@@ -3,11 +3,13 @@ import { AppBar, Toolbar, Typography, IconButton, Button, makeStyles, Theme, cre
 import SaveIcon from "@material-ui/icons/Save"
 
 import { LoginForm } from './login/LoginForm'
-import { Container } from './Container'
 import { Link as RouterLink, withRouter, BrowserRouter } from "react-router-dom"
 
 import { Route, Switch } from "react-router-dom"
 import { Setup } from './Setup'
+import { Game } from './Game'
+import { IRoomState } from '../reducers/room/room.reducer'
+import { IGameState } from '../reducers/game/game.reducer'
 
 
 
@@ -30,10 +32,9 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
   })
 )
 
-interface IProps {
-}
 
-export const NavBar: React.FC<IProps> = () => {
+
+export const NavBar: React.FC<{}> = () => {
 
   const classes = useStyles()
   const [open, setOpen] = useState(false)
@@ -69,7 +70,7 @@ export const NavBar: React.FC<IProps> = () => {
         </AppBar >
         <Switch>
           <Route path="/" exact render={() => <Setup />} />
-          <Route path="/play" render={() => <Container />} />
+          <Route path="/play" render={() => <Game />} />
         </Switch>
       </BrowserRouter>
       <LoginForm open={open} handleClose={handleLoginClose}></LoginForm>
@@ -77,4 +78,4 @@ export const NavBar: React.FC<IProps> = () => {
   )
 }
 
-export default withRouter(NavBar)
+// export default withRouter(NavBar)

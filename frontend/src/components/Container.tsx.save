@@ -1,0 +1,32 @@
+// import React, { Component, useEffect, } from 'react'
+// import { connect } from 'react-redux'
+// import { Fragment } from 'react'
+// import { IRoomState, roomReducer } from '../reducers/room/room.reducer'
+// import { IGameState } from '../reducers/game/game.reducer'
+// import { IGlobalState } from '../reducers'
+// import { Game } from './Game'
+// import { flushPlayers, flushCardGame, initGame } from '../actions'
+
+// interface IProps {
+//   room: IRoomState
+//   game: IGameState
+//   flushPlayers: () => void
+//   flushCardGame: () => void
+//   initGame: (playerNames: string[], turnIdxs: number[], currentTurnIdx: number, dealerIdx: number) => void
+// }
+
+// const _Container: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, initGame }) => {
+//   return (
+//     <Fragment>
+//       <Game room={room} game={game}></Game>
+//     </Fragment>
+//   )
+// }
+
+// const mapStateToProps = (state: IGlobalState) => ({
+//   room: state.room,
+//   game: state.game,
+// })
+
+// export const Container = connect(mapStateToProps, { flushPlayers, flushCardGame, initGame })(_Container)
+
