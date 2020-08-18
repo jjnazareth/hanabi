@@ -1,3 +1,9 @@
+export type Member = {
+  playerId: number
+  userName: string
+  password: string
+}
+
 export type RankHint = {
   type: "Rank"
   rank: string
