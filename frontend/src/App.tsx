@@ -19,7 +19,7 @@ export const App: React.FC<IProps> = () => {
       <Provider store={store}>
         <DragDropContextProvider backend={HTML5Backend}>
           <TestLogin ></TestLogin>
-          <TestNavBar></TestNavBar>
+          <NavBar></NavBar>
           {/* <NavBar></NavBar> */}
         </DragDropContextProvider>
       </Provider>

@@ -36,6 +36,7 @@ export const NavBar: React.FC<{}> = () => {
   const menuItems = [
     { menuTitle: "Setup", pageURL: "/" },
     { menuTitle: "Play", pageURL: "/play" },
+    { menuTitle: "Logout", pageURL: "/logout" }
   ]
 
   const handleLoginOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
