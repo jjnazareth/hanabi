@@ -36,6 +36,7 @@ export const NavBar: React.FC<{}> = () => {
   const menuItems = [
     { menuTitle: "Setup", pageURL: "/" },
     { menuTitle: "Play", pageURL: "/play" },
+    { menuTitle: "Login", pageURL: "/login" },
     { menuTitle: "Logout", pageURL: "/logout" }
   ]
 
@@ -65,6 +66,7 @@ export const NavBar: React.FC<{}> = () => {
         <Switch>
           <Route path="/" exact render={() => <Setup />} />
           <Route path="/play" render={() => <Game />} />
+          <Route path="/login" render={() => <LoginForm open={open} handleClose={handleLoginClose} />} />
         </Switch>
       </BrowserRouter>
       <LoginForm open={open} handleClose={handleLoginClose}></LoginForm>

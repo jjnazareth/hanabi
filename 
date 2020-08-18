@@ -1,0 +1,94 @@
+[33m3ac69a7[m[33m ([m[1;36mHEAD -> [m[1;32mdnd[m[33m)[m Add player seating
+[33m39c9a05[m[33m ([m[1;32mnavbar[m[33m)[m Add logout button
+[33ma56ef13[m Update react and react-dnd
+[33mec239ef[m Add TestNavBar and Writers (test)
+[33m2e88495[m Remove Container and place functions in Game
+[33m14a6c02[m[33m ([m[1;32mdevelop[m[33m)[m Change GameStatus to inside Game
+[33mfd55114[m Update npm tsc and devDependencies
+[33m34f0385[m Add router links
+[33m3fb01df[m Add server script to package.json
+[33meafff53[m Add TestNavBar
+[33m1f4dea0[m[33m ([m[1;31morigin/develop[m[33m)[m Add Hand as Drag-n-Drop target
+[33md8b5394[m Create a separate function giveHint()
+[33md5d65c8[m Correct card index position in hand
+[33mda1ea60[m Change login player hand to be hidden
+[33m6e13758[m Add flush functions to restart game
+[33m02ae2f2[m Add key prop to CardPile div
+[33m2189a71[m Add menu items to NavBar
+[33mafd8fea[m Rename Table.jsx to PlayBorder.jsx
+[33ma122f47[m Revise Hand layout
+[33m0ca87d9[m Add CardPile instead of BuildPile and DiscardPile
+[33m464d732[m Add CardDisplay
+[33m6937ad3[m Refactor Styles
+[33m72af706[m Merge with origin/develop
+[33m29bcb23[m Load roboto font from CDN
+[33m1643d28[m Login player
+[33m55d9c73[m Split 'Game' into 'Game Status' and 'Game'
+[33m9e1a896[m Add Login for player
+[33m477e167[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m Split 'Game' into 'Game Status' and 'Game'
+[33m5114d6c[m Add state variable for drag-n-drop card rearrange
+[33m909c322[m Fixed hint fromPlayerId toPlayerId
+[33mc0e2c06[m Fixed player index generation
+[33m5f90420[m Changed Navbar to NavigationBar
+[33mdc0b096[m Changed NavBar to NavigationBar
+[33m064e8fb[m Change display so that login player is on top
+[33m848dd47[m Added 'setTurn' after giving hint
+[33m9c797c8[m Changed 'setTurn' parameters
+[33m08e772e[m Remove redundant redux props
+[33m5a55f8a[m Add Hint redux dispatch
+[33m6231778[m Login Simulated
+[33m4a3b475[m Add dialog to give hints
+[33m24efcba[m Fix bug in initialising turn
+[33m839b11d[m 'Game' is a functional component
+[33ma30e596[m Change fonts of game status and player names
+[33m85cc91a[m Add deal to initGame
+[33m448df10[m Place all dispatch functions in a separate file
+[33m02285d8[m Add draw of cards from deck
+[33m946be99[m Add cards to build pile
+[33mcd0140a[m Handle discards with multiple actions
+[33m59b4cd4[m Handle discard action with multiple slice reducers
+[33m878c899[m Changes to sizes of discard and build areas
+[33m63a752f[m Eliminate pack reducer
+[33m21a42fd[m Formant discard piles
+[33m90c3ad9[m Add discard piles
+[33m1fa2e1f[m Rename Discards to DiscardArea
+[33m9bf8b5b[m Fix bug which rearranges cards
+[33m5b13bc1[m Fix bug in card rearrange
+[33mb362ea1[m Dispatch initHand action with rearrange
+[33me741abf[m Change the formatting of cards
+[33mcc76a8b[m Call a function in Hand on drop in HandDisplay
+[33m7e576d0[m Reorganise seating and deal functions
+[33md43483f[m Pack is now initialised in the initial state of the reducer
+[33m5b4d48c[m Add cards to build area
+[33m6262417[m Add cards to build pile
+[33m2c6deb0[m Rename files
+[33m6f99790[m Show cards at turn, hide all the other hands
+[33mf5879dc[m Set each players turn by a button click
+[33m4d0de94[m Complete the drag-drop for discards and the build pile
+[33mdf3accf[m Add spaces to discard and build piles
+[33m31b938f[m Add material ui styling
+[33mb52b909[m Fix bug which rearranges cards in multiple hands
+[33m9ddeadc[m Add player's hand with ability to rearrange
+[33m889e38f[m Add drag and drop to cards
+[33m9118d39[m Show card hands in text format
+[33mf193d9a[m Dealer deals last to himself
+[33m7cd4c19[m Create a dealing function
+[33m00e8a59[m Add cards to players hand
+[33mf7f6bd8[m Redefine types without optional fields
+[33m39ea287[m Add card pack and a game component
+[33m222d6c6[m Add card deck
+[33m2cae870[m Test typescript syntax
+[33m819d930[m Expand Room component
+[33me94fa8d[m Update initialisePlayers to a more complex state
+[33maeed8fe[m Create actions to update currentPlayer and turnIdx
+[33m2708230[m Add placeholder Room component
+[33m20b3cd5[m Simplify main App component
+[33m4013fbf[m Create a sample reducer
+[33m5759e41[m Add redux packages to package.json
+[33mc80aa56[m Add front end
+[33md7e3489[m Describe the npm scripts in TECHNOLOGIES.md
+[33m27ef694[m Describe git commands in TECHNOLOGIES.md
+[33mc43d1e3[m Add Webstorm IDE config to .gitignore
+[33m5339d03[m Add git section to technologies
+[33mca35e06[m Add TECHNOLOGIES.md file
+[33ma7df937[m Initial commit
