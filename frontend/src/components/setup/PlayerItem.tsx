@@ -12,18 +12,18 @@ const style = {
 }
 
 interface DragItem {
-  id: number
+  playerId: number
   index: number
   type: string
 }
 
-export type T = { id: number, name: string }
+export type T = { playerId: number, userName: string }
 interface IProps extends T {
   index: number
   moveItem: (dragIndex: number, hoverIndex: number) => void
 }
 
-export const PlayerItem: React.FC<IProps> = ({ id, name, index, moveItem, }) => {
+export const PlayerItem: React.FC<IProps> = ({ playerId, userName, index, moveItem, }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [, drop] = useDrop({
     accept: ItemTypes.PLAYER,
@@ -76,7 +76,7 @@ export const PlayerItem: React.FC<IProps> = ({ id, name, index, moveItem, }) => 
   })
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.PLAYER, id, index },
+    item: { type: ItemTypes.PLAYER, playerId, index },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -86,7 +86,7 @@ export const PlayerItem: React.FC<IProps> = ({ id, name, index, moveItem, }) => 
   drag(drop(ref))
   return (
     <div ref={ref} style={{ ...style, opacity }}>
-      {name}
+      {userName}
     </div>
   )
 }

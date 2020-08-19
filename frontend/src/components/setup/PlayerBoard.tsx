@@ -13,7 +13,6 @@ interface IProps<T> {
   items: Array<T>
 }
 
-
 export const PlayerBoard: React.FC<IProps<T>> = (props => {
   {
     const obj = props
@@ -30,9 +29,9 @@ export const PlayerBoard: React.FC<IProps<T>> = (props => {
     const renderItem = (item: T, index: number) => {
       return (
         <PlayerItem
-          key={item.id}
-          id={item.id}
-          name={item.name}
+          key={item.playerId}
+          playerId={item.playerId}
+          userName={item.userName}
           index={index}
           moveItem={moveItem}
         />
