@@ -7,7 +7,7 @@ export interface IRegisterState {
 }
 
 const initialState: IRegisterState = {
-  members: [...permanentMembers.slice(1, 10)]
+  members: [...permanentMembers]
 }
 
 export function registerReducer(state = initialState, action: RegisterAction) {

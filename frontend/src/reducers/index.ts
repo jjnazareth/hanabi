@@ -4,6 +4,7 @@ import { roomReducer, IRoomState } from "./room/room.reducer"
 import { gameReducer, IGameState } from "./game/game.reducer"
 
 export interface IGlobalState {
+  register: IRegisterState
   room: IRoomState
   game: IGameState
 }

@@ -6,8 +6,8 @@ import { LoginForm } from './login/LoginForm'
 import { Link as RouterLink, withRouter, BrowserRouter } from "react-router-dom"
 
 import { Route, Switch } from "react-router-dom"
-import { Setup } from './Setup'
 import { Game } from './Game'
+import { SeatPlayers } from './setup/SeatPlayers'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
@@ -34,7 +34,7 @@ export const NavBar: React.FC<{}> = () => {
   const [open, setOpen] = useState(false)
 
   const menuItems = [
-    { menuTitle: "Setup", pageURL: "/" },
+    { menuTitle: "Seating", pageURL: "/seating" },
     { menuTitle: "Play", pageURL: "/play" },
     { menuTitle: "Login", pageURL: "/login" },
     { menuTitle: "Logout", pageURL: "/logout" }
@@ -64,7 +64,7 @@ export const NavBar: React.FC<{}> = () => {
           </Toolbar>
         </AppBar >
         <Switch>
-          <Route path="/" exact render={() => <Setup />} />
+          <Route path="/seating" exact render={() => <SeatPlayers />} />
           <Route path="/play" render={() => <Game />} />
           <Route path="/login" render={() => <LoginForm open={open} handleClose={handleLoginClose} />} />
         </Switch>

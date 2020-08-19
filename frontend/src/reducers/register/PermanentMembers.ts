@@ -1,6 +1,6 @@
 import { Member } from "../../globalTypes"
 
-const permanentMembers: Member[] = [
+export const permanentMembers: Member[] = [
   { playerId: 1, userName: "Joaquin", password: "test" },
   { playerId: 2, userName: "Dayton", password: "test" },
   { playerId: 3, userName: "Sasha", password: "test" },

@@ -2,8 +2,6 @@ import React from 'react'
 import { Grid, Typography, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
-import { Fragment } from 'react'
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,30 +38,27 @@ export const GameStatus: React.FC<IProps> = ({ room, game }) => {
   }
 
   return (
-    <Fragment>
-      <Grid container className={classes.gameState} >
-        <Grid item xs={4}>
-          <Typography variant="subtitle2">
-            Login Name: {loginPlayerName()}
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="subtitle2">
-            Dealer: {dealerName()}
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="subtitle2">
-            Current Player: {currentPlayerName()}
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="subtitle2">
-            Deck: {game.drawDeck.length} cards
-                </Typography>
-        </Grid>
+    <Grid container className={classes.gameState} >
+      <Grid item xs={4}>
+        <Typography variant="subtitle2">
+          Login Name: {loginPlayerName()}
+        </Typography>
       </Grid>
-    </Fragment>
+      <Grid item xs={4}>
+        <Typography variant="subtitle2">
+          Dealer: {dealerName()}
+        </Typography>
+      </Grid>
+      <Grid item xs={4}>
+        <Typography variant="subtitle2">
+          Current Player: {currentPlayerName()}
+        </Typography>
+      </Grid>
+      <Grid item xs={4}>
+        <Typography variant="subtitle2">
+          Deck: {game.drawDeck.length} cards
+                </Typography>
+      </Grid>
+    </Grid>
   )
 }
-
