@@ -1,12 +1,13 @@
 import { RegisterAction, RegisterActionNames } from "./register.actions.type"
 import { Member } from "../../globalTypes"
+import { permanentMembers } from "./PermanentMembers"
 
 export interface IRegisterState {
   members: Member[]
 }
 
 const initialState: IRegisterState = {
-  members: []
+  members: [...permanentMembers.slice(1, 10)]
 }
 
 export function registerReducer(state = initialState, action: RegisterAction) {
