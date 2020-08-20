@@ -10,12 +10,15 @@ import { CssBaseline } from '@material-ui/core'
 // import { TestNavBar } from './components/TestNavBar'
 
 
+import { permanentMembers } from "./reducers/register/PermanentMembers"
+import { listUsers, countUsers } from './components/Test/AddMembers'
 interface IProps {
 }
 
 export const App: React.FC<IProps> = () => {
   return (
-    <Fragment>
+    <>
+      {countUsers()}
       <CssBaseline />
       <Provider store={store}>
         <DragDropContextProvider backend={HTML5Backend}>
@@ -23,6 +26,6 @@ export const App: React.FC<IProps> = () => {
           <NavBar></NavBar>
         </DragDropContextProvider>
       </Provider>
-    </Fragment>
+    </>
   )
 }

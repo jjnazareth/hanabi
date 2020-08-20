@@ -73,9 +73,7 @@ export function gameReducer(state = initialState, action: GameAction) {
           pile.colour == action.card.colour.name
             ? {
                 colour: pile.colour,
-                cards: [...pile.cards, action.card].sort(
-                  (x, y) => +x.rank - +y.rank
-                )
+                cards: [...pile.cards, action.card]
               }
             : pile
         )
