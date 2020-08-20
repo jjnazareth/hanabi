@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom"
-import { Error } from "../components/Error"
-import { Writers } from './writers/Writers'
+import { Error } from "./Error"
+import { Writers } from './Writers'
 import { ImageRemoveRedEye, ImageMonochromePhotos } from "material-ui/svg-icons"
 
 export const TestNavBar: React.FC = () => {
