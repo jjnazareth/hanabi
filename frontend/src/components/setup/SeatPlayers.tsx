@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect, SetStateAction } from 'react'
 import { connect } from 'react-redux'
 import { PlayerBoard } from './PlayerBoard'
 import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core'
 import { IGlobalState } from '../../reducers'
 import { IRegisterState } from '../../reducers/register/register.reducer'
+// import { listUsers, countUsers, getUsers } from '../Test/AddMembers'
+
+import firebase from "../Test/firebase"
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,19 +19,24 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
+
 interface IProps {
   register: IRegisterState
 }
 
 const _SeatPlayers: React.FC<IProps> = ({ register }) => {
   const classes = useStyles()
-  const players = [...register.members.slice(0, 5)]
-  console.log(players)
+  const [players, setPlayers] = useState<any>(0)
+
+  useEffect(() => {
+  }, [])
+
   return (
     <>
+      {console.log(players)}
       <Grid container direction="column" className={classes.playerBoard} >
-        <h1>Arrange Players</h1>
-        <PlayerBoard items={players}></PlayerBoard>
+        <h2>Seat Players</h2>
+        {/* <PlayerBoard items={players}></PlayerBoard> */}
       </Grid>
     </>
   )

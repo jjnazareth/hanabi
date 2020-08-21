@@ -7,8 +7,6 @@ const style = {
   width: 400,
 }
 
-
-
 interface IProps<T> {
   items: Array<T>
 }

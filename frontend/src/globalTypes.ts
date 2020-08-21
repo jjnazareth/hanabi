@@ -2,6 +2,7 @@ export type Member = {
   playerId: number
   userName: string
   password: string
+  isLoggedIn: boolean
 }
 
 export type RankHint = {

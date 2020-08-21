@@ -1,8 +1,13 @@
 import { Action } from "redux"
-import { Card, Player } from "../../globalTypes"
 
 export enum RegisterActionNames {
+  ADD_MEMBER = "ADD_MEMBER",
   LOGIN_PLAYER = "LOGIN_PLAYER"
+}
+
+export type AddMember = Action<RegisterActionNames.ADD_MEMBER> & {
+  userName: string
+  password: string
 }
 
 export type LoginPlayer = Action<RegisterActionNames.LOGIN_PLAYER> & {
@@ -10,4 +15,4 @@ export type LoginPlayer = Action<RegisterActionNames.LOGIN_PLAYER> & {
   password: string
 }
 
-export type RegisterAction = LoginPlayer
+export type RegisterAction = AddMember | LoginPlayer

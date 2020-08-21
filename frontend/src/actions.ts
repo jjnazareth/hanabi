@@ -25,6 +25,20 @@ import {
   DestructCardGame
 } from "./reducers/game/game.actions.type"
 
+import { AddJob, JobActionNames } from "./reducers/jobs/jobs.actions.type"
+
+export const addJob = (description: string, priority: number) => (
+  dispatch: Dispatch<AddJob>
+) => {
+  console.log("here")
+
+  dispatch({
+    type: JobActionNames.ADD_JOB,
+    description: description,
+    priority: priority
+  })
+}
+
 export const flushCardGame = () => (dispatch: Dispatch<DestructCardGame>) => {
   dispatch({
     type: GameActionNames.DESTRUCT_CARD_GAME
