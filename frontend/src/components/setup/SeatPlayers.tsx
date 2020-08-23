@@ -33,7 +33,6 @@ const _SeatPlayers: React.FC<IProps> = ({ register }) => {
 
   return (
     <>
-      {console.log(players)}
       <Grid container direction="column" className={classes.playerBoard} >
         <h2>Seat Players</h2>
         {/* <PlayerBoard items={players}></PlayerBoard> */}

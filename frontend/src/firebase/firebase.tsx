@@ -14,6 +14,12 @@ import { IGlobalState } from "../reducers"
 
 const FirebaseContext = createContext<any>(null)
 
+interface Firebase {
+  app: any
+  database: any
+  api: any
+}
+
 export { FirebaseContext }
 export const FirebaseProvider = ({ children }: any) => {
   let firebase: any = {
@@ -22,16 +28,12 @@ export const FirebaseProvider = ({ children }: any) => {
   }
 
 
-  const msp = (state: IGlobalState) => state.register.members
-  const fn = (left: Member[], right: Member[]) => (left[0].playerId > right[0].playerId)
-  const members = useSelector<IGlobalState, Member[]>(state => state.register.members, fn)
 
   const dispatch = useDispatch()
   // check if firebase app has been initialized previously
   // if not, initialize with the config we saved earlier
   if (!app.apps.length) {
     app.initializeApp(firebaseConfig)
-
     firebase = {
       app: app,
       database: app.database(),
@@ -45,6 +47,7 @@ export const FirebaseProvider = ({ children }: any) => {
   function addMember(member: Member) {
     firebase.database.ref('members').push().set(member)
       .then((doc: any) => {
+
         // nothing to do here since you already have a 
         // connection pulling updates to Todos
       })
@@ -64,9 +67,10 @@ export const FirebaseProvider = ({ children }: any) => {
       for (var key in vals) {
         _records.push({
           ...vals[key],
-          id: key
+          // id: key
         })
       }
+      console.log(_records)
       // setTodos is a Redux action that would update the todo store
       // to the _records payload
       // dispatch(_records[0].description, _records[0].priority))

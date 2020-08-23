@@ -8,6 +8,9 @@ import { Link as RouterLink, withRouter, BrowserRouter } from "react-router-dom"
 import { Route, Switch } from "react-router-dom"
 import { Game } from './Game'
 import { SeatPlayers } from './setup/SeatPlayers'
+import { RegisterActionNames } from '../reducers/register/register.actions.type'
+import { RegisterForm } from './login/RegisterForm'
+// import { RegisterForm } from './login/Register'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
@@ -37,14 +40,15 @@ export const NavBar: React.FC<{}> = () => {
     { menuTitle: "Seating", pageURL: "/seating" },
     { menuTitle: "Play", pageURL: "/play" },
     { menuTitle: "Login", pageURL: "/login" },
-    { menuTitle: "Logout", pageURL: "/logout" }
+    { menuTitle: "Logout", pageURL: "/logout" },
+    { menuTitle: "Register", pageURL: "/register" }
   ]
 
-  const handleLoginOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleRegisterOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
     setOpen(true)
   }
-  const handleLoginClose = () => { setOpen(false) }
+  const handleRegisterClose = () => { setOpen(false) }
 
   return (
     <div className={classes.root}>
@@ -60,16 +64,16 @@ export const NavBar: React.FC<{}> = () => {
             <IconButton color="inherit" aria-label="Edit">
               <SaveIcon />
             </IconButton>
-            <Button onClick={handleLoginOpen} color="inherit">Login</Button>
           </Toolbar>
         </AppBar >
         <Switch>
           <Route path="/seating" exact render={() => <SeatPlayers />} />
           <Route path="/play" render={() => <Game />} />
-          <Route path="/login" render={() => <LoginForm open={open} handleClose={handleLoginClose} />} />
+          <Route path="/login" render={() => <LoginForm open={open} handleClose={handleRegisterClose} />} />
+          <Route path="/register" render={() => <RegisterForm />} />
         </Switch>
       </BrowserRouter>
-      <LoginForm open={open} handleClose={handleLoginClose}></LoginForm>
+
     </div >
   )
 }

@@ -1,4 +1,8 @@
-import { useState, useEffect, ChangeEvent, FormEvent, FocusEvent, MouseEvent } from "react"
+import { useState, useEffect, ChangeEvent, FormEvent, FocusEvent, MouseEvent, useContext } from "react"
+import { FirebaseContext } from "../../firebase/firebase"
+import { useSelector } from "react-redux"
+import { IGlobalState } from "../../reducers"
+import { Member } from "../../globalTypes"
 export type data = { playerName: string, password: string }
 
 const ucFirst = ((str: string) => str[0].toUpperCase() + str.slice(1).toLowerCase())
@@ -12,6 +16,13 @@ export const useFormValidation = (initialState: data, validate: (values: data) =
     if (isSubmitting) {
       const noErrors = errors.playerName === "" && errors.password === ""/* Object.keys(errors).length === 0 */
       if (noErrors) {
+        // const { app, api } = useContext(FirebaseContext)
+        // const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
+        // send to firebase
+        // console.log(members)
+        // api && api.addMember({ playerId: /* members.length */ + 1, userName: values.playerName, password: values.password })
+        // send from firebase to redux store
+        // api && api.getMembers()
         console.log("authenticated!", ucFirst(values.playerName), values.password)
         setValues(initialState)
       }
