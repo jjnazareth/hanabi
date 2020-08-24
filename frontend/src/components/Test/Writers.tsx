@@ -22,7 +22,6 @@ export const Writers: FC<IProps> = ({ match, writers }) => {
       <Route path={`${match.url}/:writerId`} render={
         ({ match }: RouteComponentProps<{ writerId: string }>) => {
           const writer = writers.find(writer => writer.id === match.params.writerId)
-          console.log(match)
           return writer !== undefined ? <Writer match={match} {...writer} /> : <Fragment></Fragment>
         }
       }>

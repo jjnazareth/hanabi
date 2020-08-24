@@ -42,11 +42,11 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, init
 
     let currentTurnIdx = (dealerIdx + 1) % playerNames.length
     initGame(playerNames, turnIdxs, currentTurnIdx, dealerIdx)
-    console.log("Mounting")
+
     return () => {
       flushPlayers()
       flushCardGame()
-      console.log("Cleanup")
+
     }
   }, [])
 

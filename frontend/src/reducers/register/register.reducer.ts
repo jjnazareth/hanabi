@@ -11,19 +11,26 @@ const initialState: IRegisterState = {
 
 export function registerReducer(state = initialState, action: RegisterAction) {
   switch (action.type) {
-    case RegisterActionNames.ADD_MEMBER:
+    case RegisterActionNames.SET_MEMBERS:
       return {
+        ...state,
+        members: action.members
+      }
+    case RegisterActionNames.ADD_MEMBER:
+      let x = {
         ...state,
         members: [
           ...state.members,
           {
-            playerId: state.members.length + 1,
+            playerId: action.playerId,
             userName: action.userName,
             password: action.password,
             isLoggedIn: false
           }
         ]
       }
+      console.log(x)
+      return x
     // case RegisterActionNames.LOGIN_PLAYER:
     //   return {
     //     ...state,

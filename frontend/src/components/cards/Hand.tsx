@@ -61,7 +61,6 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand,
   // function called every time a card is dropped, either to build pile, discard
   // or rearrange cards in one hand
   const dispatchMove = () => {
-    console.log("Dispatch move")
 
     // dispatch to redux store only when cards are rearranged in one hand
     initHand(holder.turnIdx, cards)

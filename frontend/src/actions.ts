@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { IGlobalState } from "./reducers"
-import { Card, CardRank, Player, PlayerHint } from "./globalTypes"
+import { Card, CardRank, Player, PlayerHint, Member } from "./globalTypes"
 import {
   RoomActionNames,
   LoginPlayer,
@@ -25,17 +25,30 @@ import {
   DestructCardGame
 } from "./reducers/game/game.actions.type"
 
-import { AddJob, JobActionNames } from "./reducers/jobs/jobs.actions.type"
+import {
+  AddMember,
+  RegisterActionNames,
+  SetMembers
+} from "./reducers/register/register.actions.type"
 
-export const addJob = (description: string, priority: number) => (
-  dispatch: Dispatch<AddJob>
+export const setMembers = (members: Member[]) => (
+  dispatch: Dispatch<SetMembers>
 ) => {
-  console.log("here")
-
   dispatch({
-    type: JobActionNames.ADD_JOB,
-    description: description,
-    priority: priority
+    type: RegisterActionNames.SET_MEMBERS,
+    members: members
+  })
+}
+export const addMember = (
+  playerId: number,
+  userName: string,
+  password: string
+) => (dispatch: Dispatch<AddMember>) => {
+  dispatch({
+    type: RegisterActionNames.ADD_MEMBER,
+    playerId: playerId,
+    userName: userName,
+    password: password
   })
 }
 

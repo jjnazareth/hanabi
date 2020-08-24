@@ -117,7 +117,6 @@ export const HandCard = DropTarget(
         isTurn: props.isTurn
       }),
       endDrag(props, monitor, component) {
-        console.log("end drag")
         let result = monitor.getDropResult() // undefined if dropped on a non-target
         if (result && result.arrange) { props.dispatchMove() }
         // result.arrange is true if dropped within the hand

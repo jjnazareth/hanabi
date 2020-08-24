@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom"
-import { Error } from "./Error"
+
 import { Writers } from './Writers'
 import { ImageRemoveRedEye, ImageMonochromePhotos } from "material-ui/svg-icons"
 
@@ -30,7 +30,7 @@ export const TestNavBar: React.FC = () => {
           const { match } = props
           return <Writers match={match} writers={writers} />
         }} />
-        <Route component={Error} />
+        {/* <Route component={Error} /> */}
       </Switch>
     </BrowserRouter>
   )

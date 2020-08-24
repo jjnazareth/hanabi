@@ -16,13 +16,6 @@ export const useFormValidation = (initialState: data, validate: (values: data) =
     if (isSubmitting) {
       const noErrors = errors.playerName === "" && errors.password === ""/* Object.keys(errors).length === 0 */
       if (noErrors) {
-        // const { app, api } = useContext(FirebaseContext)
-        // const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
-        // send to firebase
-        // console.log(members)
-        // api && api.addMember({ playerId: /* members.length */ + 1, userName: values.playerName, password: values.password })
-        // send from firebase to redux store
-        // api && api.getMembers()
         console.log("authenticated!", ucFirst(values.playerName), values.password)
         setValues(initialState)
       }

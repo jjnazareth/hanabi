@@ -39,15 +39,11 @@ export const PlayerBoard: React.FC<IProps<T>> = (props => {
 
     return (
       <>
-        {console.log(items)}
         <div style={style}>{items.map((item, i) =>
           renderItem(item, i)
-        )
-        }
-
+        )}
         </div>
       </>
-
     )
   }
 })

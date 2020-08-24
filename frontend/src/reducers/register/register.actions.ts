@@ -1,6 +1,14 @@
 import { RegisterActionNames } from "./register.actions.type"
+import { Member } from "../../globalTypes"
 
 // ---------------- action creators -----------------------
+
+export function setMembers(members: Member[]) {
+  return {
+    type: RegisterActionNames.SET_MEMBERS,
+    members: members
+  }
+}
 
 export function addMember(userName: string, password: string) {
   return {

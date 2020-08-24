@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent } from 'react'
 import { AppBar, Toolbar, Typography, IconButton, Button, makeStyles, Theme, createStyles, useTheme, Menu } from '@material-ui/core'
 import SaveIcon from "@material-ui/icons/Save"
 
-import { LoginForm } from './login/LoginForm'
 import { Link as RouterLink, withRouter, BrowserRouter } from "react-router-dom"
 
 import { Route, Switch } from "react-router-dom"
@@ -69,7 +68,6 @@ export const NavBar: React.FC<{}> = () => {
         <Switch>
           <Route path="/seating" exact render={() => <SeatPlayers />} />
           <Route path="/play" render={() => <Game />} />
-          <Route path="/login" render={() => <LoginForm open={open} handleClose={handleRegisterClose} />} />
           <Route path="/register" render={() => <RegisterForm />} />
         </Switch>
       </BrowserRouter>
