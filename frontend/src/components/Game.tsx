@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import { Hand } from './cards/Hand'
-import { PlayBorder } from './cards/PlayBorder'
+import { PlayBorder2 } from './cards/PlayBorder2'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { GameStatus } from './GameStatus'
 import { initGame, flushPlayers, flushCardGame } from '../actions'
@@ -46,7 +46,7 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, init
     return () => {
       flushPlayers()
       flushCardGame()
-
+      console.log("Cleanup")
     }
   }, [])
 
@@ -85,7 +85,7 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, init
           })}
         </Grid>
         <Grid item xs={7} >
-          <PlayBorder numPlayers={room.players.length} />
+          <PlayBorder2 numPlayers={room.players.length} />
         </Grid>
       </Grid>
     </Fragment>

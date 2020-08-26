@@ -58,7 +58,6 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand,
     })
     setCards(updatedCards)
   }
-
   // function called every time a card is dropped, either to build pile, discard
   // or rearrange cards in one hand
   const dispatchMove = () => {

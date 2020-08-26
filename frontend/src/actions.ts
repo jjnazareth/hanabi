@@ -83,7 +83,7 @@ export const discard = (card: Card, player: Player, deck: Card[]) => (
     | AddCardToHand
   >
 ) => {
-  // discard
+  // discard`
   dispatch({
     type: RoomActionNames.REMOVE_CARD_FROM_HAND,
     player: player,

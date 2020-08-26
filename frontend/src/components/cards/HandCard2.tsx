@@ -24,7 +24,7 @@ interface IProps {
 
 }
 
-export const HandCard2: React.FC<IProps> = ({ holder, card, index, isHidden, moveCard, dispatchMove }) => {
+export const HandCard2: React.FC<IProps> = ({ holder, card, index, isHidden, isTurn, moveCard, dispatchMove }) => {
 
   const ref = useRef<HTMLDivElement>(null)
   const [, drop] = useDrop({
@@ -84,7 +84,7 @@ export const HandCard2: React.FC<IProps> = ({ holder, card, index, isHidden, mov
   })
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: dndItemTypes.CARD, holder, index },
+    item: { type: dndItemTypes.CARD, holder, card, index, isTurn },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
