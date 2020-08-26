@@ -4,6 +4,7 @@ import { Card, Player } from '../../globalTypes'
 import update from 'immutability-helper'
 import { initHand } from '../../actions'
 import { HandCard } from './HandCard'
+import { HandCard2 } from './HandCard2'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { Hint, getHintChoices } from './Hint'
 
@@ -61,7 +62,7 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand,
   // function called every time a card is dropped, either to build pile, discard
   // or rearrange cards in one hand
   const dispatchMove = () => {
-
+    console.log("dispatch")
     // dispatch to redux store only when cards are rearranged in one hand
     initHand(holder.turnIdx, cards)
   }
@@ -74,7 +75,7 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand,
         <Grid container className={classes.hand} spacing={2}>
           {cardsDisplay.map((card, i) => (
             <Grid item key={card.idx}>
-              <HandCard
+              <HandCard2
                 holder={holder}
                 index={isHidden ? holder.hand.length - 1 - i : i}
                 isHidden={isHidden}

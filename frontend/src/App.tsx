@@ -8,6 +8,7 @@ import { NavBar } from './components/NavBar'
 import { TestLogin } from './components/login/TestLogin'
 import { CssBaseline } from '@material-ui/core'
 import { FirebaseContext } from './firebase/firebase'
+import { SeatPlayers } from './components/setup/SeatPlayers'
 
 interface IProps {
 }
