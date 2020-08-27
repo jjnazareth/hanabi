@@ -4,35 +4,37 @@ import { Card, Player } from '../../globalTypes'
 import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
 import { CardPile } from './CardPile'
-import { build } from '../../actions'
-import { Grid, Typography, makeStyles, Theme, createStyles, ThemeProvider } from '@material-ui/core'
+import { discard } from '../../actions'
+import { Grid, Typography, makeStyles, Theme, createStyles } from '@material-ui/core'
 
-import { useDrop, } from 'react-dnd'
+import { useDrop } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
+
 
 interface IStyleProps {
   isActive: boolean
 }
+
 const useStyles = makeStyles<Theme, IStyleProps>((theme: Theme) =>
   createStyles({
-    buildArea: ({ isActive }) => ({
+    discardArea: ({ isActive }) => ({
       padding: 6,
       spacing: theme.spacing(2),
+      height: 350,
       width: 500,
-      height: 250,
-      backgroundColor: isActive ? '#AED581' : '#DCEDC8',
+      backgroundColor: isActive ? '#FF7043' : '#FCE4EC'
     }),
-
   })
 )
 
 interface IProps {
-  game: IGameState
   setNextTurn: () => void
-  build: (card: Card, player: Player, deck: Card[]) => void
+  game: IGameState
+  discard: (card: Card, player: Player, deck: Card[]) => void
 }
 
-const _BuildArea: React.FC<IProps> = ({ game, setNextTurn, build }) => {
+
+const _DiscardArea: React.FC<IProps> = ({ setNextTurn, game, discard }) => {
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: dndItemTypes.CARD,
 
@@ -40,7 +42,7 @@ const _BuildArea: React.FC<IProps> = ({ game, setNextTurn, build }) => {
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
       console.log("playerCard: ", playerCard)
-      build(playerCard, player, game.drawDeck)
+      discard(playerCard, player, game.drawDeck)
       setNextTurn()
     }),
 
@@ -55,17 +57,18 @@ const _BuildArea: React.FC<IProps> = ({ game, setNextTurn, build }) => {
     }),
   })
 
+
   const isActive = canDrop && isOver
   const classes = useStyles({ isActive })
-  const { buildPiles } = game
-
+  let colour = isActive ? '#FF7043' : '#FCE4EC'
+  const { discardPiles } = game
   return (
-    <div ref={drop} className={classes.buildArea} >
+    <div ref={drop} className={classes.discardArea} style={{ backgroundColor: colour }}>
       <Typography variant="subtitle1" align="center">
-        {isActive ? 'Release to Place' : 'Build Area'}
+        {isActive ? 'Release to Discard' : 'Discards'}
       </Typography>
-      <Grid container justify="space-around" >
-        {buildPiles.map(({ cards }, i) => (
+      <Grid container justify="space-around" direction="row" spacing={1}>
+        {discardPiles.map(({ colour, cards }, i) => (
           <CardPile key={i} cards={cards} />
         ))}
       </Grid>
@@ -73,5 +76,9 @@ const _BuildArea: React.FC<IProps> = ({ game, setNextTurn, build }) => {
   )
 }
 
-const mapStateToProps = (state: IGlobalState) => ({ game: state.game })
-export const BuildArea2 = connect(mapStateToProps, { build })(_BuildArea)
+
+const mapStateToProps = (state: IGlobalState) => ({
+  game: state.game
+})
+
+export const DiscardArea2 = connect(mapStateToProps, { discard })(_DiscardArea)

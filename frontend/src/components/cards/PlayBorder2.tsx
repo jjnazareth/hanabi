@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { BuildArea2 } from './BuildArea2'
-import { DiscardArea } from './DiscardArea'
+import { DiscardArea2 } from './DiscardArea2'
 import { setNextTurn } from '../../actions'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { useDrop } from 'react-dnd'
@@ -29,7 +29,6 @@ interface IProps {
   setNextTurn: () => void
 }
 
-
 const _PlayBorder: React.FC<IProps> = ({ numPlayers, setNextTurn }) => {
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: dndItemTypes.CARD,
@@ -49,17 +48,15 @@ const _PlayBorder: React.FC<IProps> = ({ numPlayers, setNextTurn }) => {
   let colour = isActive ? '#FFC400' : ""
 
   return (
-    // <div ref={connectDropTarget}>
     <Grid ref={drop} container direction="column" justify="space-around"
       alignItems="center" className={classes.table}>
       <Grid item >
         <BuildArea2 setNextTurn={setNextTurn} />
       </Grid>
       <Grid item >
-        <DiscardArea setNextTurn={setNextTurn} />
+        <DiscardArea2 setNextTurn={setNextTurn} />
       </Grid>
     </Grid>
-    // </div >
   )
 }
 
