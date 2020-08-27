@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { BuildArea2 } from './BuildArea2'
-import { DiscardArea2 } from './DiscardArea2'
+import { BuildArea } from './BuildArea'
+import { DiscardArea } from './DiscardArea'
 import { setNextTurn } from '../../actions'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { useDrop } from 'react-dnd'
@@ -51,14 +51,14 @@ const _PlayBorder: React.FC<IProps> = ({ numPlayers, setNextTurn }) => {
     <Grid ref={drop} container direction="column" justify="space-around"
       alignItems="center" className={classes.table}>
       <Grid item >
-        <BuildArea2 setNextTurn={setNextTurn} />
+        <BuildArea setNextTurn={setNextTurn} />
       </Grid>
       <Grid item >
-        <DiscardArea2 setNextTurn={setNextTurn} />
+        <DiscardArea setNextTurn={setNextTurn} />
       </Grid>
     </Grid>
   )
 }
 
-export const PlayBorder2 = connect(null, { setNextTurn })(_PlayBorder)
+export const PlayBorder = connect(null, { setNextTurn })(_PlayBorder)
 

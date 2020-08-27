@@ -4,7 +4,7 @@ import { Card, Player } from '../../globalTypes'
 import update from 'immutability-helper'
 import { initHand } from '../../actions'
 
-import { HandCard2 } from './HandCard2'
+import { HandCard } from './HandCard'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { Hint, getHintChoices } from './Hint'
 
@@ -87,7 +87,7 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand 
         <Grid container className={classes.hand} spacing={2}>
           {cardsDisplay.map((card, i) => (
             <Grid item key={card.idx}>
-              <HandCard2
+              <HandCard
                 holder={holder}
                 index={isHidden ? holder.hand.length - 1 - i : i}
                 isHidden={isHidden}
@@ -104,4 +104,4 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand 
   )
 }
 
-export const Hand2 = connect(null, { initHand })(_Hand)
+export const Hand = connect(null, { initHand })(_Hand)

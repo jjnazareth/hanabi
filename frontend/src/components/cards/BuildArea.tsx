@@ -74,4 +74,4 @@ const _BuildArea: React.FC<IProps> = ({ game, setNextTurn, build }) => {
 }
 
 const mapStateToProps = (state: IGlobalState) => ({ game: state.game })
-export const BuildArea2 = connect(mapStateToProps, { build })(_BuildArea)
+export const BuildArea = connect(mapStateToProps, { build })(_BuildArea)

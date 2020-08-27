@@ -1,8 +1,8 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
-import { Hand2 } from './cards/Hand2'
-import { PlayBorder2 } from './cards/PlayBorder2'
+import { Hand } from './cards/Hand'
+import { PlayBorder } from './cards/PlayBorder'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { GameStatus } from './GameStatus'
 import { initGame, flushPlayers, flushCardGame } from '../actions'
@@ -79,13 +79,13 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, init
             const isHidden = i === 0
             return (
               <div key={i} className={isTurn ? classes.playerOnTurn : classes.player} >
-                <Hand2 holder={player} isHidden={isHidden} isTurn={isTurn} playerId={currentPlayerId()} />
+                <Hand holder={player} isHidden={isHidden} isTurn={isTurn} playerId={currentPlayerId()} />
               </div>
             )
           })}
         </Grid>
         <Grid item xs={7} >
-          <PlayBorder2 numPlayers={room.players.length} />
+          <PlayBorder numPlayers={room.players.length} />
         </Grid>
       </Grid>
     </Fragment>

@@ -24,7 +24,7 @@ interface IProps {
 
 }
 
-export const HandCard2: React.FC<IProps> = ({ holder, card, index, isHidden, isTurn, moveCard, dispatchMove }) => {
+export const HandCard: React.FC<IProps> = ({ holder, card, index, isHidden, isTurn, moveCard, dispatchMove }) => {
 
   const ref = useRef<HTMLDivElement>(null)
   const [, drop] = useDrop({

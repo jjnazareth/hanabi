@@ -81,4 +81,4 @@ const mapStateToProps = (state: IGlobalState) => ({
   game: state.game
 })
 
-export const DiscardArea2 = connect(mapStateToProps, { discard })(_DiscardArea)
+export const DiscardArea = connect(mapStateToProps, { discard })(_DiscardArea)
