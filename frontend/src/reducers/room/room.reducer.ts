@@ -11,6 +11,19 @@ const initialState: IRoomState = {
 
 export function roomReducer(state = initialState, action: RoomAction) {
   switch (action.type) {
+    case RoomActionNames.SEAT_MEMBERS:
+      return {
+        ...state,
+        players: action.members.map((m, i) => {
+          return {
+            playerId: m.playerId,
+            name: m.userName,
+            turnIdx: i,
+            hand: [],
+            isLoggedIn: false
+          }
+        })
+      }
     case RoomActionNames.LOGIN_PLAYER:
       return {
         ...state,

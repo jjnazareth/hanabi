@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import { Hand } from './cards/Hand'
@@ -64,7 +64,7 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, init
   }
 
   return (
-    <Fragment>
+    <>
       <GameStatus room={room} game={game}></GameStatus>
       <Grid container>
         <Grid item xs={5}>
@@ -88,7 +88,7 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, init
           <PlayBorder numPlayers={room.players.length} />
         </Grid>
       </Grid>
-    </Fragment>
+    </>
   )
 }
 

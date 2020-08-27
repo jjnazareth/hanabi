@@ -21,9 +21,10 @@ export type T = { playerId: number, userName: string }
 interface IProps extends T {
   index: number
   moveItem: (dragIndex: number, hoverIndex: number) => void
+  dispatchItems: () => void
 }
 
-export const PlayerItem: React.FC<IProps> = ({ playerId, userName, index, moveItem, }) => {
+export const MemberItem: React.FC<IProps> = ({ playerId, userName, index, moveItem, dispatchItems }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [, drop] = useDrop({
     accept: ItemTypes.PLAYER,
@@ -80,7 +81,13 @@ export const PlayerItem: React.FC<IProps> = ({ playerId, userName, index, moveIt
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
+    end: ((item, monitor) => {
+      const result = monitor.getDropResult()
+      { dispatchItems() }
+    })
+
   })
+
 
   const opacity = isDragging ? 0.5 : 1
   drag(drop(ref))

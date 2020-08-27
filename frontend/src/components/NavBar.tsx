@@ -1,7 +1,6 @@
 import React, { useState, ChangeEvent } from 'react'
 import { AppBar, Toolbar, Typography, IconButton, Button, makeStyles, Theme, createStyles, useTheme, Menu } from '@material-ui/core'
 import SaveIcon from "@material-ui/icons/Save"
-
 import { Link as RouterLink, withRouter, BrowserRouter } from "react-router-dom"
 
 import { Route, Switch } from "react-router-dom"
@@ -9,7 +8,6 @@ import { Game } from './Game'
 import { SeatPlayers } from './setup/SeatPlayers'
 import { RegisterActionNames } from '../reducers/register/register.actions.type'
 import { RegisterForm } from './login/RegisterForm'
-// import { RegisterForm } from './login/Register'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
@@ -66,6 +64,7 @@ export const NavBar: React.FC<{}> = () => {
           </Toolbar>
         </AppBar >
         <Switch>
+          <Route path="/" exact /* render={() => <SeatPlayers />} */ />
           <Route path="/seating" exact render={() => <SeatPlayers />} />
           <Route path="/play" render={() => <Game />} />
           <Route path="/register" render={() => <RegisterForm />} />

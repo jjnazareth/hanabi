@@ -42,9 +42,6 @@ export const RegisterForm: React.FC<{}> = () => {
   const classes = useStyles()
   const { app, api } = useContext(FirebaseContext)
   const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
-  useEffect(() => {
-    api && api.readMembers()
-  }, [])
 
   return (
     <Formik initialValues={{ userName: "", password: "" }}

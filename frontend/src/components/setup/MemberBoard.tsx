@@ -1,19 +1,20 @@
 import React, { useState, useCallback } from 'react'
-import { PlayerItem } from './PlayerItem'
+import { MemberItem } from './MemberItem'
 import update from 'immutability-helper'
 
-import { T } from './PlayerItem'
-const style = {
-  width: 400,
+const style = { width: 400, }
+
+import { T } from './MemberItem'
+import { seatMembers } from '../../reducers/room/room.actions'
+import { Member } from '../../globalTypes'
+
+interface IProps {
+  items: Member[]
 }
 
-interface IProps<T> {
-  items: Array<T>
-}
-
-export const PlayerBoard: React.FC<IProps<T>> = (props => {
+export const MemberBoard: React.FC<IProps> = (props => {
   {
-    const obj = props
+
     const [items, setItems] = useState(props.items)
     const moveItem = useCallback(
       (dragIndex: number, hoverIndex: number) => {
@@ -24,16 +25,20 @@ export const PlayerBoard: React.FC<IProps<T>> = (props => {
           })
         )
       }, [items])
+    const dispatchItems = () => {
+      console.log("dispatched: ", items)
+      seatMembers(items)
+    }
     const renderItem = (item: T, index: number) => {
       return (
-        <PlayerItem
+        <MemberItem
           key={item.playerId}
           playerId={item.playerId}
           userName={item.userName}
           index={index}
           moveItem={moveItem}
+          dispatchItems={dispatchItems}
         />
-
       )
     }
 

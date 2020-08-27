@@ -57,11 +57,11 @@ export enum CardFace {
 }
 
 export type Player = {
-  isLoggedIn: boolean
   playerId: number
   name: string
   turnIdx: number
   hand: Card[]
+  isLoggedIn: boolean
 }
 
 export type CardPile = {

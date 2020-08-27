@@ -4,7 +4,7 @@ import { Member } from "../../globalTypes"
 export enum RegisterActionNames {
   ADD_MEMBER = "ADD_MEMBER",
   SET_MEMBERS = "SET_MEMBERS",
-  LOGIN_PLAYER = "LOGIN_PLAYER"
+  LOGIN_MEMBER = "LOGIN_MEMBER"
 }
 
 export type SetMembers = Action<RegisterActionNames.SET_MEMBERS> & {
@@ -17,9 +17,9 @@ export type AddMember = Action<RegisterActionNames.ADD_MEMBER> & {
   password: string
 }
 
-export type LoginPlayer = Action<RegisterActionNames.LOGIN_PLAYER> & {
+export type LoginMember = Action<RegisterActionNames.LOGIN_MEMBER> & {
   userName: string
   password: string
 }
 
-export type RegisterAction = AddMember | SetMembers | LoginPlayer
+export type RegisterAction = AddMember | SetMembers | LoginMember

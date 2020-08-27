@@ -16,9 +16,10 @@ interface Firebase {
 
 export { FirebaseContext }
 export const FirebaseProvider = ({ children }: any) => {
-  let firebase: any = {
+  let firebase: Firebase = {
     app: null,
-    database: null
+    database: null,
+    api: null
   }
 
   const dispatch = useDispatch()

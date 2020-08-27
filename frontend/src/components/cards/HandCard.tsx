@@ -4,7 +4,6 @@ import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'
 import { XYCoord } from 'react-dnd'
 import { CardDisplay } from './CardDisplay'
-import { monitorEventLoopDelay } from 'perf_hooks'
 
 interface DragItem {
   holder: string
@@ -84,7 +83,13 @@ export const HandCard: React.FC<IProps> = ({ holder, card, index, isHidden, isTu
   })
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: dndItemTypes.CARD, holder, card, index, isTurn },
+    item: {
+      type: dndItemTypes.CARD,
+      holder,   // allow cards in one hand only to be rearranged
+      card,     // identify card to be discarded or added to build pile
+      index,    // track card position when rearranging cards
+      isTurn    // allow only cards to be played on holder's turn
+    },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),

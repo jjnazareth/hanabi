@@ -3,8 +3,9 @@ import { IGlobalState } from "./reducers"
 import { Card, CardRank, Player, PlayerHint, Member } from "./globalTypes"
 import {
   RoomActionNames,
-  LoginPlayer,
+  // LoginPlayer,
   RemoveAllPlayers,
+  SeatMembers,
   AddPlayer,
   SeatPlayers,
   InitHand,
@@ -26,10 +27,20 @@ import {
 } from "./reducers/game/game.actions.type"
 
 import {
+  LoginMember,
   AddMember,
   RegisterActionNames,
   SetMembers
 } from "./reducers/register/register.actions.type"
+
+export const seatMembers = (members: Member[]) => (
+  dispatch: Dispatch<SeatMembers>
+) => {
+  dispatch({
+    type: RoomActionNames.SEAT_MEMBERS,
+    members: members
+  })
+}
 
 export const setMembers = (members: Member[]) => (
   dispatch: Dispatch<SetMembers>
@@ -39,6 +50,7 @@ export const setMembers = (members: Member[]) => (
     members: members
   })
 }
+
 export const addMember = (
   playerId: number,
   userName: string,
@@ -147,7 +159,10 @@ const initPlayers = (
 ) => {
   return (
     dispatch: Dispatch<
-      AddPlayer | SeatPlayers | SetCurrentTurnIdx | SetDealerIdx | LoginPlayer
+      | AddPlayer
+      | SeatPlayers
+      | SetCurrentTurnIdx
+      | SetDealerIdx /* | LoginPlayer */
     >
   ) => {
     names.forEach((n) => {
@@ -251,7 +266,7 @@ export const initGame = (
 ) => (
   dispatch: Dispatch<
     | AddPlayer
-    | LoginPlayer
+    // | LoginPlayer
     | SeatPlayers
     | SetCurrentTurnIdx
     | SetDealerIdx
@@ -265,12 +280,13 @@ export const initGame = (
   deal(room.players, game.dealerIdx)(dispatch)
 }
 
-export const loginPlayer = (playerName: string) => (
-  dispatch: Dispatch<LoginPlayer>
+export const loginMember = (userName: string, password: string) => (
+  dispatch: Dispatch<LoginMember>
 ) =>
   dispatch({
-    type: RoomActionNames.LOGIN_PLAYER,
-    name: playerName
+    type: RegisterActionNames.LOGIN_MEMBER,
+    userName: userName,
+    password: password
   })
 
 export const giveHint = (playerHint: PlayerHint) => (

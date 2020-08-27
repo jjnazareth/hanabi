@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, useEffect } from 'react'
 import { FormControl, InputLabel, Select, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { MenuItem } from '@material-ui/core'
-import { loginPlayer } from '../../actions'
+import { loginMember } from '../../actions'
 import { connect } from 'react-redux'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
@@ -13,18 +13,17 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
   })
 )
 
-
 interface IProps {
-  loginPlayer: (playerName: string) => void
+  loginMember: (userName: string, password: string) => void
 }
 
-const _TestLogin: React.FC<IProps> = ({ loginPlayer }) => {
+const _TestLogin: React.FC<IProps> = ({ loginMember }) => {
   const classes = useStyles()
   const [playerName, setPlayerName] = useState<string>("")
   const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
     let value = event.target.value as string
     setPlayerName(value)  // controlled component
-    loginPlayer(value)    // redux dispatch
+    loginMember(value, "test")    // redux dispatch
   }
 
   return (
@@ -46,4 +45,4 @@ const _TestLogin: React.FC<IProps> = ({ loginPlayer }) => {
   )
 }
 
-export const TestLogin = connect(null, { loginPlayer })(_TestLogin)
+export const TestLogin = connect(null, { loginMember })(_TestLogin)

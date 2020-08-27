@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Card, Player } from '../../globalTypes'
 import update from 'immutability-helper'
@@ -81,26 +81,25 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand 
 
 
   return (
-    <Fragment>
-      <div ref={drop} >
-        <Hint holder={holder} isTurn={isTurn} playerId={playerId} hints={getHintChoices(holder.hand)} />
-        <Grid container className={classes.hand} spacing={2}>
-          {cardsDisplay.map((card, i) => (
-            <Grid item key={card.idx}>
-              <HandCard
-                holder={holder}
-                index={isHidden ? holder.hand.length - 1 - i : i}
-                isHidden={isHidden}
-                isTurn={isTurn}
-                card={card}
-                moveCard={moveCard}
-                dispatchMove={dispatchMove}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </div>
-    </Fragment>
+
+    <div ref={drop} >
+      <Hint holder={holder} isTurn={isTurn} playerId={playerId} hints={getHintChoices(holder.hand)} />
+      <Grid container className={classes.hand} spacing={2}>
+        {cardsDisplay.map((card, i) => (
+          <Grid item key={card.idx}>
+            <HandCard
+              holder={holder}
+              index={isHidden ? holder.hand.length - 1 - i : i}
+              isHidden={isHidden}
+              isTurn={isTurn}
+              card={card}
+              moveCard={moveCard}
+              dispatchMove={dispatchMove}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
   )
 }
 

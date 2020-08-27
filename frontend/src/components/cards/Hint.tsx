@@ -5,7 +5,7 @@ import { Button, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { HintDialog } from './HintDialog'
 import { connect } from 'react-redux'
 import { giveHint, setNextTurn } from '../../actions'
-import { Fragment } from 'react'
+
 import { useEffect } from 'react'
 import { IGlobalState } from '../../reducers'
 import { CardDisplay } from './CardDisplay'
@@ -70,13 +70,13 @@ const _Hint: React.FC<IProps> = ({ holder, isTurn, playerId, hints, giveHint, se
     }
   }
   return (
-    <Fragment>
+    <>
       <Button color="primary" disabled={isTurn} size="medium" onClick={handleClickOpen}>
         {holder.name}
       </Button>
       <HintDialog keepMounted={true} open={open} onClose={handleClose} value={""}
         hintChoices={{ player: holder, hints: hints }} />
-    </Fragment>
+    </>
   )
 }
 

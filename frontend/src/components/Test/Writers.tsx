@@ -13,7 +13,7 @@ interface IProps extends IWriters {
 
 export const Writers: FC<IProps> = ({ match, writers }) => {
   return (
-    <Fragment>
+    <>
       <ul>
         {writers.map(({ name, id }) => (
           <li key={id}><Link to={`${match.url}/${id}`}> {name} {id}</Link></li>
@@ -26,6 +26,6 @@ export const Writers: FC<IProps> = ({ match, writers }) => {
         }
       }>
       </Route>
-    </Fragment>
+    </>
   )
 }

@@ -18,9 +18,10 @@ export function addMember(userName: string, password: string) {
   }
 }
 
-export function loginPlayer(playerName: string) {
+export function loginMember(userName: string, password: string) {
   return {
-    type: RegisterActionNames.LOGIN_PLAYER,
-    playerName: playerName
+    type: RegisterActionNames.LOGIN_MEMBER,
+    userName: userName,
+    password: password
   }
 }
