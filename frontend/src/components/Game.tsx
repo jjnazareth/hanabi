@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
-import { Hand } from './cards/Hand'
+import { Hand2 } from './cards/Hand2'
 import { PlayBorder2 } from './cards/PlayBorder2'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { GameStatus } from './GameStatus'
@@ -79,7 +79,7 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, init
             const isHidden = i === 0
             return (
               <div key={i} className={isTurn ? classes.playerOnTurn : classes.player} >
-                <Hand holder={player} isHidden={isHidden} isTurn={isTurn} playerId={currentPlayerId()} />
+                <Hand2 holder={player} isHidden={isHidden} isTurn={isTurn} playerId={currentPlayerId()} />
               </div>
             )
           })}
