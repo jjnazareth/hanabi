@@ -33,6 +33,15 @@ import {
   SetMembers
 } from "./reducers/register/register.actions.type"
 
+export const loginMember = (userName: string, password: string) => (
+  dispatch: Dispatch<LoginMember>
+) =>
+  dispatch({
+    type: RegisterActionNames.LOGIN_MEMBER,
+    userName: userName,
+    password: password
+  })
+
 export const seatMembers = (members: Member[]) => (
   dispatch: Dispatch<SeatMembers>
 ) => {
@@ -42,6 +51,7 @@ export const seatMembers = (members: Member[]) => (
   })
 }
 
+// used with Firebase real-time database to initialise redux store
 export const setMembers = (members: Member[]) => (
   dispatch: Dispatch<SetMembers>
 ) => {
@@ -61,6 +71,28 @@ export const addMember = (
     playerId: playerId,
     userName: userName,
     password: password
+  })
+}
+
+export const initDeck = (cards: Card[]) => (dispatch: Dispatch<InitDeck>) => {
+  dispatch({
+    type: GameActionNames.INIT_DECK,
+    cards: cards
+  })
+}
+
+export const setDealer = (dealerIdx: number) => (
+  dispatch: Dispatch<SetCurrentTurnIdx | SetDealerIdx>,
+  getState: () => IGlobalState
+) => {
+  let numPlayers = getState().room.players.length
+  dispatch({
+    type: GameActionNames.SET_CURRENT_TURN,
+    currentTurnIdx: numPlayers ? (dealerIdx + 1) % numPlayers : 0
+  })
+  dispatch({
+    type: GameActionNames.SET_DEALER,
+    dealerIdx: dealerIdx
   })
 }
 
@@ -142,27 +174,6 @@ export const build = (card: Card, player: Player, deck: Card[]) => (
   dispatch({
     type: GameActionNames.REMOVE_CARD_FROM_DECK,
     deck: deck
-  })
-}
-export const initDeck = (cards: Card[]) => (dispatch: Dispatch<InitDeck>) => {
-  dispatch({
-    type: GameActionNames.INIT_DECK,
-    cards: cards
-  })
-}
-
-export const setDealer = (dealerIdx: number) => (
-  dispatch: Dispatch<SetCurrentTurnIdx | SetDealerIdx>,
-  getState: () => IGlobalState
-) => {
-  let numPlayers = getState().room.players.length
-  dispatch({
-    type: GameActionNames.SET_CURRENT_TURN,
-    currentTurnIdx: numPlayers ? (dealerIdx + 1) % numPlayers : 0
-  })
-  dispatch({
-    type: GameActionNames.SET_DEALER,
-    dealerIdx: dealerIdx
   })
 }
 
@@ -300,15 +311,6 @@ export const dealCards = (dealerIdx: number) => {
 //   const { room, game } = getState()
 //   deal(room.players, game.dealerIdx)(dispatch)
 // }
-
-export const loginMember = (userName: string, password: string) => (
-  dispatch: Dispatch<LoginMember>
-) =>
-  dispatch({
-    type: RegisterActionNames.LOGIN_MEMBER,
-    userName: userName,
-    password: password
-  })
 
 export const giveHint = (playerHint: PlayerHint) => (
   dispatch: Dispatch<GiveHint>
