@@ -95,7 +95,7 @@ export const discard = (card: Card, player: Player, deck: Card[]) => (
     | AddCardToHand
   >
 ) => {
-  // discard`
+  // discard
   dispatch({
     type: RoomActionNames.REMOVE_CARD_FROM_HAND,
     player: player,
@@ -148,6 +148,21 @@ export const initDeck = (cards: Card[]) => (dispatch: Dispatch<InitDeck>) => {
   dispatch({
     type: GameActionNames.INIT_DECK,
     cards: cards
+  })
+}
+
+export const setDealer = (dealerIdx: number) => (
+  dispatch: Dispatch<SetCurrentTurnIdx | SetDealerIdx>,
+  getState: () => IGlobalState
+) => {
+  let numPlayers = getState().room.players.length
+  dispatch({
+    type: GameActionNames.SET_CURRENT_TURN,
+    currentTurnIdx: numPlayers ? (dealerIdx + 1) % numPlayers : 0
+  })
+  dispatch({
+    type: GameActionNames.SET_DEALER,
+    dealerIdx: dealerIdx
   })
 }
 
@@ -233,52 +248,58 @@ const initPack = (): Card[] => {
   return pack
 }
 
-const deal = (players: Player[], dealerIdx: number) => {
-  return (dispatch: Dispatch<InitHand | InitDeck>) => {
+export const dealCards = (dealerIdx: number) => {
+  return (
+    dispatch: Dispatch<InitHand | InitDeck>,
+    getState: () => IGlobalState
+  ) => {
     const numCardsInHand = (numPlayers: number) => (numPlayers < 4 ? 5 : 4)
     let pack = initPack()
+    let players = getState().room.players
     let numPlayers = players.length
     const CARDS_IN_HAND = numCardsInHand(numPlayers)
     let arr = Array.from(Array(CARDS_IN_HAND).keys()).map((i) => i * numPlayers) // 0,5,10,15,20 etc
-    players.forEach((p) => {
-      let handIdx = (p.turnIdx - dealerIdx - 1 + numPlayers) % numPlayers
-      // dealer deals last to himself
-      let cards = arr.map((i) => pack[i + handIdx])
-      dispatch({
-        type: RoomActionNames.INIT_HAND,
-        turnIdx: p.turnIdx,
-        cards: cards
+    if (numPlayers > 0) {
+      players.forEach((p) => {
+        let handIdx = (p.turnIdx - dealerIdx - 1 + numPlayers) % numPlayers
+        // dealer deals last to himself
+        let cards = arr.map((i) => pack[i + handIdx])
+        dispatch({
+          type: RoomActionNames.INIT_HAND,
+          turnIdx: p.turnIdx,
+          cards: cards
+        })
+        let cardsDealt = numPlayers * numCardsInHand(numPlayers)
+        dispatch({
+          type: GameActionNames.INIT_DECK,
+          cards: pack.slice(cardsDealt)
+        })
       })
-      let cardsDealt = players.length * numCardsInHand(players.length)
-      dispatch({
-        type: GameActionNames.INIT_DECK,
-        cards: pack.slice(cardsDealt)
-      })
-    })
+    }
   }
 }
 
-export const initGame = (
-  names: string[],
-  turnIdxs: number[],
-  currentTurnIdx: number,
-  dealerIdx: number
-) => (
-  dispatch: Dispatch<
-    | AddPlayer
-    // | LoginPlayer
-    | SeatPlayers
-    | SetCurrentTurnIdx
-    | SetDealerIdx
-    | InitDeck
-    | InitHand
-  >,
-  getState: () => IGlobalState
-) => {
-  initPlayers(names, turnIdxs, currentTurnIdx, dealerIdx)(dispatch)
-  const { room, game } = getState()
-  deal(room.players, game.dealerIdx)(dispatch)
-}
+// export const initGame = (
+//   names: string[],
+//   turnIdxs: number[],
+//   currentTurnIdx: number,
+//   dealerIdx: number
+// ) => (
+//   dispatch: Dispatch<
+//     | AddPlayer
+//     // | LoginPlayer
+//     | SeatPlayers
+//     | SetCurrentTurnIdx
+//     | SetDealerIdx
+//     | InitDeck
+//     | InitHand
+//   >,
+//   getState: () => IGlobalState
+// ) => {
+//   initPlayers(names, turnIdxs, currentTurnIdx, dealerIdx)(dispatch)
+//   const { room, game } = getState()
+//   deal(room.players, game.dealerIdx)(dispatch)
+// }
 
 export const loginMember = (userName: string, password: string) => (
   dispatch: Dispatch<LoginMember>

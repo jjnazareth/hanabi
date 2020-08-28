@@ -5,7 +5,7 @@ import { Hand } from './cards/Hand'
 import { PlayBorder } from './cards/PlayBorder'
 import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { GameStatus } from './GameStatus'
-import { initGame, flushPlayers, flushCardGame } from '../actions'
+import { setDealer, dealCards, flushPlayers, flushCardGame } from '../actions'
 import { connect } from 'react-redux'
 import { IGlobalState } from '../reducers'
 
@@ -30,23 +30,19 @@ interface IProps {
   game: IGameState
   flushPlayers: () => void
   flushCardGame: () => void
-  initGame: (playerNames: string[], turnIdxs: number[], currentTurnIdx: number, dealerIdx: number) => void
+  setDealer: (dealerIdx: number) => void
+  dealCards: (dealerIdx: number) => void
+  // initGame: (playerNames: string[], turnIdxs: number[], currentTurnIdx: number, dealerIdx: number) => void
 }
 
-const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, initGame }) => {
+const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, setDealer, dealCards }) => {
   useEffect(() => {
-    let playerNames: string[] =
-      ['Jivraj', 'Shanta', 'Nikesh', 'Nitin', 'Mikey']
-    let turnIdxs = [1, 3, 2, 4, 0]
-    let dealerIdx = 4
-
-    let currentTurnIdx = (dealerIdx + 1) % playerNames.length
-    initGame(playerNames, turnIdxs, currentTurnIdx, dealerIdx)
-
+    let dealerIdx = 0
+    setDealer(dealerIdx)
+    dealCards(dealerIdx)
     return () => {
       flushPlayers()
       flushCardGame()
-      console.log("Cleanup")
     }
   }, [])
 
@@ -97,5 +93,5 @@ const mapStateToProps = (state: IGlobalState) => ({
   game: state.game,
 })
 
-export const Game = connect(mapStateToProps, { flushPlayers, flushCardGame, initGame })(_Game)
+export const Game = connect(mapStateToProps, { flushPlayers, flushCardGame, setDealer, dealCards })(_Game)
 

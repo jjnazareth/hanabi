@@ -63,12 +63,8 @@ export const HandCard: React.FC<IProps> = ({ holder, card, index, isHidden, isTu
       // Dragging rightwards
       if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) { return }
       // cards should be exchanged in one hand only  
-
-      console.log("Monitor: ", monitor.getItem().holder.playerId, "Holder: ", holder.playerId)
-
       if (!(monitor.getItem().holder.playerId === holder.playerId)) { return }
 
-      console.log("drag:", dragIndex, " hover: ", hoverIndex)
       moveCard(dragIndex, hoverIndex)
 
       /*       

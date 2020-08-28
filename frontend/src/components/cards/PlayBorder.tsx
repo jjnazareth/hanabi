@@ -33,10 +33,7 @@ const _PlayBorder: React.FC<IProps> = ({ numPlayers, setNextTurn }) => {
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: dndItemTypes.CARD,
     drop: () => ({}),
-    canDrop: ((item, monitor) => {
-      // console.log("Monitor item: ", monitor.getItem())
-      return monitor.getItem().isTurn
-    }),
+    canDrop: ((item, monitor) => { return monitor.getItem().isTurn }),
 
     collect: (monitor) => ({
       isOver: monitor.isOver(),

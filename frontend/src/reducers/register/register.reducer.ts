@@ -17,7 +17,7 @@ export function registerReducer(state = initialState, action: RegisterAction) {
         members: action.members
       }
     case RegisterActionNames.ADD_MEMBER:
-      let x = {
+      return {
         ...state,
         members: [
           ...state.members,
@@ -29,8 +29,7 @@ export function registerReducer(state = initialState, action: RegisterAction) {
           }
         ]
       }
-      console.log(x)
-      return x
+
     // case RegisterActionNames.LOGIN_PLAYER:
     //   return {
     //     ...state,

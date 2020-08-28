@@ -39,13 +39,11 @@ const _BuildArea: React.FC<IProps> = ({ game, setNextTurn, build }) => {
     drop: ((item, monitor) => {
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
-      console.log("playerCard: ", playerCard)
       build(playerCard, player, game.drawDeck)
       setNextTurn()
     }),
 
     canDrop: ((item, monitor) => {
-      console.log("Monitor item: ", monitor.getItem())
       return monitor.getItem().isTurn
     }),
 

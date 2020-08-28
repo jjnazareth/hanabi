@@ -1,10 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { connect, useSelector } from 'react-redux'
 import { MemberBoard } from './MemberBoard'
-import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core'
+import { makeStyles, Theme, createStyles, Grid, Button } from '@material-ui/core'
 import { IGlobalState } from '../../reducers'
 import { IRegisterState } from '../../reducers/register/register.reducer'
 import { FirebaseContext } from '../../firebase/firebase'
+import { Member } from '../../globalTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-
 interface IProps {
   register: IRegisterState
 }
@@ -27,23 +27,32 @@ export const _SeatPlayers: React.FC<IProps> = ({ register }) => {
   const { app, api } = useContext(FirebaseContext)
   // const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
   const members = register.members
-  const playMembers = members.slice(3, 8)
+  // const [selMembers, setSelMembers] = useState<Member[]>([])
+
+  // initialise redux store from firestore/real database
+  const selMembers =
+    [
+      { playerId: 1, userName: "Alpha", password: "", isLoggedIn: false },
+      { playerId: 2, userName: "Beta", password: "", isLoggedIn: false },
+      { playerId: 3, userName: "Gamma", password: "", isLoggedIn: false },
+      { playerId: 4, userName: "Delta", password: "", isLoggedIn: false },
+      { playerId: 5, userName: "Epsilon", password: "", isLoggedIn: false },
+    ]
 
   useEffect(() => {
-    // initialise redux store from firestore/real database
-    console.log("In useEffect")
-    console.log(members)
-    api && api.readMembers()
+    // api && api.readMembers()
     return () => {
-      console.log(members)
     }
   }, [])
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  }
 
   return (
     <>
       <Grid container direction="column" className={classes.playerBoard} >
         <h2>Seat Players</h2>
-        <MemberBoard items={playMembers}></MemberBoard>
+        <MemberBoard memberItems={selMembers} />
       </Grid>
     </>
   )

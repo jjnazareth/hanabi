@@ -54,7 +54,6 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand 
   }
   // dispatch to redux store only when cards are rearranged in one hand
   const dispatchMove = () => {
-    console.log("dispatch")
     initHand(holder.turnIdx, cards)
   }
 
@@ -66,7 +65,6 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand 
     drop: ((item, monitor) => {
       let player = monitor.getItem().holder
       let playerCard = monitor.getItem().card
-      console.log("playerCard: ", playerCard)
       return { arrange: true }
     }),
     canDrop: ((item, monitor) => {

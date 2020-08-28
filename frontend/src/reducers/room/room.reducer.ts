@@ -85,7 +85,6 @@ export function roomReducer(state = initialState, action: RoomAction) {
             : p
         )
       }
-
     case RoomActionNames.ADD_CARD_TO_HAND:
       return {
         ...state,
@@ -98,7 +97,6 @@ export function roomReducer(state = initialState, action: RoomAction) {
             : p
         )
       }
-
     default:
       return state
   }
