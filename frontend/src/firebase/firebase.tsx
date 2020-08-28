@@ -41,8 +41,8 @@ export const FirebaseProvider = ({ children }: any) => {
     let ndx = firebase.database.ref('members')
     firebase.database.ref('members').push().set(member)
       .then((doc: any) => {
-        // nothing to do here since getMembers() will be fired
-        // as soon as addMember will complete. This will update the
+        // nothing to do here since readMembers() will be fired
+        // as soon as writeMember  will complete. This will update the
         // redux store
       })
       .catch((error: any) => {
