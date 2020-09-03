@@ -59,7 +59,7 @@ export const RegisterForm: React.FC<{}> = () => {
       }}
     >
       {({ values, errors, isSubmitting }) => (
-        <Form className={classes.root}>
+        <Form translate="yes" className={classes.root}>
           <Grid container>
             <Grid item xs={3} />
             <Grid container item xs={6} direction="column" alignItems="flex-end" justify="center" >

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom"
 
 import { Writers } from './Writers'
-import { ImageRemoveRedEye, ImageMonochromePhotos } from "material-ui/svg-icons"
+
 
 export const TestNavBar: React.FC = () => {
   const [state, setState] = useState({ writers: [], isLoading: false })
