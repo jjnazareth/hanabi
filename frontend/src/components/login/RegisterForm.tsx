@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { Formik, Field, Form, useField, FieldAttributes } from 'formik'
 import { TextField, Button, makeStyles, Theme, createStyles, Grid } from '@material-ui/core'
-import { FirebaseContext } from '../../firebase/firebase'
+// import { FirebaseContext } from '../../firebase/firebase'
 import { useSelector } from 'react-redux'
 import { IGlobalState } from '../../reducers'
 import { Member } from '../../globalTypes'
@@ -40,14 +40,14 @@ const PasswordField: React.FC<FieldAttributes<{}>> = (props) => {
 
 export const RegisterForm: React.FC<{}> = () => {
   const classes = useStyles()
-  const { app, api } = useContext(FirebaseContext)
-  const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
+  // const { app, api } = useContext(FirebaseContext)
+  // const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
 
   return (
     <Formik initialValues={{ userName: "", password: "" }}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true)
-        api && api.writeMember({ playerId: members.length + 1, userName: data.userName, password: data.password })
+        // api && api.writeMember({ playerId: members.length + 1, userName: data.userName, password: data.password })
         setSubmitting(false)
         resetForm({})
       }}
@@ -59,7 +59,7 @@ export const RegisterForm: React.FC<{}> = () => {
       }}
     >
       {({ values, errors, isSubmitting }) => (
-        <Form className={classes.root}>
+        <Form translate="yes" className={classes.root}>
           <Grid container>
             <Grid item xs={3} />
             <Grid container item xs={6} direction="column" alignItems="flex-end" justify="center" >
@@ -72,8 +72,8 @@ export const RegisterForm: React.FC<{}> = () => {
               <Grid item flex-grow={4}>
                 <Button variant="contained" color="primary" disabled={isSubmitting} type="submit">submit</Button>
               </Grid>
-              <pre>{JSON.stringify(members, null, 2)}</pre>
-              <pre>{JSON.stringify(errors, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
+              {/* <pre>{JSON.stringify(errors, null, 2)}</pre> */}
             </Grid>
             <Grid item xs={3} />
           </Grid>

@@ -4,7 +4,7 @@ import { MemberBoard } from './MemberBoard'
 import { makeStyles, Theme, createStyles, Grid, Button } from '@material-ui/core'
 import { IGlobalState } from '../../reducers'
 import { IRegisterState } from '../../reducers/register/register.reducer'
-import { FirebaseContext } from '../../firebase/firebase'
+// import { FirebaseContext } from '../../firebase/firebase'
 import { Member } from '../../globalTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,7 +24,7 @@ interface IProps {
 
 export const _SeatPlayers: React.FC<IProps> = ({ register }) => {
   const classes = useStyles()
-  const { app, api } = useContext(FirebaseContext)
+  // const { app, api } = useContext(FirebaseContext)
   // const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
   const members = register.members
   // const [selMembers, setSelMembers] = useState<Member[]>([])
