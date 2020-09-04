@@ -61,17 +61,32 @@ export const setMembers = (members: Member[]) => (
   })
 }
 
-export const addMember = (
-  playerId: number,
-  userName: string,
-  password: string
-) => (dispatch: Dispatch<AddMember>) => {
-  dispatch({
-    type: RegisterActionNames.ADD_MEMBER,
-    playerId: playerId,
-    userName: userName,
-    password: password
-  })
+export const addMember = (userName: string, password: string) => (
+  dispatch: Dispatch<AddMember>,
+  getState: () => IGlobalState,
+  { getFirestore }: any
+) => {
+  const firestore = getFirestore()
+  firestore
+    .collection("users")
+    .add({
+      // playerId should derive from the number of records in firestore, not in state
+      playerId: getState().register.members.length + 1,
+      userName: userName,
+      password: password,
+      createdAt: new Date()
+    })
+    .then(() => {
+      dispatch({
+        type: RegisterActionNames.ADD_MEMBER,
+        playerId: getState().register.members.length + 1,
+        userName: userName,
+        password: password
+      })
+    })
+    .catch((error: string) => {
+      console.log(error)
+    })
 }
 
 export const initDeck = (cards: Card[]) => (dispatch: Dispatch<InitDeck>) => {

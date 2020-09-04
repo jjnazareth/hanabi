@@ -12,8 +12,8 @@ export interface IGlobalState {
 }
 
 export const rootReducer = combineReducers({
-  firebase: firebaseReducer,
-  firestore: firestoreReducer,
+  // firebase: firebaseReducer,
+  // firestore: firestoreReducer,
   register: registerReducer,
   room: roomReducer,
   game: gameReducer

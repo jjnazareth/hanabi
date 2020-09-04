@@ -1,10 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { Formik, Field, Form, useField, FieldAttributes } from 'formik'
 import { TextField, Button, makeStyles, Theme, createStyles, Grid } from '@material-ui/core'
-// import { FirebaseContext } from '../../firebase/firebase'
-import { useSelector } from 'react-redux'
+
+import { useSelector, connect } from 'react-redux'
 import { IGlobalState } from '../../reducers'
 import { Member } from '../../globalTypes'
+import { addMember } from '../../actions'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,7 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
   }),
-
 )
 
 const UserNameField: React.FC<FieldAttributes<{}>> = (props) => {
@@ -38,7 +38,11 @@ const PasswordField: React.FC<FieldAttributes<{}>> = (props) => {
   )
 }
 
-export const RegisterForm: React.FC<{}> = () => {
+interface IProps {
+  addMember: (userName: string, password: string) => void
+}
+
+const _RegisterForm: React.FC<IProps> = ({ addMember }) => {
   const classes = useStyles()
   // const { app, api } = useContext(FirebaseContext)
   // const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
@@ -47,6 +51,8 @@ export const RegisterForm: React.FC<{}> = () => {
     <Formik initialValues={{ userName: "", password: "" }}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true)
+
+        addMember(data.userName, data.password)
         // api && api.writeMember({ playerId: members.length + 1, userName: data.userName, password: data.password })
         setSubmitting(false)
         resetForm({})
@@ -85,4 +91,6 @@ export const RegisterForm: React.FC<{}> = () => {
   )
 }
 
+
+export const RegisterForm = connect(null, { addMember })(_RegisterForm)
 

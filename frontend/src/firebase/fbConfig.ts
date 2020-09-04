@@ -1,4 +1,8 @@
-const firebaseConfig = {
+import firebase from "firebase/app"
+import "firebase/firestore"
+import "firebase/auth"
+
+const config = {
   apiKey: "AIzaSyBT6LKR3PnpJUB_pZAHVywqdlefsCpL2Ag",
   authDomain: "hanabi-64a16.firebaseapp.com",
   databaseURL: "https://hanabi-64a16.firebaseio.com",
@@ -9,5 +13,6 @@ const firebaseConfig = {
   measurementId: "G-CGDRTJVTXD"
 }
 
-export { firebaseConfig }
-//
+firebase.initializeApp(config)
+firebase.firestore()
+export default firebase
