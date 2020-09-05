@@ -81,10 +81,10 @@ export const MemberItem: React.FC<IProps> = ({ playerId, userName, index, moveIt
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
-    end: ((item, monitor) => {
-      const result = monitor.getDropResult()
-      { dispatchItems() }
-    })
+    end: (item, monitor) => {
+      // const result = monitor.getDropResult()
+      dispatchItems()
+    }
 
   })
 

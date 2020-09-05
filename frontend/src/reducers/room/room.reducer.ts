@@ -77,10 +77,10 @@ export function roomReducer(state = initialState, action: RoomAction) {
       return {
         ...state,
         players: state.players.map((p) =>
-          p.playerId == action.player.playerId
+          p.playerId === action.player.playerId
             ? {
                 ...p,
-                hand: p.hand.filter((card) => card.idx != action.card.idx)
+                hand: p.hand.filter((card) => card.idx !== action.card.idx)
               }
             : p
         )
@@ -89,7 +89,7 @@ export function roomReducer(state = initialState, action: RoomAction) {
       return {
         ...state,
         players: state.players.map((p) =>
-          p.playerId == action.player.playerId
+          p.playerId === action.player.playerId
             ? {
                 ...p,
                 hand: [...p.hand, action.card]

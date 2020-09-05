@@ -6,8 +6,8 @@ import {
   // LoginPlayer,
   RemoveAllPlayers,
   SeatMembers,
-  AddPlayer,
-  SeatPlayers,
+  // AddPlayer,
+  // SeatPlayers,
   InitHand,
   RemoveCardFromHand,
   AddCardToHand
@@ -192,40 +192,40 @@ export const build = (card: Card, player: Player, deck: Card[]) => (
   })
 }
 
-const initPlayers = (
-  names: string[],
-  turnIdxs: number[],
-  currentTurnIdx: number,
-  dealerIdx: number
-) => {
-  return (
-    dispatch: Dispatch<
-      | AddPlayer
-      | SeatPlayers
-      | SetCurrentTurnIdx
-      | SetDealerIdx /* | LoginPlayer */
-    >
-  ) => {
-    names.forEach((n) => {
-      dispatch({
-        type: RoomActionNames.ADD_PLAYER,
-        name: n
-      })
-      dispatch({
-        type: RoomActionNames.SEAT_PLAYERS,
-        turnIdxs: turnIdxs
-      })
-      dispatch({
-        type: GameActionNames.SET_CURRENT_TURN,
-        currentTurnIdx: currentTurnIdx
-      })
-      dispatch({
-        type: GameActionNames.SET_DEALER,
-        dealerIdx: dealerIdx
-      })
-    })
-  }
-}
+// const initPlayers = (
+//   names: string[],
+//   turnIdxs: number[],
+//   currentTurnIdx: number,
+//   dealerIdx: number
+// ) => {
+//   return (
+//     dispatch: Dispatch<
+//       | AddPlayer
+//       | SeatPlayers
+//       | SetCurrentTurnIdx
+//       | SetDealerIdx /* | LoginPlayer */
+//     >
+//   ) => {
+//     names.forEach((n) => {
+//       dispatch({
+//         type: RoomActionNames.ADD_PLAYER,
+//         name: n
+//       })
+//       dispatch({
+//         type: RoomActionNames.SEAT_PLAYERS,
+//         turnIdxs: turnIdxs
+//       })
+//       dispatch({
+//         type: GameActionNames.SET_CURRENT_TURN,
+//         currentTurnIdx: currentTurnIdx
+//       })
+//       dispatch({
+//         type: GameActionNames.SET_DEALER,
+//         dealerIdx: dealerIdx
+//       })
+//     })
+//   }
+// }
 
 export const initHand = (turnIdx: number, cards: Card[]) => (
   dispatch: Dispatch<InitHand>
@@ -257,16 +257,20 @@ const initPack = (): Card[] => {
   let ctr = 0
   arrR.forEach((r) =>
     arrC.forEach((c) => {
-      if (r == CardRank.Rank1) {
+      if (r === CardRank.Rank1) {
         pack.push({ idx: ctr++, colour: c, rank: r })
         pack.push({ idx: ctr++, colour: c, rank: r })
         pack.push({ idx: ctr++, colour: c, rank: r })
       }
-      if (r == CardRank.Rank2 || r == CardRank.Rank3 || r == CardRank.Rank4) {
+      if (
+        r === CardRank.Rank2 ||
+        r === CardRank.Rank3 ||
+        r === CardRank.Rank4
+      ) {
         pack.push({ idx: ctr++, colour: c, rank: r })
         pack.push({ idx: ctr++, colour: c, rank: r })
       }
-      if (r == CardRank.Rank5) {
+      if (r === CardRank.Rank5) {
         pack.push({ idx: ctr++, colour: c, rank: r })
       }
     })

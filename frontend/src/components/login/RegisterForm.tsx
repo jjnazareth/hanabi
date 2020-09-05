@@ -1,10 +1,8 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { } from 'react'
 import { Formik, Field, Form, useField, FieldAttributes } from 'formik'
 import { TextField, Button, makeStyles, Theme, createStyles, Grid } from '@material-ui/core'
 
-import { useSelector, connect } from 'react-redux'
-import { IGlobalState } from '../../reducers'
-import { Member } from '../../globalTypes'
+import { connect } from 'react-redux'
 import { addMember } from '../../actions'
 
 

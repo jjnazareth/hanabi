@@ -6,14 +6,16 @@ import { firestoreReducer } from "redux-firestore"
 import { firebaseReducer } from "react-redux-firebase"
 
 export interface IGlobalState {
+  firebase: any
+  firestore: any
   register: IRegisterState
   room: IRoomState
   game: IGameState
 }
 
 export const rootReducer = combineReducers({
-  // firebase: firebaseReducer,
-  // firestore: firestoreReducer,
+  firebase: firebaseReducer,
+  firestore: firestoreReducer,
   register: registerReducer,
   room: roomReducer,
   game: gameReducer

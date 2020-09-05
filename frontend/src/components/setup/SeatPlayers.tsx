@@ -1,11 +1,10 @@
-import React, { useEffect, useContext, useState } from 'react'
-import { connect, useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import { MemberBoard } from './MemberBoard'
-import { makeStyles, Theme, createStyles, Grid, Button } from '@material-ui/core'
+import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core'
 import { IGlobalState } from '../../reducers'
-import { IRegisterState } from '../../reducers/register/register.reducer'
-// import { FirebaseContext } from '../../firebase/firebase'
-import { Member } from '../../globalTypes'
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,17 +18,11 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface IProps {
-  register: IRegisterState
+  members: any
 }
 
-export const _SeatPlayers: React.FC<IProps> = ({ register }) => {
+export const _SeatPlayers: React.FC<IProps> = ({ members }) => {
   const classes = useStyles()
-  // const { app, api } = useContext(FirebaseContext)
-  // const members = useSelector<IGlobalState, Member[]>(state => state.register.members)
-  const members = register.members
-  // const [selMembers, setSelMembers] = useState<Member[]>([])
-
-  // initialise redux store from firestore/real database
   const selMembers =
     [
       { playerId: 1, userName: "Alpha", password: "", isLoggedIn: false },
@@ -40,26 +33,31 @@ export const _SeatPlayers: React.FC<IProps> = ({ register }) => {
     ]
 
   useEffect(() => {
-    // api && api.readMembers()
     return () => {
     }
   }, [])
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  }
 
   return (
     <>
+      {console.log(members)}
       <Grid container direction="column" className={classes.playerBoard} >
         <h2>Seat Players</h2>
-        <MemberBoard memberItems={selMembers} />
+        <MemberBoard memberItems={members ? members : selMembers} />
       </Grid>
     </>
   )
 }
 
-const mapStateToProps = (state: IGlobalState) => ({
-  register: state.register,
-})
+const mapStateToProps = (state: IGlobalState) => {
+  console.log(state)
+  return {
+    members: state.firestore.ordered.users,
+    // register: state.register,
+  }
+}
+export const SeatPlayers = compose<React.FC>(
+  connect(mapStateToProps, {}),
+  firestoreConnect([{ collection: "users" }])
+)(_SeatPlayers)
 
-export const SeatPlayers = connect(mapStateToProps, {})(_SeatPlayers)

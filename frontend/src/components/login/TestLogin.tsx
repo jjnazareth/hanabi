@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import { FormControl, InputLabel, Select, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { MenuItem } from '@material-ui/core'
 import { loginMember } from '../../actions'

@@ -1,12 +1,11 @@
-import React, { useState, ChangeEvent } from 'react'
-import { AppBar, Toolbar, Typography, IconButton, Button, makeStyles, Theme, createStyles, useTheme, Menu } from '@material-ui/core'
+import React, { } from 'react'
+import { AppBar, Toolbar, Typography, IconButton, Button, makeStyles, Theme, createStyles } from '@material-ui/core'
 import SaveIcon from "@material-ui/icons/Save"
-import { Link as RouterLink, withRouter, BrowserRouter } from "react-router-dom"
+import { Link as RouterLink, BrowserRouter } from "react-router-dom"
 
 import { Route, Switch } from "react-router-dom"
 import { Game } from './Game'
 import { SeatPlayers } from './setup/SeatPlayers'
-import { RegisterActionNames } from '../reducers/register/register.actions.type'
 import { RegisterForm } from './login/RegisterForm'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
@@ -31,7 +30,7 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
 export const NavBar: React.FC<{}> = () => {
 
   const classes = useStyles()
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
 
   const menuItems = [
     { menuTitle: "Seating", pageURL: "/seating" },
@@ -41,11 +40,11 @@ export const NavBar: React.FC<{}> = () => {
     { menuTitle: "Register", pageURL: "/register" }
   ]
 
-  const handleRegisterOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault()
-    setOpen(true)
-  }
-  const handleRegisterClose = () => { setOpen(false) }
+  // const handleRegisterOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //   event.preventDefault()
+  //   setOpen(true)
+  // }
+  // const handleRegisterClose = () => { setOpen(false) }
 
   return (
     <div className={classes.root}>

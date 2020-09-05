@@ -59,12 +59,12 @@ const _Hand: React.FC<IProps> = ({ holder, isHidden, isTurn, playerId, initHand 
 
   const cardsDisplay = isHidden ? Array.from(cards).reverse() : cards
 
-  const [{ canDrop, isOver }, drop] = useDrop({
+  const [/* {canDrop, isOver} */, drop] = useDrop({
     accept: dndItemTypes.CARD,
 
     drop: ((item, monitor) => {
-      let player = monitor.getItem().holder
-      let playerCard = monitor.getItem().card
+      // let player = monitor.getItem().holder
+      // let playerCard = monitor.getItem().card
       return { arrange: true }
     }),
     canDrop: ((item, monitor) => {
