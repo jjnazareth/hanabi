@@ -1,5 +1,5 @@
 import { Action } from "redux"
-import { Card, Player, PlayerHint } from "../../globalTypes"
+import { Card, PlayerHint } from "../../globalTypes"
 
 export enum GameActionNames {
   DESTRUCT_CARD_GAME = "DESTRUCT_CARD_GAME",

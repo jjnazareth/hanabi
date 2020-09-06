@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, CardColour, CardFace } from '../../globalTypes'
-import { Grid, Paper, Typography, makeStyles, Theme, createStyles } from '@material-ui/core'
+import { Card, CardFace } from '../../globalTypes'
+import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { CardDisplay } from './CardDisplay'
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>

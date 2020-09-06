@@ -27,13 +27,13 @@ export const GameStatus: React.FC<IProps> = ({ room, game }) => {
     let player = loginPlayer()
     return player ? player.name : "No person"
   }
-  const currentPlayer = () => room.players.find(p => (p.turnIdx == game.currentTurnIdx))
+  const currentPlayer = () => room.players.find(p => (p.turnIdx === game.currentTurnIdx))
   const currentPlayerName = () => {
     let player = currentPlayer()
     return player ? player.name : "No person"
   }
   const dealerName = () => {
-    let player = room.players.find(p => (p.turnIdx == game.dealerIdx))
+    let player = room.players.find(p => (p.turnIdx === game.dealerIdx))
     return player ? player.name : "No dealer"
   }
 

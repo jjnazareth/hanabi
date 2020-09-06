@@ -42,7 +42,6 @@ const _PlayBorder: React.FC<IProps> = ({ numPlayers, setNextTurn }) => {
   })
   const isActive = canDrop && isOver
   const classes = useStyles({ isActive })
-  let colour = isActive ? '#FFC400' : ""
 
   return (
     <Grid ref={drop} container direction="column" justify="space-around"

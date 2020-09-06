@@ -17,7 +17,7 @@ const useStyles = makeStyles<Theme, IStyleProps>((theme: Theme) =>
       height: 95,
       width: 70,
       background: ({ cardFace, colour }) => ((cardFace === CardFace.FRONT) ?
-        ((colour.name == "Multi") ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : colour.code) :
+        ((colour.name === "Multi") ? 'linear-gradient(to right bottom, #FFCC66, #9900FF)' : colour.code) :
         'lightGrey'
       )
     },

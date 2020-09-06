@@ -6,6 +6,8 @@ import { firestoreReducer } from "redux-firestore"
 import { firebaseReducer } from "react-redux-firebase"
 
 export interface IGlobalState {
+  firebase: any
+  firestore: any
   register: IRegisterState
   room: IRoomState
   game: IGameState

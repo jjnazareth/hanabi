@@ -2,12 +2,12 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { MemberItem } from './MemberItem'
 import update from 'immutability-helper'
 import { seatMembers } from '../../actions'
-const style = { width: 400, }
 
 import { T } from './MemberItem'
 import { Member } from '../../globalTypes'
 import { connect } from 'react-redux'
 
+const style = { width: 400, }
 interface IProps {
   memberItems: Member[]
   seatMembers: (members: Member[]) => void
@@ -15,13 +15,14 @@ interface IProps {
 
 
 const _MemberBoard: React.FC<IProps> = ({ memberItems, seatMembers }) => {
+  const [items, setItems] = useState(memberItems)
+
   useEffect(() => {
     seatMembers(items)
     return () => {
     }
-  }, [])
+  }, [seatMembers, items])
 
-  const [items, setItems] = useState(memberItems)
   const moveItem = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       const dragItem = items[dragIndex]

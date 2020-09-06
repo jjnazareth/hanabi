@@ -1,22 +1,10 @@
 import React, { useState } from 'react'
-import { CardRank, Player, HintChoices, RankHint, ColourHint, PlayerHint, Card, RCHint } from '../../globalTypes'
-import { Button, makeStyles, Theme, createStyles } from '@material-ui/core'
+import { CardRank, Player, RankHint, ColourHint, PlayerHint, Card, RCHint } from '../../globalTypes'
+import { Button } from '@material-ui/core'
 
 import { HintDialog } from './HintDialog'
 import { connect } from 'react-redux'
 import { giveHint, setNextTurn } from '../../actions'
-
-import { useEffect } from 'react'
-import { IGlobalState } from '../../reducers'
-import { CardDisplay } from './CardDisplay'
-
-const useStyles = makeStyles<Theme>((theme: Theme) =>
-  createStyles({
-    button: {
-    },
-  })
-)
-
 
 
 interface IProps {
@@ -36,7 +24,7 @@ export const getHintChoices = (cards: Card[]) => {
       .map(r => ({
         type: "Rank" as "Rank",
         rank: r,
-        position: cardsWithPos.filter(c => c.rank == r)
+        position: cardsWithPos.filter(c => c.rank === r)
           .map(card => card.position + 1)
       })).filter(obj => obj.position.length > 0)
 
@@ -45,8 +33,8 @@ export const getHintChoices = (cards: Card[]) => {
       .map(colour => ({
         type: "Colour" as "Colour",
         colour: colour,
-        position: cardsWithPos.filter(c => (c.colour.name == colour)
-          || (c.colour.name == "Multi"))
+        position: cardsWithPos.filter(c => (c.colour.name === colour)
+          || (c.colour.name === "Multi"))
           .map(card => card.position + 1)
       })).filter(obj => obj.position.length > 0)
 
@@ -74,7 +62,7 @@ const _Hint: React.FC<IProps> = ({ holder, isTurn, playerId, hints, giveHint, se
       <Button color="primary" disabled={isTurn} size="medium" onClick={handleClickOpen}>
         {holder.name}
       </Button>
-      <HintDialog keepMounted={true} open={open} onClose={handleClose} value={""}
+      <HintDialog keepMounted={true} open={open} onClose={handleClose} value={value}
         hintChoices={{ player: holder, hints: hints }} />
     </>
   )

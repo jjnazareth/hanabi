@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent, FocusEvent, MouseEvent, useContext } from "react"
-import { FirebaseContext } from "../../firebase/firebase"
+
 import { useSelector } from "react-redux"
 import { IGlobalState } from "../../reducers"
 import { Member } from "../../globalTypes"

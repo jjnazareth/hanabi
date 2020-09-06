@@ -5,7 +5,7 @@ import { IGameState } from '../../reducers/game/game.reducer'
 import { IGlobalState } from '../../reducers'
 import { CardPile } from './CardPile'
 import { build } from '../../actions'
-import { Grid, Typography, makeStyles, Theme, createStyles, ThemeProvider } from '@material-ui/core'
+import { Grid, Typography, makeStyles, Theme, createStyles } from '@material-ui/core'
 
 import { useDrop, } from 'react-dnd'
 import { dndItemTypes } from './itemTypes'

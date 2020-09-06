@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { IGameState } from '../reducers/game/game.reducer'
 import { IRoomState } from '../reducers/room/room.reducer'
 import { Hand } from './cards/Hand'
@@ -44,7 +44,7 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, setD
       flushPlayers()
       flushCardGame()
     }
-  }, [])
+  }, [dealCards, setDealer, flushPlayers, flushCardGame])
 
   const classes = useStyles()
   const loginPlayer = () => room.players.find(p => p.isLoggedIn)
@@ -53,7 +53,7 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, setD
     return player ? player.turnIdx : 0
   }
 
-  const currentPlayer = () => room.players.find(p => (p.turnIdx == game.currentTurnIdx))
+  const currentPlayer = () => room.players.find(p => (p.turnIdx === game.currentTurnIdx))
   const currentPlayerId = () => {
     let player = currentPlayer()
     return player ? player.playerId : -1
@@ -71,7 +71,7 @@ const _Game: React.FC<IProps> = ({ room, game, flushPlayers, flushCardGame, setD
             const fn = (idx: number) => (idx - loginPlayerIdx() + len) % len
             return fn(p.turnIdx) - fn(q.turnIdx)
           }).map((player, i) => {
-            const isTurn = game.currentTurnIdx == player.turnIdx
+            const isTurn = game.currentTurnIdx === player.turnIdx
             const isHidden = i === 0
             return (
               <div key={i} className={isTurn ? classes.playerOnTurn : classes.player} >

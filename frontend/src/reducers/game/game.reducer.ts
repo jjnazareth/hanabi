@@ -56,7 +56,7 @@ export function gameReducer(state = initialState, action: GameAction) {
       return {
         ...state,
         discardPiles: state.discardPiles.map((pile) =>
-          pile.colour == action.card.colour.name
+          pile.colour === action.card.colour.name
             ? {
                 colour: pile.colour,
                 cards: [...pile.cards, action.card].sort(
@@ -70,7 +70,7 @@ export function gameReducer(state = initialState, action: GameAction) {
       return {
         ...state,
         buildPiles: state.buildPiles.map((pile) =>
-          pile.colour == action.card.colour.name
+          pile.colour === action.card.colour.name
             ? {
                 colour: pile.colour,
                 cards: [...pile.cards, action.card]

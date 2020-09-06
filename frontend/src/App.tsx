@@ -6,18 +6,23 @@ import { NavBar } from './components/NavBar'
 import { TestLogin } from './components/login/TestLogin'
 import { CssBaseline } from '@material-ui/core'
 
+import store from './store'
+import { Provider } from 'react-redux'
+
+
+
 interface IProps {
 }
 
 export const App: React.FC<IProps> = () => {
   return (
-    <>
+    <Provider store={store}>
       <TestLogin />
       <CssBaseline />
-      {/* Provider store={store} is now above App.jsx in the component hierarchy */}
       <DndProvider backend={HTML5Backend}>
         <NavBar></NavBar>
       </DndProvider>
-    </>
+    </Provider>
   )
 }
+
